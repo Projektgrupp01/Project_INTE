@@ -36,4 +36,10 @@ public class PlayerTest {
 		p.takeDamage(100);
 		assertTrue(p.isDead());
 	}
+	@Test
+	void playerCanBeBuffed() {
+		Player p = new Player();
+		BuffedPlayer b = new BuffedPlayer();
+		assertTrue(b.getHealth > p.getHealth());
+	}
 }
