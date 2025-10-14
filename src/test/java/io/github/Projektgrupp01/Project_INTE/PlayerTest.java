@@ -14,4 +14,26 @@ public class PlayerTest {
 		Player p = new Player();
 		assertEquals(p.getSpeed(), 100);
 	}
+	@Test
+	void playerHas100Strength() {
+		Player p = new Player();
+		assertEquals(p.getStrength(), 100);
+	}
+	@Test
+	void playerHas100Energy() {
+		Player p = new Player();
+		assertEquals(p.getEnergy(), 100);
+	}
+	@Test
+	void playerCanLoseHealth() {
+		Player p = new Player();
+		p.takeDamage(10);
+		assertEquals(p.getHealth(), 90);
+	}
+	@Test
+	void playerCanDie() {
+		Player p = new Player();
+		p.takeDamage(100);
+		assertTrue(p.isDead());
+	}
 }
