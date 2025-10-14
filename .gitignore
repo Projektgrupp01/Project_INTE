@@ -6,6 +6,7 @@
 /*.launch
 /*.classpath
 /*.project
+/bin/
 
 # IntelliJ files if anyone uses it
 /.idea/

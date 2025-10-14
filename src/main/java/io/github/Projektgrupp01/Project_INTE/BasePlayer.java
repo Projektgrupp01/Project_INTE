@@ -13,10 +13,11 @@ public class BasePlayer implements Player {
 		this.energy = 100;
 	}
 	
-	public BasePlayer(int health, int energy, int speed) {
+	public BasePlayer(int health, int speed, int strength, int energy) {
         this.health = health;
-        this.energy = energy;
         this.speed = speed;
+		this.strength = strength;
+        this.energy = energy;
     }
 	
 	public int getHealth() {
