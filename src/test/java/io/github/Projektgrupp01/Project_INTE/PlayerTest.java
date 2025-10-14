@@ -9,4 +9,9 @@ public class PlayerTest {
 		Player p = new Player();
 		assertEquals(p.getHealth(), 100);
 	}
+	@Test
+	void playerHas100Speed(){
+		Player p = new Player();
+		assertEquals(p.getSpeed(), 100);
+	}
 }
