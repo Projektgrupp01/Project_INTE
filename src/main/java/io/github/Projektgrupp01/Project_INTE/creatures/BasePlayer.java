@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.creatures;
 
 public class BasePlayer implements Player {
 	private int health;

@@ -3,6 +3,9 @@ package io.github.Projektgrupp01.Project_INTE;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
+import io.github.Projektgrupp01.Project_INTE.creatures.NPC;
+
 public class NPCTest {
 	@Test
 	void shouldLoseHealthWhenHit() {
@@ -14,6 +17,6 @@ public class NPCTest {
 	@Test
 	void canBeSetToHostile() {
 		NPC goblin = new BaseNPC("Goblin", 50, NPC.Disposition.HOSTILE);
-		assertEquals(NPC.Disposition.HOSTILE, goblin.getDisposition);
+		assertEquals(NPC.Disposition.HOSTILE, goblin.getDisposition());
 	}
 }

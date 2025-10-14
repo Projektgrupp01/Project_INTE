@@ -1,4 +1,6 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.creatures.decorators;
+
+import io.github.Projektgrupp01.Project_INTE.creatures.Player;
 
 public abstract class PlayerDecorator implements Player {
 	protected Player p;

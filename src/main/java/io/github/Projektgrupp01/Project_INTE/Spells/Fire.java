@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.Spells;
 
 import java.util.Objects;
 

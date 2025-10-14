@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.Spells;
 
 public class Water implements SpellInterface{
     private int manaCost;

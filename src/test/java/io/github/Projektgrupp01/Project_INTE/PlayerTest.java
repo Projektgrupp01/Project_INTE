@@ -3,6 +3,9 @@ package io.github.Projektgrupp01.Project_INTE;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
+import io.github.Projektgrupp01.Project_INTE.creatures.decorators.DoubleHealthDecorator;
+
 public class PlayerTest {
 	@Test
 	void playerHas100Health() {
@@ -45,7 +48,7 @@ public class PlayerTest {
 	@Test
 	void playerCanBeBuffed() {
 		BasePlayer p = new BasePlayer();
-		BuffedPlayerDecorator b = new BuffedPlayerDecorator(p);
+		DoubleHealthDecorator b = new DoubleHealthDecorator(p);
 		assertTrue(b.getHealth() > p.getHealth());
 	}
 }
