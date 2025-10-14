@@ -1,6 +1,11 @@
 package io.github.Projektgrupp01.Project_INTE.spells;
 
 public interface SpellInterface {
-    int getManaCost();
+    enum SpellType {
+        FIRE, WATER
+    }
+    
+    int getEnergyCost();
     int getDamage();
+    SpellType getSpellType();
 }

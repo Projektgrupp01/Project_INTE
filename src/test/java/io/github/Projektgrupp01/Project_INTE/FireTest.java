@@ -11,16 +11,16 @@ public class FireTest {
         void basicConstructorTest() {
             Fire f = new Fire();
             assertEquals(10, f.getDamage());
-            assertEquals(8, f.getManaCost());
+            assertEquals(8, f.getEnergyCost());
         }
         @Test
         void customConstructorTest() {
             Fire f = new Fire(1,2);
             assertEquals(2, f.getDamage());
-            assertEquals(1, f.getManaCost());
+            assertEquals(1, f.getEnergyCost());
         }
         @Test
-        void negativeManaCostException() {
+        void negativeEnergyCostException() {
             assertThrows(IllegalArgumentException.class,() -> { 
                 new Fire(-1, 1);});
         }
@@ -30,9 +30,9 @@ public class FireTest {
                 new Fire(1, -1);});
         }
         @Test
-        void ZeroManaCostTest() {
+        void ZeroEnergyCostTest() {
             Fire f = new Fire(0,1);
-            assertEquals(0, f.getManaCost());
+            assertEquals(0, f.getEnergyCost());
         }
         @Test
         void ZeroDamageTest() {

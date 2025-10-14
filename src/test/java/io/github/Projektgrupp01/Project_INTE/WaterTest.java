@@ -11,16 +11,16 @@ public class WaterTest {
         void basicConstructorTest() {
             Water w = new Water();
             assertEquals(8, w.getDamage());
-            assertEquals(6, w.getManaCost());
+            assertEquals(6, w.getEnergyCost());
         }
         @Test
         void customConstructorTest() {
             Water w = new Water(1,2);
             assertEquals(2, w.getDamage());
-            assertEquals(1, w.getManaCost());
+            assertEquals(1, w.getEnergyCost());
         }
         @Test
-        void negativeManaCostException() {
+        void negativeEnergyCostException() {
             assertThrows(IllegalArgumentException.class,() -> { 
                 new Water(-1, 1);});
         }
@@ -30,9 +30,9 @@ public class WaterTest {
                 new Water(1, -1);});
         }
         @Test
-        void ZeroManaCostTest() {
+        void ZeroEnergyCostTest() {
             Water w = new Water(0,1);
-            assertEquals(0, w.getManaCost());
+            assertEquals(0, w.getEnergyCost());
         }
         @Test
         void ZeroDamageTest() {
