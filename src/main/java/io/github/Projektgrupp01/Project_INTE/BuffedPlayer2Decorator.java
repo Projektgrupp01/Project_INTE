@@ -1,7 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE;
 
 public class BuffedPlayer2Decorator extends PlayerDecorator{
-	public BuffedPlayer2Decorator (PlayerInterface p) {
+	public BuffedPlayer2Decorator (Player p) {
 		super(p);
 	}
 	@Override

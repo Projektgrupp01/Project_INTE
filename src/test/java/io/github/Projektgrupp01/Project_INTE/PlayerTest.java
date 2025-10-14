@@ -6,39 +6,39 @@ import org.junit.jupiter.api.*;
 public class PlayerTest {
 	@Test
 	void playerHas100Health(){
-		Player p = new Player();
+		BasePlayer p = new BasePlayer();
 		assertEquals(p.getHealth(), 100);
 	}
 	@Test
 	void playerHas100Speed(){
-		Player p = new Player();
+		BasePlayer p = new BasePlayer();
 		assertEquals(p.getSpeed(), 100);
 	}
 	@Test
 	void playerHas100Strength() {
-		Player p = new Player();
+		BasePlayer p = new BasePlayer();
 		assertEquals(p.getStrength(), 100);
 	}
 	@Test
 	void playerHas100Energy() {
-		Player p = new Player();
+		BasePlayer p = new BasePlayer();
 		assertEquals(p.getEnergy(), 100);
 	}
 	@Test
 	void playerCanLoseHealth() {
-		Player p = new Player();
+		BasePlayer p = new BasePlayer();
 		p.takeDamage(10);
 		assertEquals(p.getHealth(), 90);
 	}
 	@Test
 	void playerCanDie() {
-		Player p = new Player();
+		BasePlayer p = new BasePlayer();
 		p.takeDamage(100);
 		assertTrue(p.isDead());
 	}
 	@Test
 	void playerCanBeBuffed() {
-		Player p = new Player();
+		BasePlayer p = new BasePlayer();
 		BuffedPlayerDecorator b = new BuffedPlayerDecorator(p);
 		assertTrue(b.getHealth() > p.getHealth());
 	}

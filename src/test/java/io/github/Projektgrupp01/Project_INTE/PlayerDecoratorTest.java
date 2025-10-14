@@ -6,15 +6,15 @@ import org.junit.jupiter.api.*;
 public class PlayerDecoratorTest {
 	@Test
 	void buffedPlayerIncreaseHealth() {
-		PlayerInterface player = new Player();
-		PlayerInterface buffedPlayer = new BuffedPlayerDecorator(player);
+		Player player = new BasePlayer();
+		Player buffedPlayer = new BuffedPlayerDecorator(player);
 		assertEquals(player.getHealth() * 2, buffedPlayer.getHealth());
 	}
 
 	@Test
 	void canStackBuffs() {
-		PlayerInterface player = new Player();
-		PlayerInterface playerBuffedTwice = new BuffedPlayerDecorator(new BuffedPlayer2Decorator(player));
+		Player player = new BasePlayer();
+		Player playerBuffedTwice = new BuffedPlayerDecorator(new BuffedPlayer2Decorator(player));
 		assertEquals(player.getHealth() * 2 * 3, playerBuffedTwice.getHealth());
 		
 	}

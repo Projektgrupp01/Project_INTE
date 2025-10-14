@@ -1,9 +1,9 @@
 package io.github.Projektgrupp01.Project_INTE;
 
-public abstract class PlayerDecorator implements PlayerInterface {
-	protected PlayerInterface p;
+public abstract class PlayerDecorator implements Player {
+	protected Player p;
 
-	protected PlayerDecorator(PlayerInterface p) {
+	protected PlayerDecorator(Player p) {
 		this.p = p;
 	}
 
