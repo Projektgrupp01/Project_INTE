@@ -3,7 +3,7 @@ package io.github.Projektgrupp01.Project_INTE;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import io.github.Projektgrupp01.Project_INTE.Spells.Water;
+import io.github.Projektgrupp01.Project_INTE.spells.Water;
 
 public class WaterTest {
     
