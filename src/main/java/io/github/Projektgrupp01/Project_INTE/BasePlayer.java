@@ -15,12 +15,12 @@ public class BasePlayer implements Player {
 		this.name = "BasePlayer";
 	}
 
-	public BasePlayer(int health, int speed, int strength, int energy, String name) {
+	public BasePlayer(String name, int health, int speed, int strength, int energy) {
+		this.name = name;
 		this.health = health;
 		this.speed = speed;
 		this.strength = strength;
 		this.energy = energy;
-		this.name = name;
 	}
 
 	public int getHealth() {
