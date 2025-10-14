@@ -34,5 +34,9 @@ public class Fire implements SpellInterface{
     public SpellType getSpellType() {
         return SpellType.FIRE;
     }
+    @Override
+    public String castSpell() {
+        return "A fire spell has been casted!";
+    }
 
 }

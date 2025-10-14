@@ -33,5 +33,10 @@ public class Water implements SpellInterface{
     public SpellType getSpellType() {
         return SpellType.WATER;
     }
+
+    @Override
+    public String castSpell() {
+        return "A water spell has been casted!";
+    }
     
 }

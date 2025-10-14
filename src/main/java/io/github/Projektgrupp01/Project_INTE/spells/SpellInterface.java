@@ -8,4 +8,5 @@ public interface SpellInterface {
     int getEnergyCost();
     int getDamage();
     SpellType getSpellType();
+    String castSpell();
 }

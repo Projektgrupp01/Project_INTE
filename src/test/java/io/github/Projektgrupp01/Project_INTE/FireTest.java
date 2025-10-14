@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 
-public class FireTest {
+class FireTest {
     
         @Test
         void basicConstructorTest() {
@@ -38,6 +38,16 @@ public class FireTest {
         void ZeroDamageTest() {
             Fire f = new Fire(1,0);
             assertEquals(0, f.getDamage());
-    }
+        }
+        @Test
+        void getSpellTypeTest() {
+            Fire f = new Fire();
+            assertEquals(Fire.SpellType.FIRE, f.getSpellType());
+        }
+        @Test
+        void castSpellTest() {
+            Fire f = new Fire();
+            assertEquals("A fire spell has been casted!", f.castSpell());
+        }
 
 }

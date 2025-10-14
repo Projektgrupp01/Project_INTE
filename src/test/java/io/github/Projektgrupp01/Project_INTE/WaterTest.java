@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.Projektgrupp01.Project_INTE.spells.Water;
 
-public class WaterTest {
+class WaterTest {
     
         @Test
         void basicConstructorTest() {
@@ -38,7 +38,17 @@ public class WaterTest {
         void ZeroDamageTest() {
             Water w = new Water(1,0);
             assertEquals(0, w.getDamage());
-    }
+        }
+        @Test
+        void getSpellTypeTest() {
+            Water w = new Water();
+            assertEquals(Water.SpellType.WATER, w.getSpellType());
+        }
+        @Test
+        void castSpellTest() {
+            Water w = new Water();
+            assertEquals("A water spell has been casted!", w.castSpell());
+        }
 
 }
 
