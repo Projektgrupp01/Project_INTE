@@ -9,3 +9,7 @@ Can lose health.
 Can die.
 Should be possible to adjust stats with items, magic buffs, jobs, races
 
+NPC functionality
+100 health
+Can lose health
+Can die
