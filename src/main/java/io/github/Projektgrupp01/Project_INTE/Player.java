@@ -1,10 +1,23 @@
 package io.github.Projektgrupp01.Project_INTE;
 
 public class Player {
-	private int health = 100;
-	private int speed = 100;
-	private int strength = 100;
-	private int energy = 100;
+	private int health;
+	private int speed;
+	private int strength;
+	private int energy;
+	
+	public Player() {
+		this.health = 100;
+		this.speed = 100;
+		this.strength = 100;
+		this.energy = 100;
+	}
+	
+	public Player(int health, int energy, int speed) {
+        this.health = health;
+        this.energy = energy;
+        this.speed = speed;
+    }
 	
 	public int getHealth() {
 		return health;
