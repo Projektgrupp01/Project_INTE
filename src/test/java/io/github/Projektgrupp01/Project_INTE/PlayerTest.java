@@ -40,6 +40,12 @@ public class PlayerTest {
 	void playerCanBeBuffed() {
 		Player p = new Player();
 		BuffedPlayer b = new BuffedPlayer();
-		assertTrue(b.getHealth > p.getHealth());
+		assertTrue(b.getHealth() > p.getHealth());
+	}
+	@Test
+	void playerCanBeBuffedMultipleTimes() {
+		Player p = new Player();
+		BuffedPlayer2 b = new BuffedPlayer2(new BuffedPlayer(p));
+		assertTrue(b.getHealth() > p.getHealth());
 	}
 }
