@@ -16,6 +16,6 @@ public class PlayerDecoratorTest {
 		Player player = new BasePlayer();
 		Player playerBuffedTwice = new BuffedPlayerDecorator(new BuffedPlayer2Decorator(player));
 		assertEquals(player.getHealth() * 2 * 3, playerBuffedTwice.getHealth());
-		
+
 	}
 }

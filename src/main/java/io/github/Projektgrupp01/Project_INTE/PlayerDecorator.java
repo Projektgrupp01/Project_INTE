@@ -11,14 +11,17 @@ public abstract class PlayerDecorator implements Player {
 	public int getHealth() {
 		return p.getHealth();
 	}
+
 	@Override
 	public int getSpeed() {
 		return p.getSpeed();
 	}
+
 	@Override
 	public int getStrength() {
 		return p.getStrength();
 	}
+
 	@Override
 	public int getEnergy() {
 		return p.getEnergy();

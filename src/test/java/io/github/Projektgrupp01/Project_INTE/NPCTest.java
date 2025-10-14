@@ -5,11 +5,12 @@ import org.junit.jupiter.api.*;
 
 public class NPCTest {
 	@Test
-	void shouldLoseHealthWhenHit(){
+	void shouldLoseHealthWhenHit() {
 		NPC goblin = new BaseNPC("Goblin", 50, HOSTILE);
 		goblin.takeDamage(10);
 		assertEquals(goblin.getHealth(), 40);
 	}
+
 	@Test
 	void canBeSetToHostile() {
 		NPC goblin = new BaseNPC("Goblin", 50, HOSTILE);

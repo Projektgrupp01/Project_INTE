@@ -1,14 +1,11 @@
 package io.github.Projektgrupp01.Project_INTE;
 
-public interface Player extends Creature {
-	int getSpeed();
-
-	int getStrength();
-
-	int getEnergy();
+public interface Creature {
+	int getHealth();
 
 	void takeDamage(int amount);
 
 	boolean isDead();
 
+	String getName();
 }

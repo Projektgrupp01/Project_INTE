@@ -15,3 +15,4 @@ Can lose health
 Can die
 Has disposition towards player (Hostile, friendly, neutral)
 
+NPCs and Players are considered Creatures
