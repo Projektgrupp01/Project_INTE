@@ -1,6 +1,6 @@
 package io.github.Projektgrupp01.Project_INTE;
 
-public class Player {
+public class Player implements PlayerInterface {
 	private int health;
 	private int speed;
 	private int strength;
@@ -31,8 +31,8 @@ public class Player {
 	public int getEnergy() {
 		return energy;
 	}
-	public int takeDamage(int damage) {
-		return health -= damage;
+	public void takeDamage(int damage) {
+		health -= damage;
 	}
 	public boolean isDead() {
 		return health <= 0;

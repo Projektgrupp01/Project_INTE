@@ -5,7 +5,7 @@ public class BuffedPlayer2 extends Player{
 		super();
 	}
 	@Override
-	public int getEnergy() {
-		return super.getEnergy() * 2;
+	public int getHealth() {
+		return super.getHealth() * 3;
 	}
 }
