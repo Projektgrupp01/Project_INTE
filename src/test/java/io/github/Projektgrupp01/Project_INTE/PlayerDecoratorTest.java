@@ -14,7 +14,7 @@ public class PlayerDecoratorTest {
 	@Test
 	void canStackBuffs() {
 		PlayerInterface player = new Player();
-		PlayerInterface playerBuffedTwice = new buffedPlayerDecorator(new buffedPlayer2Decorator(player));
+		PlayerInterface playerBuffedTwice = new BuffedPlayerDecorator(new BuffedPlayer2Decorator(player));
 		assertEquals(player.getHealth() * 2 * 3, playerBuffedTwice.getHealth());
 		
 	}

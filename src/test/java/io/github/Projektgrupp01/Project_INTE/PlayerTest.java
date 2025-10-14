@@ -39,7 +39,7 @@ public class PlayerTest {
 	@Test
 	void playerCanBeBuffed() {
 		Player p = new Player();
-		BuffedPlayer b = new BuffedPlayer();
+		BuffedPlayerDecorator b = new BuffedPlayerDecorator(p);
 		assertTrue(b.getHealth() > p.getHealth());
 	}
 }

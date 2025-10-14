@@ -1,8 +1,8 @@
 package io.github.Projektgrupp01.Project_INTE;
 
-public class BuffedPlayer extends Player{
-	public BuffedPlayer () {
-		super();
+public class BuffedPlayerDecorator extends PlayerDecorator{
+	public BuffedPlayerDecorator (PlayerInterface p) {
+		super(p);
 	}
 	@Override
 	public int getHealth() {
