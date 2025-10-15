@@ -8,7 +8,7 @@ import org.junit.jupiter.api.*;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.decorators.HalfHealthDecorator;
 
-public class PlayerTest {
+class PlayerTest {
 	
 	private BasePlayer player;
 	@BeforeEach
@@ -19,28 +19,28 @@ public class PlayerTest {
 	
 	@Test
 	void playerHas100Health() {
-		assertEquals(player.getHealth(), 100);
+		assertEquals(100, player.getHealth());
 	}
 
 	@Test
 	void playerHas100Speed() {
-		assertEquals(player.getSpeed(), 100);
+		assertEquals(100, player.getSpeed());
 	}
 
 	@Test
 	void playerHas100Strength() {
-		assertEquals(player.getStrength(), 100);
+		assertEquals(100, player.getStrength());
 	}
 
 	@Test
 	void playerHas100Energy() {
-		assertEquals(player.getEnergy(), 100);
+		assertEquals(100, player.getEnergy());
 	}
 
 	@Test
 	void playerCanLoseHealth() {
 		player.takeDamage(10);
-		assertEquals(player.getHealth(), 90);
+		assertEquals(90, player.getHealth());
 	}
 
 	@Test
