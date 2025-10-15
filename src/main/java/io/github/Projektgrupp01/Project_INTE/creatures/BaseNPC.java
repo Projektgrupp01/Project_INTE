@@ -69,20 +69,22 @@ public class BaseNPC implements NPC {
 
 	@Override
 	public void interact(Creature otherCreature) {
-		System.out.println(getInteractMessage(otherCreature));
-	}
-
-	public String getInteractMessage(Creature otherCreature) {
 		switch (disposition) {
 		case FRIENDLY:
-			return name + " greets you.";
+			System.out.println(name + " greets you.");
+			otherCreature.takeDamage(-10);
+			break;
 		case NEUTRAL:
-			return name + " ignores you.";
+			System.out.println(name + " ignores you.");
+			break;
 		case HOSTILE:
-			return name + " attacks!";
+			System.out.println(name + " attacks!");
+			otherCreature.takeDamage(10);
+			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + disposition);
 		}
+
 	}
 
 }

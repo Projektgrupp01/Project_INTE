@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
-import io.github.Projektgrupp01.Project_INTE.creatures.decorators.HalfHealthDecorator;
+import io.github.Projektgrupp01.Project_INTE.creatures.decorators.TripleHealthDecorator;
 
 class PlayerTest {
 	
@@ -42,7 +42,7 @@ class PlayerTest {
 		player.takeDamage(10);
 		assertEquals(90, player.getHealth());
 	}
-
+	
 	@Test
 	void playerDiesAtZeroHealth() {
 		player.takeDamage(100);
@@ -51,15 +51,14 @@ class PlayerTest {
 
 	@Test
 	void playerCanBeBuffed() {
-		HalfHealthDecorator buffedPlayer = new HalfHealthDecorator(player);
+		TripleHealthDecorator buffedPlayer = new TripleHealthDecorator(player);
 		assertTrue(buffedPlayer.getHealth() > player.getHealth());
 	}
 	@Test
 	void playerCanLearnSpell() {
-		BasePlayer p = new BasePlayer();
 		Spell fire = new Fire();
-		p.learnSpell(fire);
-		assertTrue(p.getSpellBook().contains(fire));
-		assertEquals(1, p.getSpellBook().size());
-	}		
+		player.learnSpell(fire);
+		assertTrue(player.getSpellBook().contains(fire));
+		assertEquals(1, player.getSpellBook().size());
+	}
 }
