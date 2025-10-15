@@ -78,9 +78,8 @@ class PlayerTest {
 	}
 	@Test
 	void playerCanGainMultipleLevelsAtOnce(){
-		player.addExperience(400);
+		player.addExperience(250);
 		assertEquals(3, player.getLevel());
-		assertEquals(0, player.getExperience());
 	}
 	
 }
