@@ -14,6 +14,10 @@ public class RaceDecorator extends PlayerDecorator{
 		return raceName;
 	}
 	
+	public void setRace(String newRace) {
+		this.raceName = newRace;
+	}
+	
 	@Override
 	public String getName() {
 		return "RaceDecorator"; //Change this?

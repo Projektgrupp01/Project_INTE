@@ -22,5 +22,14 @@ public class RaceDecoratorTest {
 		RaceDecorator racialPlayer = new RaceDecorator(player, "Elf");
 		assertEquals(racialPlayer.getRace(),"Elf");
 	}
+	
+	@Test 
+	void setRaceTest() {
+		Player player = new BasePlayer();
+		RaceDecorator racialPlayer = new RaceDecorator(player, "Elf");
+		racialPlayer.setRace("Dwarf");
+		assertEquals(racialPlayer.getRace(),"Dwarf");
+		
+	}
 
 }
