@@ -9,6 +9,9 @@ Can lose health.
 Can die.
 Should be possible to adjust stats with items, magic buffs, jobs, races
 
+Race functionality
+Has name of race that can be gotten with getRace() using a decorator
+
 NPC functionality
 Has Health
 Can lose health
