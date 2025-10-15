@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
-import io.github.Projektgrupp01.Project_INTE.creatures.decorators.DoubleHealthDecorator;
+import io.github.Projektgrupp01.Project_INTE.creatures.decorators.HalfHealthDecorator;
 
 public class PlayerTest {
 	@Test
@@ -48,7 +48,7 @@ public class PlayerTest {
 	@Test
 	void playerCanBeBuffed() {
 		BasePlayer p = new BasePlayer();
-		DoubleHealthDecorator b = new DoubleHealthDecorator(p);
+		HalfHealthDecorator b = new HalfHealthDecorator(p);
 		assertTrue(b.getHealth() > p.getHealth());
 	}
 }
