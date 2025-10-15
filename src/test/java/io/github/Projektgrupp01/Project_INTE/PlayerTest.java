@@ -61,4 +61,26 @@ class PlayerTest {
 		assertTrue(player.getSpellBook().contains(fire));
 		assertEquals(1, player.getSpellBook().size());
 	}
+	@Test
+	void playerStartsAtLevelOne() {
+		assertEquals(1, player.getLevel());
+	}
+	@Test
+	void playerCanGainExperience() {
+		player.addExperience(10);
+		assertEquals(10,player.getExperience());
+	}
+	@Test
+	void playerLevelsUpWhenExperienceThresholdReached() {
+		player.addExperience(100);
+		assertEquals(2, player.getLevel());
+		assertEquals(0, player.getExperience());
+	}
+	@Test
+	void playerCanGainMultipleLevelsAtOnce(){
+		player.addExperience(400);
+		assertEquals(3, player.getLevel());
+		assertEquals(0, player.getExperience());
+	}
+	
 }
