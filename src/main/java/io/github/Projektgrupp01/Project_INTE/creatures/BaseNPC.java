@@ -8,7 +8,7 @@ public class BaseNPC implements NPC {
 	private int energy;
 	private String name;
 	private Disposition disposition;
-	
+
 	public BaseNPC(String name, int health, Disposition disposition) {
 		this.name = name;
 		this.health = health;
@@ -17,6 +17,7 @@ public class BaseNPC implements NPC {
 		this.strength = 100;
 		this.energy = 100;
 	}
+
 	public BaseNPC(String name, int health, Disposition disposition, int speed, int strength, int energy) {
 		this.name = name;
 		this.health = health;
@@ -68,7 +69,20 @@ public class BaseNPC implements NPC {
 
 	@Override
 	public void interact(Creature otherCreature) {
+		System.out.println(getInteractMessage(otherCreature));
+	}
 
+	public String getInteractMessage(Creature otherCreature) {
+		switch (disposition) {
+		case FRIENDLY:
+			return name + " greets you.";
+		case NEUTRAL:
+			return name + " ignores you.";
+		case HOSTILE:
+			return name + " attacks!";
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + disposition);
+		}
 	}
 
 }

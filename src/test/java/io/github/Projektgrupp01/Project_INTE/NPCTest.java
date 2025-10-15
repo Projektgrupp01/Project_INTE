@@ -28,17 +28,17 @@ public class NPCTest {
 	}
 	@Test
 	void friendlyNPCGreetsPlayer() {
-		String result = friendlyNPC.interact(player);
+		String result = friendlyNPC.getInteractMessage(player);
 		assertEquals("Friendly Bob greets you.", result);
 	}
 	@Test
     void neutralNpcIgnoresPlayer() {
-        String result = neutralNPC.interact(player);
+        String result = neutralNPC.getInteractMessage(player);
         assertEquals("Villager ignores you.", result);
     }
     @Test
     void hostileNpcAttacksPlayer() {
-        String result = hostileNPC.interact(player);
+        String result = hostileNPC.getInteractMessage(player);
         assertEquals("Goblin attacks!", result);
     }
 }
