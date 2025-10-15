@@ -10,14 +10,14 @@ import io.github.Projektgrupp01.Project_INTE.creatures.decorators.TripleHealthDe
 
 public class PlayerDecoratorTest {
 	@Test
-	void playerCanBeBuffed() {
+	void playerCanBeDecorated() {
 		Player player = new BasePlayer();
 		Player buffedPlayer = new TripleHealthDecorator(player);
 		assertEquals(player.getHealth() * 3, buffedPlayer.getHealth());
 	}
 
 	@Test
-	void canStackBuffs() {
+	void canStackDecorations() {
 		Player player = new BasePlayer();
 		Player playerBuffedTwice = new HalfHealthDecorator(new TripleHealthDecorator(player));
 		assertEquals(player.getHealth() / 2 * 3, playerBuffedTwice.getHealth());

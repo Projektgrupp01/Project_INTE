@@ -38,9 +38,15 @@ class PlayerTest {
 	}
 
 	@Test
-	void playerCanLoseHealth() {
+	void playerTakesDamage() {
 		player.takeDamage(10);
 		assertEquals(90, player.getHealth());
+	}
+	@Test
+	void playerTakeDamageBeyondMaximumHealth() {
+	    player.takeDamage(9999);
+	    assertEquals(0, player.getHealth());
+	    assertTrue(player.isDead());
 	}
 	
 	@Test
@@ -50,7 +56,7 @@ class PlayerTest {
 	}
 
 	@Test
-	void playerCanBeBuffed() {
+	void playerCanBeDecorated() {
 		TripleHealthDecorator buffedPlayer = new TripleHealthDecorator(player);
 		assertTrue(buffedPlayer.getHealth() > player.getHealth());
 	}
@@ -71,14 +77,15 @@ class PlayerTest {
 		assertEquals(10,player.getExperience());
 	}
 	@Test
-	void playerLevelsUpWhenExperienceThresholdReached() {
-		player.addExperience(100);
-		assertEquals(2, player.getLevel());
-		assertEquals(0, player.getExperience());
+	void addsExperienceAndLevelsUpCorrectly() {
+	    long needed = player.getExperienceToNextLevel();
+	    player.addExperience(needed);
+	    assertEquals(2, player.getLevel());
+	    assertEquals(0, player.getExperience());
 	}
 	@Test
 	void playerCanGainMultipleLevelsAtOnce(){
-		player.addExperience(250);
+		player.addExperience(300);
 		assertEquals(3, player.getLevel());
 	}
 	

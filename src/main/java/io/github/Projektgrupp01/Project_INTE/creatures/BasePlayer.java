@@ -16,7 +16,7 @@ public class BasePlayer implements Player {
 	private int level = 1;
 	private long experience = 0;
 	private final long baseExp = 100;
-	private final double growthExponent = 1.5;
+	private final double growthExponent = 2;
 
 	public BasePlayer() {
 		this.name = "BasePlayer";
@@ -53,6 +53,9 @@ public class BasePlayer implements Player {
 
 	public void takeDamage(int damage) {
 		health -= damage;
+		if (health < 0) {
+			health = 0;
+		}
 	}
 
 	public boolean isDead() {
@@ -103,7 +106,7 @@ public class BasePlayer implements Player {
 
 	@Override
 	public long getExperienceToNextLevel() {
-		return (long) (baseExp * Math.pow(growthExponent, level -1));
+		return (long) (baseExp * Math.pow(growthExponent, level - 1));
 	}
 
 	@Override
