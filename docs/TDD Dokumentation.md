@@ -17,5 +17,6 @@ Has Health
 Can lose health
 Can die
 Has disposition towards player (Hostile, friendly, neutral)
+Can be interacted with (Friendly greets you, neutral ignores you and hostile attacks)
 
 NPCs and Players are considered Creatures

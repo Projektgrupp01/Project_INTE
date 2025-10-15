@@ -6,52 +6,53 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
-import io.github.Projektgrupp01.Project_INTE.creatures.decorators.DoubleHealthDecorator;
+import io.github.Projektgrupp01.Project_INTE.creatures.decorators.HalfHealthDecorator;
 
 public class PlayerTest {
+	
+	private BasePlayer player;
+	@BeforeEach
+	void setUp() {
+		player = new BasePlayer();
+	}
+	
+	
 	@Test
 	void playerHas100Health() {
-		BasePlayer p = new BasePlayer();
-		assertEquals(p.getHealth(), 100);
+		assertEquals(player.getHealth(), 100);
 	}
 
 	@Test
 	void playerHas100Speed() {
-		BasePlayer p = new BasePlayer();
-		assertEquals(p.getSpeed(), 100);
+		assertEquals(player.getSpeed(), 100);
 	}
 
 	@Test
 	void playerHas100Strength() {
-		BasePlayer p = new BasePlayer();
-		assertEquals(p.getStrength(), 100);
+		assertEquals(player.getStrength(), 100);
 	}
 
 	@Test
 	void playerHas100Energy() {
-		BasePlayer p = new BasePlayer();
-		assertEquals(p.getEnergy(), 100);
+		assertEquals(player.getEnergy(), 100);
 	}
 
 	@Test
 	void playerCanLoseHealth() {
-		BasePlayer p = new BasePlayer();
-		p.takeDamage(10);
-		assertEquals(p.getHealth(), 90);
+		player.takeDamage(10);
+		assertEquals(player.getHealth(), 90);
 	}
 
 	@Test
-	void playerCanDie() {
-		BasePlayer p = new BasePlayer();
-		p.takeDamage(100);
-		assertTrue(p.isDead());
+	void playerDiesAtZeroHealth() {
+		player.takeDamage(100);
+		assertTrue(player.isDead());
 	}
 
 	@Test
 	void playerCanBeBuffed() {
-		BasePlayer p = new BasePlayer();
-		DoubleHealthDecorator b = new DoubleHealthDecorator(p);
-		assertTrue(b.getHealth() > p.getHealth());
+		HalfHealthDecorator buffedPlayer = new HalfHealthDecorator(player);
+		assertTrue(buffedPlayer.getHealth() > player.getHealth());
 	}
 	@Test
 	void playerCanLearnSpell() {

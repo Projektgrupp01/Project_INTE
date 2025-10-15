@@ -3,7 +3,7 @@ package io.github.Projektgrupp01.Project_INTE.creatures.decorators;
 import io.github.Projektgrupp01.Project_INTE.creatures.Player;
 
 public class TripleHealthDecorator extends PlayerDecorator{
-	private String name = "TRIPLE health!";
+	private String name = "Triple health!";
 	public TripleHealthDecorator (Player p) {
 		super(p);
 	}

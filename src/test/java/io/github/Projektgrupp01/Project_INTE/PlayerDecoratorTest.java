@@ -5,22 +5,22 @@ import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.Player;
-import io.github.Projektgrupp01.Project_INTE.creatures.decorators.DoubleHealthDecorator;
+import io.github.Projektgrupp01.Project_INTE.creatures.decorators.HalfHealthDecorator;
 import io.github.Projektgrupp01.Project_INTE.creatures.decorators.TripleHealthDecorator;
 
 public class PlayerDecoratorTest {
 	@Test
-	void buffedPlayerIncreaseHealth() {
+	void playerCanBeBuffed() {
 		Player player = new BasePlayer();
-		Player buffedPlayer = new DoubleHealthDecorator(player);
-		assertEquals(player.getHealth() * 2, buffedPlayer.getHealth());
+		Player buffedPlayer = new TripleHealthDecorator(player);
+		assertEquals(player.getHealth() * 3, buffedPlayer.getHealth());
 	}
 
 	@Test
 	void canStackBuffs() {
 		Player player = new BasePlayer();
-		Player playerBuffedTwice = new DoubleHealthDecorator(new TripleHealthDecorator(player));
-		assertEquals(player.getHealth() * 2 * 3, playerBuffedTwice.getHealth());
+		Player playerBuffedTwice = new HalfHealthDecorator(new TripleHealthDecorator(player));
+		assertEquals(player.getHealth() / 2 * 3, playerBuffedTwice.getHealth());
 
 	}
 }
