@@ -12,31 +12,33 @@ class WaterTest {
             Water w = new Water();
             assertEquals(8, w.getDamage());
             assertEquals(6, w.getEnergyCost());
+            assertEquals("Water", w.getName());
         }
         @Test
         void customConstructorTest() {
-            Water w = new Water(1,2);
+            Water w = new Water(1,2, "Water");
             assertEquals(2, w.getDamage());
             assertEquals(1, w.getEnergyCost());
+            assertEquals("Water", w.getName());
         }
         @Test
         void negativeEnergyCostException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Water(-1, 1);});
+                new Water(-1, 1, "Water");});
         }
         @Test
         void negativeDamageException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Water(1, -1);});
+                new Water(1, -1, "Water");});
         }
         @Test
         void ZeroEnergyCostTest() {
-            Water w = new Water(0,1);
+            Water w = new Water(0,1, "Water");
             assertEquals(0, w.getEnergyCost());
         }
         @Test
         void ZeroDamageTest() {
-            Water w = new Water(1,0);
+            Water w = new Water(1,0, "Water");
             assertEquals(0, w.getDamage());
         }
         @Test
@@ -48,6 +50,16 @@ class WaterTest {
         void castSpellTest() {
             Water w = new Water();
             assertEquals("A water spell has been casted!", w.castSpell());
+        }
+        @Test
+        void nullNameException() {
+            assertThrows(IllegalArgumentException.class,() -> { 
+                new Water(1, 1, null);});
+        }
+        @Test
+        void emptyNameException() {
+            assertThrows(IllegalArgumentException.class,() -> { 
+                new Water(1, 1, "");});
         }
 
 }

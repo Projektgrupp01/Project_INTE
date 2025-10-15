@@ -1,4 +1,6 @@
 package io.github.Projektgrupp01.Project_INTE;
+import io.github.Projektgrupp01.Project_INTE.spells.Fire;
+import io.github.Projektgrupp01.Project_INTE.spells.Spell;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
@@ -51,4 +53,12 @@ public class PlayerTest {
 		DoubleHealthDecorator b = new DoubleHealthDecorator(p);
 		assertTrue(b.getHealth() > p.getHealth());
 	}
+	@Test
+	void playerCanLearnSpell() {
+		BasePlayer p = new BasePlayer();
+		Spell fire = new Fire();
+		p.learnSpell(fire);
+		assertTrue(p.getSpellBook().contains(fire));
+		assertEquals(1, p.getSpellBook().size());
+	}		
 }

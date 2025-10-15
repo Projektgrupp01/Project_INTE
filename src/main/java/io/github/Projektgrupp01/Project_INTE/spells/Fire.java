@@ -1,33 +1,12 @@
 package io.github.Projektgrupp01.Project_INTE.spells;
 
-public class Fire implements SpellInterface{
-    private int energyCost;
-    private int damage;
+public class Fire extends Spell{
 
     public Fire(){
-        this(8, 10);
+        super(8, 10, "Fire");
     }
-
-    public Fire(int energyCost, int damage){
-        if(energyCost < 0) {
-            throw new IllegalArgumentException("mana cost can't negative");
-        }
-        if(damage < 0) {
-            throw new IllegalArgumentException("damage can't negative");
-        }
-        this.energyCost = energyCost;
-        this.damage = damage;
-        
-    }
-
-    @Override
-    public int getEnergyCost() {
-        return energyCost;
-    }
-
-    @Override
-    public int getDamage() {
-        return damage;
+    public Fire(int energyCost, int damage, String name){
+         super(energyCost, damage, name);
     }
 
     @Override
