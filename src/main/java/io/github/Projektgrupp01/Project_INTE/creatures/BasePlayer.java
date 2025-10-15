@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
+import java.util.Collections;
 
 public class BasePlayer implements Player {
 	private int health;
@@ -64,7 +65,7 @@ public class BasePlayer implements Player {
 
 	public Set<Spell> getSpellBook() {
 		if(spellBook.isEmpty()) {
-			return null;
+			return Collections.emptySet();
 		}
 		return spellBook;
 	}
