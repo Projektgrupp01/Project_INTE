@@ -9,6 +9,14 @@ import java.util.Arrays;
 public class MapTest {
 
     @Test
+    void getMapTest(){
+        /*Map map = new Map();
+        assertEquals(getMap(), new Map(3,3));*/
+        Map map = new Map();
+        assertNotNull(map.getMap());
+    }
+
+    @Test
     void toStringTest_NoInitializers(){
         Map map = new Map();
         char[][] array = new char[20][20];
