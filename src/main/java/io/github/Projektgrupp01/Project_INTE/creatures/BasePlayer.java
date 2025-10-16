@@ -1,4 +1,5 @@
 package io.github.Projektgrupp01.Project_INTE.creatures;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,21 +13,26 @@ public class BasePlayer implements Player {
 	private int energy;
 	private String name;
 	private HashSet<Spell> spellBook = new HashSet<>();
+	private int level = 1;
+	private long experience = 0;
+	private final long baseExp = 100;
+	private final double growthExponent = 2;
 
 	public BasePlayer() {
+		this.name = "BasePlayer";
 		this.health = 100;
 		this.speed = 100;
 		this.strength = 100;
 		this.energy = 100;
-		this.name = "BasePlayer";
 	}
 
-	public BasePlayer(String name, int health, int speed, int strength, int energy) {
+	public BasePlayer(String name, int health, int speed, int strength, int energy, int level) {
 		this.name = name;
 		this.health = health;
 		this.speed = speed;
 		this.strength = strength;
 		this.energy = energy;
+		this.level = level;
 	}
 
 	public int getHealth() {
@@ -47,6 +53,9 @@ public class BasePlayer implements Player {
 
 	public void takeDamage(int damage) {
 		health -= damage;
+		if (health < 0) {
+			health = 0;
+		}
 	}
 
 	public boolean isDead() {
@@ -54,27 +63,27 @@ public class BasePlayer implements Player {
 	}
 
 	public void learnSpell(Spell spell) {
-		if(spell == null) {
+		if (spell == null) {
 			throw new NullPointerException("spell can't be null");
 		}
-		if(spellBook.contains(spell)) {
+		if (spellBook.contains(spell)) {
 			throw new IllegalArgumentException("spell already learned");
 		}
 		spellBook.add(spell);
 	}
 
 	public Set<Spell> getSpellBook() {
-		if(spellBook.isEmpty()) {
+		if (spellBook.isEmpty()) {
 			return Collections.emptySet();
 		}
 		return spellBook;
 	}
 
 	public void forgetSpell(Spell spell) {
-		if(spell == null) {
+		if (spell == null) {
 			throw new NullPointerException("spell can't be null");
 		}
-		if(!spellBook.contains(spell)) {
+		if (!spellBook.contains(spell)) {
 			throw new IllegalArgumentException("spell not found in spell book");
 		}
 		spellBook.remove(spell);
@@ -83,6 +92,30 @@ public class BasePlayer implements Player {
 	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public int getLevel() {
+		return level;
+	}
+
+	@Override
+	public long getExperience() {
+		return experience;
+	}
+
+	@Override
+	public long getExperienceToNextLevel() {
+		return (long) (baseExp * Math.pow(growthExponent, level - 1));
+	}
+
+	@Override
+	public void addExperience(long amount) {
+		experience += amount;
+		while (experience >= getExperienceToNextLevel()) {
+			experience -= getExperienceToNextLevel();
+			level++;
+		}
 	}
 
 }

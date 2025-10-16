@@ -9,8 +9,8 @@ import io.github.Projektgrupp01.Project_INTE.creatures.NPC;
 
 public class NPCTest {
 	private BaseNPC friendlyNPC;
-    private BaseNPC hostileNPC;
     private BaseNPC neutralNPC;
+    private BaseNPC hostileNPC;
     private BasePlayer player;
 
     @BeforeEach
@@ -24,21 +24,21 @@ public class NPCTest {
 	@Test
 	void shouldLoseHealthWhenHit() {
 		hostileNPC.takeDamage(10);
-		assertEquals(hostileNPC.getHealth(), 40);
+		assertEquals(40, hostileNPC.getHealth());
 	}
 	@Test
 	void friendlyNPCGreetsPlayer() {
-		String result = friendlyNPC.getInteractMessage(player);
-		assertEquals("Friendly Bob greets you.", result);
+		friendlyNPC.interact(player);
+		assertEquals(player.getHealth(), 110);
 	}
 	@Test
     void neutralNpcIgnoresPlayer() {
-        String result = neutralNPC.getInteractMessage(player);
-        assertEquals("Villager ignores you.", result);
+		neutralNPC.interact(player);
+		assertEquals(player.getHealth(), 100);
     }
     @Test
     void hostileNpcAttacksPlayer() {
-        String result = hostileNPC.getInteractMessage(player);
-        assertEquals("Goblin attacks!", result);
+    	hostileNPC.interact(player);
+		assertEquals(player.getHealth(), 90);
     }
 }

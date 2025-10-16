@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
-import io.github.Projektgrupp01.Project_INTE.creatures.decorators.HalfHealthDecorator;
+import io.github.Projektgrupp01.Project_INTE.creatures.decorators.TripleHealthDecorator;
 
 class PlayerTest {
 	
@@ -38,11 +38,17 @@ class PlayerTest {
 	}
 
 	@Test
-	void playerCanLoseHealth() {
+	void playerTakesDamage() {
 		player.takeDamage(10);
 		assertEquals(90, player.getHealth());
 	}
-
+	@Test
+	void playerTakeDamageBeyondMaximumHealth() {
+	    player.takeDamage(9999);
+	    assertEquals(0, player.getHealth());
+	    assertTrue(player.isDead());
+	}
+	
 	@Test
 	void playerDiesAtZeroHealth() {
 		player.takeDamage(100);
@@ -50,16 +56,37 @@ class PlayerTest {
 	}
 
 	@Test
-	void playerCanBeBuffed() {
-		HalfHealthDecorator buffedPlayer = new HalfHealthDecorator(player);
+	void playerCanBeDecorated() {
+		TripleHealthDecorator buffedPlayer = new TripleHealthDecorator(player);
 		assertTrue(buffedPlayer.getHealth() > player.getHealth());
 	}
 	@Test
 	void playerCanLearnSpell() {
-		BasePlayer p = new BasePlayer();
 		Spell fire = new Fire();
-		p.learnSpell(fire);
-		assertTrue(p.getSpellBook().contains(fire));
-		assertEquals(1, p.getSpellBook().size());
-	}		
+		player.learnSpell(fire);
+		assertTrue(player.getSpellBook().contains(fire));
+		assertEquals(1, player.getSpellBook().size());
+	}
+	@Test
+	void playerStartsAtLevelOne() {
+		assertEquals(1, player.getLevel());
+	}
+	@Test
+	void playerCanGainExperience() {
+		player.addExperience(10);
+		assertEquals(10,player.getExperience());
+	}
+	@Test
+	void addsExperienceAndLevelsUpCorrectly() {
+	    long needed = player.getExperienceToNextLevel();
+	    player.addExperience(needed);
+	    assertEquals(2, player.getLevel());
+	    assertEquals(0, player.getExperience());
+	}
+	@Test
+	void playerCanGainMultipleLevelsAtOnce(){
+		player.addExperience(300);
+		assertEquals(3, player.getLevel());
+	}
+	
 }

@@ -9,6 +9,7 @@ Can lose health.
 Can die.
 Should be possible to adjust stats with items, magic buffs, jobs, races
 added a spellbook. can add spells and remove spells.
+can gain experience and levels
 
 Race functionality
 Has name of race that can be gotten with getRace() using a decorator
