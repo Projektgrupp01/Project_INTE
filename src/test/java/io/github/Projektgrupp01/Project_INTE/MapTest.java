@@ -9,10 +9,10 @@ import java.util.Arrays;
 public class MapTest {
 
     @Test
-    void getMapTest(){
+    void getMapTest(){ //ändra t ngn annan assert? lista?
         /*Map map = new Map();
         assertEquals(getMap(), new Map(3,3));*/
-        Map map = new Map();
+        Map map = new Map(3, 4);
         assertNotNull(map.getMap());
     }
 

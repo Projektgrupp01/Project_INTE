@@ -18,6 +18,10 @@ public class Map {
         createArray(x, y);
     }
 
+    public char[][] getMap(){
+        return mapArray;
+    }
+
     private void createArray(int x, int y){
         mapArray = new char[x][y];
         //flytta till createmap-metod sen
