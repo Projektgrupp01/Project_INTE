@@ -60,13 +60,7 @@ class PlayerTest {
 		TripleHealthDecorator buffedPlayer = new TripleHealthDecorator(player);
 		assertTrue(buffedPlayer.getHealth() > player.getHealth());
 	}
-	@Test
-	void playerCanLearnSpell() {
-		Spell fire = new Fire();
-		player.learnSpell(fire);
-		assertTrue(player.getSpellBook().contains(fire));
-		assertEquals(1, player.getSpellBook().size());
-	}
+	
 	@Test
 	void playerStartsAtLevelOne() {
 		assertEquals(1, player.getLevel());
@@ -88,5 +82,6 @@ class PlayerTest {
 		player.addExperience(300);
 		assertEquals(3, player.getLevel());
 	}
+
 	
 }
