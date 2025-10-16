@@ -8,6 +8,9 @@ public class RaceDecorator extends PlayerDecorator{
 	public RaceDecorator(Player p, String raceName) {
 		super(p);
 		this.raceName = raceName;
+		if(raceName == "") {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	public String getRace() {

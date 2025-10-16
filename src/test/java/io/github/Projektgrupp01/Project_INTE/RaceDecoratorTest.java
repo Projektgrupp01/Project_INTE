@@ -31,5 +31,13 @@ public class RaceDecoratorTest {
 		assertEquals(racialPlayer.getRace(),"Dwarf");
 		
 	}
+	
+	@Test
+	void emptyRace() {
+		Player player = new BasePlayer();
+		assertThrows(IllegalArgumentException.class, () -> {
+			Player racialPlayer = new RaceDecorator(player, "");
+	    });
+	}
 
 }
