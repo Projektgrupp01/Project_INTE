@@ -27,3 +27,6 @@ Consumes energy
 deals damage
 has magic type (Water, Fire).
 has cast call
+
+Map functionality:
+based on 2-dimensional array, can return the structure in string format
