@@ -2,15 +2,20 @@ package io.github.Projektgrupp01.Project_INTE;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import io.github.Projektgrupp01.Project_INTE.Map.Map;
 
-//borde nog dokumentera detta i google-doket:
+import java.util.Arrays;
+
 public class MapTest {
 
     @Test
     void toStringTest(){
         Map map = new Map();
-        char[][] array = {{20,20}};
-        assertEquals(map.toString(), array.toString());
+        char[][] array = new char[20][20];
+        for(char[] row: array) {
+            Arrays.fill(row, '#');
+        }
+        assertEquals(map.toString(), Arrays.deepToString(array));
     }
 
 }
