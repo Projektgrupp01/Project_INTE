@@ -9,9 +9,19 @@ import java.util.Arrays;
 public class MapTest {
 
     @Test
-    void toStringTest(){
+    void toStringTest_NoInitializers(){
         Map map = new Map();
         char[][] array = new char[20][20];
+        for(char[] row: array) {
+            Arrays.fill(row, '#');
+        }
+        assertEquals(map.toString(), Arrays.deepToString(array));
+    }
+
+    @Test
+    void toStringTest_WithInitializers(){
+        Map map = new Map(3,11);
+        char[][] array = new char[3][11];
         for(char[] row: array) {
             Arrays.fill(row, '#');
         }
