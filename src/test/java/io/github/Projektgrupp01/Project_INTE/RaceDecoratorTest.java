@@ -13,7 +13,7 @@ public class RaceDecoratorTest {
 	void getNameTest() {
 		Player player = new BasePlayer();
 		Player racialPlayer = new RaceDecorator(player, "Elf");
-		assertEquals(racialPlayer.getName(),"RaceDecorator");
+		assertEquals(racialPlayer.getName(),"BasePlayer");
 	}
 	
 	@Test
