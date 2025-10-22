@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.quests;
 
 public class Quest {
 	public enum Status {
@@ -32,16 +32,19 @@ public class Quest {
 	public long getReward() {
 		return rewardExperience;
 	}
+
 	public void start() {
-		if (status != Status.NOT_STARTED){
+		if (status != Status.NOT_STARTED) {
 			throw new IllegalStateException("Quest has already been started or completed.");
 		}
 		status = Status.STARTED;
 	}
+
 	public void complete() {
-		if (status != Status.STARTED){
+		if (status != Status.STARTED) {
 			throw new IllegalStateException("Quest has to be Started before they can be completed.");
 		}
+		
 		status = Status.COMPLETED;
 	}
 }

@@ -3,6 +3,8 @@ package io.github.Projektgrupp01.Project_INTE.creatures;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.github.Projektgrupp01.Project_INTE.quests.Quest;
+import io.github.Projektgrupp01.Project_INTE.quests.Quest.Status;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
 import java.util.Collections;
 
@@ -13,6 +15,8 @@ public class BasePlayer implements Player {
 	private int energy;
 	private String name;
 	private HashSet<Spell> spellBook = new HashSet<>();
+	private Set<Quest> startedQuests = new HashSet<>();
+	private Set<Quest> completedQuests = new HashSet<>();
 	private int level = 1;
 	private long experience = 0;
 	private final long baseExp = 100;
@@ -116,6 +120,40 @@ public class BasePlayer implements Player {
 			experience -= getExperienceToNextLevel();
 			level++;
 		}
+	}
+
+	public Set<Quest> getActiveQuests() {
+		return Collections.unmodifiableSet(startedQuests);
+	}
+	
+	public Set<Quest> getCompletedQuest() {
+		return Collections.unmodifiableSet(completedQuests);
+	}
+
+	public void acceptQuest(Quest quest) {
+		if (quest == null) {
+			throw new NullPointerException("Quest cannot be null");
+		}
+		if (startedQuests.contains(quest) || completedQuests.contains(quest)) {
+			throw new IllegalStateException("Quest is already started or completed.");
+		}
+		startedQuests.add(quest);
+		quest.start();
+	}
+
+	public void completeQuest(Quest quest) {
+		if (quest == null) {
+			throw new NullPointerException("Quest cannot be null");
+		}
+		if (!startedQuests.contains(quest)) {
+			throw new IllegalStateException("Quest has not been accepted yet.");
+		}
+		if (completedQuests.contains(quest)) {
+			throw new IllegalStateException("Quest has already been completed.");
+		}
+		startedQuests.add(quest);
+		addExperience(quest.getReward());
+		quest.complete();
 	}
 
 }

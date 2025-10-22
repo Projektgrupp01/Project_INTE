@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.github.Projektgrupp01.Project_INTE.quests.Quest;
+
 class QuestTest {
 	private Quest quest;
 
