@@ -3,6 +3,7 @@ package io.github.Projektgrupp01.Project_INTE.creatures.decorators;
 import io.github.Projektgrupp01.Project_INTE.creatures.*;
 
 public class RaceDecorator extends PlayerDecorator{
+	
 	private String raceName;
 	
 	public RaceDecorator(Player p, String raceName) {
@@ -23,7 +24,8 @@ public class RaceDecorator extends PlayerDecorator{
 	
 	@Override
 	public String getName() {
-		return "RaceDecorator"; //Change this?
+		//return "RaceDecorator"; //Change this?
+		return super.getName();
 	}
 	
 	@Override
