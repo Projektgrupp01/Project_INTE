@@ -11,4 +11,9 @@ public class EquipmentTest {
         Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
         assertEquals("Sword", sword.getName());
     }
+
+    @Test equiptmentHasType() {
+        Equipment helmet = new Equipment("Helmet", EquipmentType.HELMET);
+        assertEquals(EquipmentType.HELMET, helmet.getType());
+    }
 }
