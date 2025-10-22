@@ -15,4 +15,8 @@ public class Equipment {
     public String getName() {
         return name;
     }
+
+    public EquipmentType getType() {
+        return type;
+    }
 }
