@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test;
 public class EquipmentTest {
 
     @Test
-    void equiptmentHasName() {
+    void equipmentHasName() {
         Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
         assertEquals("Sword", sword.getName());
     }
 
-    @Test equiptmentHasType() {
+    @Test
+    void equipmentHasType() {
         Equipment helmet = new Equipment("Helmet", EquipmentType.HELMET);
         assertEquals(EquipmentType.HELMET, helmet.getType());
     }
