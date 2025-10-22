@@ -8,7 +8,7 @@ import org.junit.jupiter.api.*;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.decorators.TripleHealthDecorator;
 
-class PlayerTest {
+public class PlayerTest {
 	
 	private BasePlayer player;
 	@BeforeEach

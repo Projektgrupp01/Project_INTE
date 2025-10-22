@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.Projektgrupp01.Project_INTE.spells.Water;
 
-class WaterTest {
+public class WaterTest {
     
         @Test
         void basicConstructorTest() {
