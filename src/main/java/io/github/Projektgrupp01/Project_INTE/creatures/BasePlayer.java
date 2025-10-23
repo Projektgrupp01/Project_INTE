@@ -14,7 +14,7 @@ public class BasePlayer implements Player {
 	private int strength;
 	private int energy;
 	private String name;
-	private HashSet<Spell> spellBook = new HashSet<>();
+	private Set<Spell> spellBook = new HashSet<>();
 	private Set<Quest> startedQuests = new HashSet<>();
 	private Set<Quest> completedQuests = new HashSet<>();
 	private int level = 1;
