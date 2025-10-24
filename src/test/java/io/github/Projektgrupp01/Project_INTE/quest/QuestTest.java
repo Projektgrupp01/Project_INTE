@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.quest;
 
 import static org.junit.jupiter.api.Assertions.*;
 

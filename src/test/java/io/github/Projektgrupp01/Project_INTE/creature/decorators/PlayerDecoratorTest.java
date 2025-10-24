@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.creature.decorators;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
