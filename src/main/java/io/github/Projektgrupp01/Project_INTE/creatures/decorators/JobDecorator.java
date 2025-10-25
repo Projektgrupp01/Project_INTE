@@ -4,7 +4,7 @@ import io.github.Projektgrupp01.Project_INTE.creatures.*;
 
 public class JobDecorator extends PlayerDecorator{
 
-	private String jobName;
+	private String jobName = "Unemployed";
 	
 	public String getJobName() {
 		return jobName;
