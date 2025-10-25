@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
+import java.util.*;
 
 
 public class RaceTest {
@@ -20,5 +21,14 @@ public class RaceTest {
 		Race dwarf = new Dwarf();
 		assertEquals(dwarf.getRaceName(),"Dwarf");
 	}
-
+	
+	@Test
+	void addRace() {
+		BasePlayer player = new BasePlayer();
+		Race dwarf = new Dwarf();
+		player.addRace(dwarf);
+		HashSet<Race> comparingSet = new HashSet<>();
+		comparingSet.add(dwarf);
+		assertEquals(player.getRaces(),comparingSet);
+	}
 }
