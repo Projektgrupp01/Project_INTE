@@ -11,6 +11,13 @@ public class JobDecorator extends PlayerDecorator{
 		
 	}
 	
+	public void setJobName(String newName) {
+		if(newName.equals("")) {
+			throw new IllegalArgumentException();
+		}
+		jobName = newName;
+	}
+	
 	public JobDecorator(Player p) {
 		super(p);
 	}

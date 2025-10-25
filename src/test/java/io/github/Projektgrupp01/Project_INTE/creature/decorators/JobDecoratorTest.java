@@ -26,4 +26,29 @@ public class JobDecoratorTest {
 		assertEquals(workingPlayer.getName(),"BasePlayer");
 	}
 	
+	@Test 
+	void unemployedTest() {
+		Player player = new BasePlayer();
+		JobDecorator workingPlayer = new JobDecorator(player);
+		assertEquals(workingPlayer.getJobName(),"Unemployed");
+	}
+	
+	@Test
+	void setJobNameTest() {
+		Player player = new BasePlayer();
+		JobDecorator workingPlayer = new JobDecorator(player);
+		workingPlayer.setJobName("NewName");
+		assertEquals(workingPlayer.getJobName(),"NewName");
+		
+	}
+		
+	@Test
+	void emptyJobName() {
+		Player player = new BasePlayer();
+		assertThrows(IllegalArgumentException.class, () -> {
+			JobDecorator workingPlayer = new JobDecorator(player);
+			workingPlayer.setJobName("");
+	    });
+	}
+	
 }

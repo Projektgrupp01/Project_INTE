@@ -36,7 +36,7 @@ public class RaceDecoratorTest {
 	void emptyRace() {
 		Player player = new BasePlayer();
 		assertThrows(IllegalArgumentException.class, () -> {
-			Player racialPlayer = new RaceDecorator(player, "");
+			new RaceDecorator(player, "");
 	    });
 	}
 
