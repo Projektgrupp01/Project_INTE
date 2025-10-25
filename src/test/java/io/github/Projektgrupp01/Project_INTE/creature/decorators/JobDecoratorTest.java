@@ -26,6 +26,13 @@ public class JobDecoratorTest {
 		assertEquals(workingPlayer.getName(),"BasePlayer");
 	}
 	
+	@Test
+	void cookingJobNameTest() {
+		Player player = new BasePlayer();
+		JobDecorator workingPlayer = new CookingDecorator(player);
+		assertEquals(workingPlayer.getJobName(),"Cooking");
+	}
+	
 	@Test 
 	void unemployedTest() {
 		Player player = new BasePlayer();
@@ -49,6 +56,15 @@ public class JobDecoratorTest {
 			JobDecorator workingPlayer = new JobDecorator(player);
 			workingPlayer.setJobName("");
 	    });
+	}
+	
+	@Test
+	void twoDecorators() {
+		Player player = new BasePlayer();
+		JobDecorator workingPlayer = new JobDecorator(player);
+		RaceDecorator racialPlayer = new RaceDecorator(workingPlayer, "Elf");
+		assertEquals(racialPlayer.getName(),"BasePlayer");
+		
 	}
 	
 }

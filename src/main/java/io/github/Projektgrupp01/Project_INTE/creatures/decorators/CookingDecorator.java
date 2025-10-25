@@ -6,6 +6,7 @@ public class CookingDecorator extends JobDecorator {
 	
 	public CookingDecorator(Player p) {
 		super(p);
+		super.setJobName("Cooking");
 	}
 	
 	public String getName() {
