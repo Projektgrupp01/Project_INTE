@@ -1,63 +1,62 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.spells;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 
-class FireTest {
+class NatureTest {
     
         @Test
         void basicConstructorTest() {
-            Fire f = new Fire();
-            assertEquals(10, f.getDamage());
-            assertEquals(8, f.getEnergyCost());
+            Nature n = new Nature();
+            assertEquals(7, n.getDamage());
+            assertEquals(5, n.getEnergyCost());
         }
         @Test
         void customConstructorTest() {
-            Fire f = new Fire(1,2,"Fire");
-            assertEquals(2, f.getDamage());
-            assertEquals(1, f.getEnergyCost());
+            Nature n = new Nature(1,2,"Nature");
+            assertEquals(2, n.getDamage());
+            assertEquals(1, n.getEnergyCost());
         }
         @Test
         void negativeEnergyCostException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Fire(-1, 1,"Fire");});
+                new Nature(-1, 1,"Nature");});
         }
         @Test
         void negativeDamageException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Fire(1, -1, "Fire");});
+                new Nature(1, -1, "Nature");});
         }
         @Test
         void ZeroEnergyCostTest() {
-            Fire f = new Fire(0,1, "Fire");
-            assertEquals(0, f.getEnergyCost());
+            Nature n = new Nature(0,1, "Nature");
+            assertEquals(0, n.getEnergyCost());
         }
         @Test
         void ZeroDamageTest() {
-            Fire f = new Fire(1,0, "Fire");
-            assertEquals(0, f.getDamage());
+            Nature n = new Nature(1,0, "Nature");
+            assertEquals(0, n.getDamage());
         }
         @Test
         void getSpellTypeTest() {
-            Fire f = new Fire();
-            assertEquals(Fire.SpellType.FIRE, f.getSpellType());
+            Nature n = new Nature();
+            assertEquals(Nature.SpellType.NATURE, n.getSpellType());
         }
         @Test
         void castSpellTest() {
-            Fire f = new Fire();
-            assertEquals("A fire spell has been casted!", f.castSpell());
+            Nature n = new Nature();
+            assertEquals("A nature spell has been casted!", n.castSpell());
         }
         @Test
         void nullNameException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Fire(1, 1, null);});
+                new Nature(1, 1, null);});
         }
         @Test
         void emptyNameException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Fire(1, 1, "");});
+                new Nature(1, 1, "");});
         }
 
 }

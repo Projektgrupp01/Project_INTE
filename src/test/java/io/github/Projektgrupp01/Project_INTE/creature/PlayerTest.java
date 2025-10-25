@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.creature;
 
 import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
@@ -9,12 +9,13 @@ import org.junit.jupiter.api.*;
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.NPC;
+import io.github.Projektgrupp01.Project_INTE.creatures.Player;
 import io.github.Projektgrupp01.Project_INTE.creatures.decorators.TripleHealthDecorator;
 import io.github.Projektgrupp01.Project_INTE.quests.Quest;
 
 public class PlayerTest {
 
-	private BasePlayer player;
+	private Player player;
 
 	@BeforeEach
 	void setUp() {
@@ -62,7 +63,7 @@ public class PlayerTest {
 
 	@Test
 	void playerCanBeDecorated() {
-		TripleHealthDecorator buffedPlayer = new TripleHealthDecorator(player);
+		Player buffedPlayer = new TripleHealthDecorator(player);
 		assertTrue(buffedPlayer.getHealth() > player.getHealth());
 	}
 

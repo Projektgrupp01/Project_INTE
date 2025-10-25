@@ -5,7 +5,7 @@ public abstract class Spell {
     private int damage;
     private String name;
     public enum SpellType {
-        FIRE, WATER
+        FIRE, WATER, NATURE
     }
 
     protected Spell(int energyCost, int damage, String name) {

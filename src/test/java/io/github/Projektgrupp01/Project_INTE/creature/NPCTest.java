@@ -1,17 +1,18 @@
-package io.github.Projektgrupp01.Project_INTE;
+package io.github.Projektgrupp01.Project_INTE.creature;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
+import io.github.Projektgrupp01.Project_INTE.creatures.Player;
 import io.github.Projektgrupp01.Project_INTE.creatures.NPC;
 
 public class NPCTest {
-	private BaseNPC friendlyNPC;
-    private BaseNPC neutralNPC;
-    private BaseNPC hostileNPC;
-    private BasePlayer player;
+	private NPC friendlyNPC;
+	private NPC neutralNPC;
+	private NPC hostileNPC;
+	private Player player;
 
     @BeforeEach
     void setUp() {
