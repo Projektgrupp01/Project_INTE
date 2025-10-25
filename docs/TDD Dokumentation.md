@@ -13,7 +13,10 @@ can gain experience and levels
 players are considered Creatures
 
 Race functionality
-Has name of race that can be gotten with getRace() using a decorator
+BasePlayer has Set with Races
+
+Profession functionality
+Baseplayer has Set with Races
 
 NPC functionality
 Has Health
