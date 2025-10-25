@@ -9,7 +9,7 @@ public class RaceDecorator extends PlayerDecorator{
 	public RaceDecorator(Player p, String raceName) {
 		super(p);
 		this.raceName = raceName;
-		if(raceName == "") {
+		if(raceName.equals("")) {
 			throw new IllegalArgumentException();
 		}
 	}

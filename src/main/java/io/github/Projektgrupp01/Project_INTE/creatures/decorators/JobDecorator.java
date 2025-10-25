@@ -2,7 +2,7 @@ package io.github.Projektgrupp01.Project_INTE.creatures.decorators;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.*;
 
-public abstract class JobDecorator extends PlayerDecorator{
+public class JobDecorator extends PlayerDecorator{
 
 	private String jobName;
 	
