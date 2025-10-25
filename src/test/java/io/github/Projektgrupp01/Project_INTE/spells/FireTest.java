@@ -3,7 +3,6 @@ package io.github.Projektgrupp01.Project_INTE.spells;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 
 class FireTest {
     

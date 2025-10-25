@@ -3,62 +3,60 @@ package io.github.Projektgrupp01.Project_INTE.spells;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-public class WaterTest {
+
+class NatureTest {
     
         @Test
         void basicConstructorTest() {
-            Water w = new Water();
-            assertEquals(8, w.getDamage());
-            assertEquals(6, w.getEnergyCost());
-            assertEquals("Water", w.getName());
+            Nature n = new Nature();
+            assertEquals(7, n.getDamage());
+            assertEquals(5, n.getEnergyCost());
         }
         @Test
         void customConstructorTest() {
-            Water w = new Water(1,2, "Water");
-            assertEquals(2, w.getDamage());
-            assertEquals(1, w.getEnergyCost());
-            assertEquals("Water", w.getName());
+            Nature n = new Nature(1,2,"Nature");
+            assertEquals(2, n.getDamage());
+            assertEquals(1, n.getEnergyCost());
         }
         @Test
         void negativeEnergyCostException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Water(-1, 1, "Water");});
+                new Nature(-1, 1,"Nature");});
         }
         @Test
         void negativeDamageException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Water(1, -1, "Water");});
+                new Nature(1, -1, "Nature");});
         }
         @Test
         void ZeroEnergyCostTest() {
-            Water w = new Water(0,1, "Water");
-            assertEquals(0, w.getEnergyCost());
+            Nature n = new Nature(0,1, "Nature");
+            assertEquals(0, n.getEnergyCost());
         }
         @Test
         void ZeroDamageTest() {
-            Water w = new Water(1,0, "Water");
-            assertEquals(0, w.getDamage());
+            Nature n = new Nature(1,0, "Nature");
+            assertEquals(0, n.getDamage());
         }
         @Test
         void getSpellTypeTest() {
-            Water w = new Water();
-            assertEquals(Water.SpellType.WATER, w.getSpellType());
+            Nature n = new Nature();
+            assertEquals(Nature.SpellType.NATURE, n.getSpellType());
         }
         @Test
         void castSpellTest() {
-            Water w = new Water();
-            assertEquals("A water spell has been casted!", w.castSpell());
+            Nature n = new Nature();
+            assertEquals("A nature spell has been casted!", n.castSpell());
         }
         @Test
         void nullNameException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Water(1, 1, null);});
+                new Nature(1, 1, null);});
         }
         @Test
         void emptyNameException() {
             assertThrows(IllegalArgumentException.class,() -> { 
-                new Water(1, 1, "");});
+                new Nature(1, 1, "");});
         }
 
 }
-
