@@ -7,6 +7,7 @@ import io.github.Projektgrupp01.Project_INTE.quests.Quest;
 import io.github.Projektgrupp01.Project_INTE.quests.Quest.Status;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
 import io.github.Projektgrupp01.Project_INTE.races.Race;
+import io.github.Projektgrupp01.Project_INTE.professions.Profession;
 import java.util.Collections;
 
 public class BasePlayer implements Player {
@@ -19,6 +20,7 @@ public class BasePlayer implements Player {
 	private Set<Quest> startedQuests = new HashSet<>();
 	private Set<Quest> completedQuests = new HashSet<>();
 	private Set<Race> races = new HashSet<>();
+	private Set<Profession> professions = new HashSet<>();
 	private int level = 1;
 	private long experience = 0;
 	private final long baseExp = 100;
@@ -101,6 +103,14 @@ public class BasePlayer implements Player {
 	
 	public Set<Race> getRaces(){
 		return Collections.unmodifiableSet(races);
+	}
+	
+	public void addProfession(Profession profession) {
+		professions.add(profession);
+	}
+	
+	public Set<Profession> getProfessions(){
+		return Collections.unmodifiableSet(professions);
 	}
 	
 	@Override
