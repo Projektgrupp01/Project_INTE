@@ -2,7 +2,6 @@ package io.github.Projektgrupp01.Project_INTE.Map;
 
 import java.util.Arrays;
 
-//byt t bättre namn sen
 public class Map implements BaseMap {
 
     private int x;
@@ -35,7 +34,7 @@ public class Map implements BaseMap {
     }
 
     public void createMap(){
-
+         //randomwalk
     }
 
     @Override
