@@ -81,6 +81,12 @@ public class ProfessionTest {
 	}
 	
 	@Test
+	void newPlayerHasNoProfession() {
+		BasePlayer player = new BasePlayer();
+		assertEquals(0, player.getProfessions().size());
+	}
+	
+	@Test
 	void checktoString() {
 		Doctor doc = new Doctor();
 		assertEquals(doc.toString(),"Level: 0 Doctor");
