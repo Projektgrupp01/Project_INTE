@@ -1,5 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.professions;
 
+import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
+
 public abstract class Profession {
 	
 	private String professionName;
@@ -24,6 +26,14 @@ public abstract class Profession {
 	
 	public void levelUpProfession() {
 		professionLevel += 1;
+	}
+	
+	public static void levelUpNamedProfession(BasePlayer p, String professionName) {
+		for (Profession prof : p.getProfessions()) {
+			if (prof.getProfessionName().equals(professionName)) {
+					prof.levelUpProfession();
+			}
+		}
 	}
 	
 	@Override

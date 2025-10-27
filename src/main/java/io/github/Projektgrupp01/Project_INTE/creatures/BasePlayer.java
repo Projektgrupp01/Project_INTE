@@ -106,7 +106,15 @@ public class BasePlayer implements Player {
 	}
 	
 	public void addProfession(Profession profession) {
-		professions.add(profession);
+		int duplicate = 0;
+		for (Profession prof : professions) {
+			if (prof.getProfessionName().equals(profession.getProfessionName())) {
+				duplicate = 1;
+			}
+		}
+		if (duplicate == 0) {
+			professions.add(profession);
+		}
 	}
 	
 	public Set<Profession> getProfessions(){

@@ -28,6 +28,17 @@ public class ProfessionTest {
 	}
 	
 	@Test
+	void addTwoSameProfession() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		Doctor doc2 = new Doctor();
+		player.addProfession(doc);
+		player.addProfession(doc2);
+		assertEquals(1, player.getProfessions().size());
+		
+	}
+	
+	@Test
 	void checktoString() {
 		Doctor doc = new Doctor();
 		assertEquals(doc.toString(),"Level: 0 Doctor");
@@ -63,6 +74,15 @@ public class ProfessionTest {
 	}
 	
 	@Test
+	void levelUpByNameFrom0() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		player.addProfession(doc);
+		Profession.levelUpNamedProfession(player, "Doctor");
+		assertEquals(1, doc.getProfessionLevel());
+	}
+	
+	@Test
 	void basicSelfHealOnNonDoctor() {
 		BasePlayer player = new BasePlayer();
 		player.takeDamage(1);
@@ -83,4 +103,5 @@ public class ProfessionTest {
 		assertTrue(player.getHealth() > healthBefore);
 	}
 	
+
 }
