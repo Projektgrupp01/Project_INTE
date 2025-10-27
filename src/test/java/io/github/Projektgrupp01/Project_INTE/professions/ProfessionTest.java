@@ -18,6 +18,30 @@ public class ProfessionTest {
 	}
 	
 	@Test
+	void newDoctorStartingLevel() {
+		Doctor doc = new Doctor(2);
+		assertEquals(doc.getProfessionLevel(), 2);
+	}
+	
+	@Test
+	void newDoctorStartingLevelName() {
+		Doctor doc = new Doctor(2);
+		assertEquals(doc.getProfessionName(), "Doctor");
+	}
+	
+	@Test
+	void newBakerStartingLevel() {
+		Baker baker = new Baker(3);
+		assertEquals(baker.getProfessionLevel(), 3);
+	}
+	
+	@Test
+	void newBakerStartingLevelName() {
+		Baker baker = new Baker(3);
+		assertEquals(baker.getProfessionName(), "Baker");
+	}
+	
+	@Test
 	void addProfession() {
 		BasePlayer player = new BasePlayer();
 		Doctor doc = new Doctor();
@@ -38,6 +62,16 @@ public class ProfessionTest {
 		
 	}
 	
+	void addTwoDifferentProfessions() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		Baker baker = new Baker();
+		player.addProfession(doc);
+		player.addProfession(baker);
+		assertEquals(2, player.getProfessions().size());
+		
+	}
+	
 	@Test
 	void checktoString() {
 		Doctor doc = new Doctor();
@@ -48,14 +82,21 @@ public class ProfessionTest {
 	@Test
 	void professionLevel0() {
 		Doctor doc = new Doctor();
-		assertEquals(doc.getProfessionLevel(), 0);
+		assertEquals(0, doc.getProfessionLevel());
 	}
 	
 	@Test
 	void professionLevelSet() {
 		Doctor doc = new Doctor();
 		doc.setProfessionLevel(3);
-		assertEquals(doc.getProfessionLevel(), 3);
+		assertEquals(3, doc.getProfessionLevel());
+	}
+	
+	@Test
+	void negativeProfessionLevelSet() {
+		Doctor doc = new Doctor();
+		doc.setProfessionLevel(-3);
+		assertEquals(0, doc.getProfessionLevel());
 	}
 	
 	@Test
@@ -101,6 +142,18 @@ public class ProfessionTest {
 		player.addProfession(doc);
 		Doctor.basicSelfHeal(player);
 		assertTrue(player.getHealth() > healthBefore);
+	}
+	
+	@Test
+	void basicHealAfterAddingWrongProfession() {
+		BasePlayer player = new BasePlayer();
+		player.takeDamage(1);
+		int healthBefore = player.getHealth();
+		Baker baker = new Baker();
+		baker.levelUpProfession();
+		player.addProfession(baker);
+		Doctor.basicSelfHeal(player);
+		assertEquals(healthBefore, player.getHealth());
 	}
 	
 

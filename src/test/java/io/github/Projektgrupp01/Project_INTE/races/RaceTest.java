@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
-import io.github.Projektgrupp01.Project_INTE.professions.Doctor;
 
 import java.util.*;
 
@@ -33,6 +32,7 @@ public class RaceTest {
 		assertEquals(player.getRaces(),comparingSet);
 	}
 	
+	@Test
 	void addTwoSameRaces() {
 		BasePlayer player = new BasePlayer();
 		Race dwarf = new Dwarf();
