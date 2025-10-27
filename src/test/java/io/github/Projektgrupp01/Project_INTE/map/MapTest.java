@@ -40,15 +40,9 @@ public class MapTest {
 
     @Test
     void getMapTest_withInitializers(){
-        BaseMap map = new BaseMap(3, 4);
+        BaseMap map = new BaseMap(4, 3);
         char[][] expected = {{'#','#', '#'},{'#','#', '#'},{'#','#', '#'}, {'#','#', '#'}};
         assertArrayEquals(expected, map.getMap());
-    }
-
-    @Disabled
-    @Test
-    void createMapTest(){
-         //HUR??? läs wikisida om rand.walk
     }
 
     //ev gör om dessa t sådant som testar m flera värden
@@ -70,18 +64,21 @@ public class MapTest {
     @Test
     void createMapTest_tunnelsExist(){
         Map map = new BaseMap();
+        map.createMap();
         char[][] mapArray = map.getMap();
 
         int nrOfTunnels = 0;
         for(char[] row: mapArray){
             for(char c: row){
-                if (c == ' '){ //idk om villkoret är korrekt, fixa sen
+                if (c == ' '){
                     nrOfTunnels++;
                 }
             }
-        }
 
-        assertTrue(nrOfTunnels >= 50);
+        }
+        nrOfTunnels = (nrOfTunnels / mapArray.length);
+        //om jag lägger in density sen borde jag ändra här
+        assertTrue(nrOfTunnels >= 2, "nrOfTunnels: " + nrOfTunnels + " och 5/2: " + 5/2);
     }
 
     @Disabled
@@ -100,24 +97,6 @@ public class MapTest {
         List<Equipment> equipment = map.getEquipment();
 
         assertTrue(equipment.size() >= 5);
-
-    }
-
-    @Disabled
-    @Test
-    void levelsTest(){
-
-    }
-
-    @Disabled
-    @Test
-    void generateMapOnPlayerWalkTest(){
-
-    }
-
-    @Disabled
-    @Test
-    void rememberMapTest(){
 
     }
 
@@ -142,8 +121,8 @@ public class MapTest {
 
         StringBuilder expected = new StringBuilder();
         //för att testa att map-ens storlek/utseende blir som förväntat
-        for(int i = 0; i < 11; i++){ //rader - y
-            for(int j = 0; j < 30; j++){ //kolumner - x
+        for(int i = 0; i < 30; i++){
+            for(int j = 0; j < 11; j++){ //kolumner - x
                 expected.append("#");
             }
             expected.append("\n");
