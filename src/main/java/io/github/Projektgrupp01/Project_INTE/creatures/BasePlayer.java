@@ -210,6 +210,7 @@ public class BasePlayer implements Player {
 		}
 		if(newEnergy <= 0){
 			energy = 0;
+			return;
 		}
 		energy = newEnergy;
 	}
