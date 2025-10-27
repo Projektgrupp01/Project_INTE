@@ -43,4 +43,4 @@ has cast call
 Map functionality:
 based on 2-dimensional array, can return the structure in string format
 randomly generated map
-randomly generated "noice"
+randomly generated "noice" (NPCs, equipment)
