@@ -25,5 +25,40 @@ public class ProfessionTest {
 		comparingSet.add(doc);
 		assertEquals(player.getProfessions(),comparingSet);
 	}
+	
+	@Test
+	void checktoString() {
+		Doctor doc = new Doctor();
+		assertEquals(doc.toString(),"Level: 0 Doctor");
 
+	}
+	
+	@Test
+	void professionLevel0() {
+		Doctor doc = new Doctor();
+		assertEquals(doc.getProfessionLevel(), 0);
+	}
+	
+	@Test
+	void professionLevelSet() {
+		Doctor doc = new Doctor();
+		doc.setProfessionLevel(3);
+		assertEquals(doc.getProfessionLevel(), 3);
+	}
+	
+	@Test
+	void levelUpProfessionFromZero() {
+		Doctor doc = new Doctor();
+		doc.levelUpProfession();
+		assertEquals(doc.getProfessionLevel(), 1);
+	}
+	
+	@Test
+	void setAndThenLevelUpProfession() {
+		Doctor doc = new Doctor();
+		doc.setProfessionLevel(3);
+		doc.levelUpProfession();
+		assertEquals(doc.getProfessionLevel(), 4);
+	}
+	
 }
