@@ -144,7 +144,7 @@ public class BasePlayer implements Player {
 	public boolean containsRace(String raceName) {
 		boolean contains = false;
 		for (Race race : races) {
-			if (race.getRaceName() == raceName) {
+			if (race.getRaceName().equals(raceName)) {
 				contains = true;
 			}
 		}
