@@ -31,9 +31,11 @@ public class BasePlayer implements Player {
 	public BasePlayer() {
 		this.name = "BasePlayer";
 		this.health = 100;
+		this.maxHealth = 100;
 		this.speed = 100;
 		this.strength = 100;
 		this.energy = 100;
+		this.maxEnergy = 100;
 	}
 
 	public BasePlayer(String name, int maxHealth, int speed, int strength, int maxEnergy, int level) {
@@ -101,13 +103,13 @@ public class BasePlayer implements Player {
 		spellBook.remove(spell);
 	}
 
-	public void addRace(String race) {
+	public void addRace(Race race) {
 		if (race == null) {
 			throw new IllegalArgumentException("Race cannot be null");
 		}
 		int duplicate = 0;
 		for (Race raceInSet : races) {
-			if (string.getRaceName().equals(raceInSet.getRaceName())) {
+			if (race.getRaceName().equals(raceInSet.getRaceName())) {
 				duplicate = 1;
 			}
 		}
@@ -225,6 +227,7 @@ public class BasePlayer implements Player {
 		}
 		if(newHealth <= 0){
 			health = 0;
+			return;
 		}
 		health = newHealth;
 	}
