@@ -98,7 +98,15 @@ public class BasePlayer implements Player {
 	}
 
 	public void addRace(Race race) {
-		races.add(race);
+		int duplicate = 0;
+		for (Race raceInSet : races) {
+			if (race.getRaceName().equals(raceInSet.getRaceName())) {
+				duplicate = 1;
+			}
+		}
+		if (duplicate == 0) {
+			races.add(race);
+		}
 	}
 	
 	public Set<Race> getRaces(){
