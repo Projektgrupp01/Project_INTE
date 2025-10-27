@@ -268,7 +268,7 @@ public class BasePlayer implements Player {
 	@Override
 	public void setLevel(int newLevel) {
 		if (newLevel <= 0) {
-			throw new IllegalStateException("Speed can't be <=0");
+			throw new IllegalStateException("Level can't be <=0");
 		}
 		level = newLevel;
 	}
