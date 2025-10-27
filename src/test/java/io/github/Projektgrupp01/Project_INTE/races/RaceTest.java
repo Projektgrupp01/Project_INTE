@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
-import io.github.Projektgrupp01.Project_INTE.professions.Baker;
-import io.github.Projektgrupp01.Project_INTE.professions.Doctor;
-import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 
 import java.util.*;
 
@@ -62,6 +59,12 @@ public class RaceTest {
 		BasePlayer player = new BasePlayer();
 		assertThrows(IllegalArgumentException.class,() -> { 
            player.addRace(null);});
+	}
+	
+	@Test
+	void newPlayerHasNoRace() {
+		BasePlayer player = new BasePlayer();
+		assertEquals(0, player.getRaces().size());
 	}
 	
 	@Test
