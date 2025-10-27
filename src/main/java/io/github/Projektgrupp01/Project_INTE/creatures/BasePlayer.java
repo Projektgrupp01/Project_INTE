@@ -64,10 +64,7 @@ public class BasePlayer implements Player {
 	}
 
 	public void takeDamage(int damage) {
-		health -= damage;
-		if (health < 0) {
-			health = 0;
-		}
+		setHealth(health - damage);
 	}
 
 	public boolean isDead() {
@@ -206,10 +203,16 @@ public class BasePlayer implements Player {
 		if (newEnergy > maxEnergy) {
 			throw new IllegalStateException("Energy can't be higher than max Energy");
 		}
+		if(newEnergy <= 0){
+			energy = 0;
+		}
 		energy = newEnergy;
 	}
 
 	public void setMaxEnergy(int newEnergy) {
+		if(newEnergy <= 0){
+			throw new IllegalStateException("max energy can't be <=0");
+		}
 		maxEnergy = newEnergy;
 	}
 
@@ -217,18 +220,30 @@ public class BasePlayer implements Player {
 		if (newHealth > maxHealth) {
 			throw new IllegalStateException("Health can't be higher than max Health");
 		}
+		if(newHealth <= 0){
+			health = 0;
+		}
 		health = newHealth;
 	}
 
 	public void setMaxHealth(int newHealth) {
+		if(newHealth <= 0){
+			throw new IllegalStateException("max health can't be <=0");
+		}
 		maxHealth = newHealth;
 	}
 
 	public void setStrength(int newStrength) {
+		if(newStrength <= 0){
+			throw new IllegalStateException("Strength can't be <=0");
+		}
 		strength = newStrength;
 	}
 
 	public void setSpeed(int newSpeed) {
+		if(newSpeed <= 0){
+			throw new IllegalStateException("Speed can't be <=0");
+		}
 		speed = newSpeed;
 
 	}
