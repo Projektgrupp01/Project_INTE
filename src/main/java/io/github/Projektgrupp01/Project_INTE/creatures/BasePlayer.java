@@ -97,13 +97,13 @@ public class BasePlayer implements Player {
 		spellBook.remove(spell);
 	}
 
-	public void addRace(Race race) {
+	public void addRace(String race) {
 		if (race == null) {
 			throw new IllegalArgumentException("Race cannot be null");
 		}
 		int duplicate = 0;
 		for (Race raceInSet : races) {
-			if (race.getRaceName().equals(raceInSet.getRaceName())) {
+			if (string.getRaceName().equals(raceInSet.getRaceName())) {
 				duplicate = 1;
 			}
 		}
@@ -196,6 +196,13 @@ public class BasePlayer implements Player {
 		startedQuests.add(quest);
 		addExperience(quest.getReward());
 		quest.complete();
+	}
+
+	public void setEnergy(int newEnergy){
+		energy = newEnergy;
+	}
+	public void setHealth(int newHealth){
+		health = newHealth;
 	}
 
 }
