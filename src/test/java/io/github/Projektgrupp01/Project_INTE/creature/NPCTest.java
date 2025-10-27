@@ -7,12 +7,14 @@ import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.Player;
 import io.github.Projektgrupp01.Project_INTE.creatures.NPC;
+import io.github.Projektgrupp01.Project_INTE.quests.Quest;
 
 public class NPCTest {
 	private NPC friendlyNPC;
 	private NPC neutralNPC;
 	private NPC hostileNPC;
 	private Player player;
+	private Quest quest;
 
     @BeforeEach
     void setUp() {
@@ -20,6 +22,7 @@ public class NPCTest {
         hostileNPC = new BaseNPC("Goblin", 50, NPC.Disposition.HOSTILE);
         neutralNPC = new BaseNPC("Villager", 50, NPC.Disposition.NEUTRAL);
         player = new BasePlayer();
+        quest = new Quest("TestQuest", "Test Description", 10, 0);
     }
 	
 	@Test
@@ -30,16 +33,26 @@ public class NPCTest {
 	@Test
 	void friendlyNPCGreetsPlayer() {
 		friendlyNPC.interact(player);
-		assertEquals(player.getHealth(), 110);
+		assertEquals(110, player.getHealth());
 	}
+    @Test
+    void friendlyNPCCanBeAssignedQuests() {
+    	friendlyNPC.addQuest(quest);
+    	assertTrue(friendlyNPC.getQuests().contains(quest));
+    }
+    @Test
+    void friendlyNPCCanOfferAssignedQuests() {
+    	friendlyNPC.addQuest(quest);
+    	friendlyNPC.interact(player);
+    }
 	@Test
     void neutralNpcIgnoresPlayer() {
 		neutralNPC.interact(player);
-		assertEquals(player.getHealth(), 100);
+		assertEquals(100, player.getHealth());
     }
     @Test
     void hostileNpcAttacksPlayer() {
     	hostileNPC.interact(player);
-		assertEquals(player.getHealth(), 90);
+		assertEquals(90, player.getHealth());
     }
 }

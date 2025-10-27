@@ -1,19 +1,31 @@
 package io.github.Projektgrupp01.Project_INTE.quests;
 
+import io.github.Projektgrupp01.Project_INTE.creatures.Player;
+
 public class Quest {
 	public enum Status {
-		NOT_STARTED, STARTED, COMPLETED
+		AVAILABLE, STARTED, COMPLETED
 	}
 
 	private final String name;
 	private final String description;
-	private Status status = Status.NOT_STARTED;
+	private Status status = Status.AVAILABLE;
 	private final long rewardExperience;
+	private final int requiredLevel;
+	
+	public Quest(String name) {
+		this.name = name;
+		this.description = "";
+		this.rewardExperience = 0;
+		this.requiredLevel = 0;
 
-	public Quest(String name, String description, long rewardExperience) {
+	}
+
+	public Quest(String name, String description, long rewardExperience, int requiredLevel) {
 		this.name = name;
 		this.description = description;
 		this.rewardExperience = rewardExperience;
+		this.requiredLevel = requiredLevel;
 
 	}
 
@@ -34,7 +46,7 @@ public class Quest {
 	}
 
 	public void start() {
-		if (status != Status.NOT_STARTED) {
+		if (status != Status.AVAILABLE) {
 			throw new IllegalStateException("Quest has already been started or completed.");
 		}
 		status = Status.STARTED;
@@ -46,5 +58,13 @@ public class Quest {
 		}
 		
 		status = Status.COMPLETED;
+	}
+
+	public boolean meetsRequirement(Player player) {
+		if (player.getLevel() <= requiredLevel) {
+			throw new ArithmeticException("Player does not meet the level requirements!");
+		}
+		return true;
+		
 	}
 }

@@ -68,7 +68,8 @@ public class BasePlayer implements Player {
 	public void takeDamage(int damage) {
 		setHealth(health - damage);
 	}
-	public void useEnergy(int energy){
+
+	public void useEnergy(int energy) {
 		setEnergy(this.energy - energy);
 	}
 
@@ -140,7 +141,7 @@ public class BasePlayer implements Player {
 	public Set<Profession> getProfessions() {
 		return Collections.unmodifiableSet(professions);
 	}
-	
+
 	public boolean containsRace(String raceName) {
 		boolean contains = false;
 		for (Race race : races) {
@@ -150,7 +151,7 @@ public class BasePlayer implements Player {
 		}
 		return contains;
 	}
-	
+
 	@Override
 	public String getName() {
 		return name;
@@ -218,7 +219,7 @@ public class BasePlayer implements Player {
 		if (newEnergy > maxEnergy) {
 			throw new IllegalStateException("Energy can't be higher than max Energy");
 		}
-		if(newEnergy <= 0){
+		if (newEnergy <= 0) {
 			energy = 0;
 			return;
 		}
@@ -226,7 +227,7 @@ public class BasePlayer implements Player {
 	}
 
 	public void setMaxEnergy(int newEnergy) {
-		if(newEnergy <= 0){
+		if (newEnergy <= 0) {
 			throw new IllegalStateException("max energy can't be <=0");
 		}
 		maxEnergy = newEnergy;
@@ -236,7 +237,7 @@ public class BasePlayer implements Player {
 		if (newHealth > maxHealth) {
 			throw new IllegalStateException("Health can't be higher than max Health");
 		}
-		if(newHealth <= 0){
+		if (newHealth <= 0) {
 			health = 0;
 			return;
 		}
@@ -244,25 +245,32 @@ public class BasePlayer implements Player {
 	}
 
 	public void setMaxHealth(int newHealth) {
-		if(newHealth <= 0){
+		if (newHealth <= 0) {
 			throw new IllegalStateException("max health can't be <=0");
 		}
 		maxHealth = newHealth;
 	}
 
 	public void setStrength(int newStrength) {
-		if(newStrength <= 0){
+		if (newStrength <= 0) {
 			throw new IllegalStateException("Strength can't be <=0");
 		}
 		strength = newStrength;
 	}
 
 	public void setSpeed(int newSpeed) {
-		if(newSpeed <= 0){
+		if (newSpeed <= 0) {
 			throw new IllegalStateException("Speed can't be <=0");
 		}
 		speed = newSpeed;
+	}
 
+	@Override
+	public void setLevel(int newLevel) {
+		if (newLevel <= 0) {
+			throw new IllegalStateException("Speed can't be <=0");
+		}
+		level = newLevel;
 	}
 
 }

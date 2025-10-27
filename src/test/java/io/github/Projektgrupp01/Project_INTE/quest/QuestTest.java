@@ -12,7 +12,7 @@ class QuestTest {
 
 	@BeforeEach
 	void setUp() {
-		quest = new Quest("Help the village!", "Kill 5 rats to save the village.", 50);
+		quest = new Quest("Help the village!", "Kill 5 rats to save the village.", 50, 0);
 	}
 
 	@Test
@@ -27,7 +27,7 @@ class QuestTest {
 
 	@Test
 	void questsStartsWithStatusNotStarted() {
-		assertEquals(Quest.Status.NOT_STARTED, quest.getStatus());
+		assertEquals(Quest.Status.AVAILABLE, quest.getStatus());
 	}
 
 	@Test
@@ -47,4 +47,5 @@ class QuestTest {
 		quest.complete();
 		assertEquals(Quest.Status.COMPLETED, quest.getStatus());
 	}
+
 }

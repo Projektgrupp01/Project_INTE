@@ -25,13 +25,14 @@ Can lose health
 Can die
 Has disposition towards player (Hostile, friendly, neutral)
 Can be interacted with (Friendly greets you, neutral ignores you and hostile attacks)
+Can offer quests
 NPCs are considered Creatures
 
 Quests:
 Name
 Description
-Status (Not started, started, completed)
-Mission (Later)
+Status 
+Mission stages/steps
 Reward
 
 Magic functionality:
