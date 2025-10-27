@@ -11,9 +11,11 @@ import io.github.Projektgrupp01.Project_INTE.professions.Profession;
 import java.util.Collections;
 
 public class BasePlayer implements Player {
+	private int maxHealth;
 	private int health;
 	private int speed;
 	private int strength;
+	private int maxEnergy;
 	private int energy;
 	private String name;
 	private Set<Spell> spellBook = new HashSet<>();
@@ -34,12 +36,14 @@ public class BasePlayer implements Player {
 		this.energy = 100;
 	}
 
-	public BasePlayer(String name, int health, int speed, int strength, int energy, int level) {
+	public BasePlayer(String name, int maxHealth, int speed, int strength, int maxEnergy, int level) {
 		this.name = name;
-		this.health = health;
+		this.maxHealth = maxHealth;
+		this.health = maxHealth;
 		this.speed = speed;
 		this.strength = strength;
-		this.energy = energy;
+		this.maxEnergy = maxEnergy;
+		this.energy = maxEnergy;
 		this.level = level;
 	}
 
@@ -111,11 +115,11 @@ public class BasePlayer implements Player {
 			races.add(race);
 		}
 	}
-	
-	public Set<Race> getRaces(){
+
+	public Set<Race> getRaces() {
 		return Collections.unmodifiableSet(races);
 	}
-	
+
 	public void addProfession(Profession profession) {
 		if (profession == null) {
 			throw new IllegalArgumentException("Profession cannot be null");
@@ -130,11 +134,11 @@ public class BasePlayer implements Player {
 			professions.add(profession);
 		}
 	}
-	
-	public Set<Profession> getProfessions(){
+
+	public Set<Profession> getProfessions() {
 		return Collections.unmodifiableSet(professions);
 	}
-	
+
 	@Override
 	public String getName() {
 		return name;
@@ -167,7 +171,7 @@ public class BasePlayer implements Player {
 	public Set<Quest> getActiveQuests() {
 		return Collections.unmodifiableSet(startedQuests);
 	}
-	
+
 	public Set<Quest> getCompletedQuest() {
 		return Collections.unmodifiableSet(completedQuests);
 	}
@@ -198,11 +202,35 @@ public class BasePlayer implements Player {
 		quest.complete();
 	}
 
-	public void setEnergy(int newEnergy){
+	public void setEnergy(int newEnergy) {
+		if (newEnergy > maxEnergy) {
+			throw new IllegalStateException("Energy can't be higher than max Energy");
+		}
 		energy = newEnergy;
 	}
-	public void setHealth(int newHealth){
+
+	public void setMaxEnergy(int newEnergy) {
+		maxEnergy = newEnergy;
+	}
+
+	public void setHealth(int newHealth) {
+		if (newHealth > maxHealth) {
+			throw new IllegalStateException("Health can't be higher than max Health");
+		}
 		health = newHealth;
+	}
+
+	public void setMaxHealth(int newHealth) {
+		maxHealth = newHealth;
+	}
+
+	public void setStrength(int newStrength) {
+		strength = newStrength;
+	}
+
+	public void setSpeed(int newSpeed) {
+		speed = newSpeed;
+
 	}
 
 }
