@@ -2,30 +2,28 @@ package io.github.Projektgrupp01.Project_INTE.spells;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
-import io.github.Projektgrupp01.Project_INTE.races.Dwarf;
-import io.github.Projektgrupp01.Project_INTE.races.Elf;
 
 public class AttackSpells {
 
-    private AttackSpells() {}
+    private AttackSpells() {
+    }
 
-    //if damageModifier = 100 then the damage is not modified
-    private static void energyDamage(BasePlayer player, BaseNPC npc, Spell spell, int damageModifier){
+    // if damageModifier = 100 then the damage is not modified
+    private static void energyDamage(BasePlayer player, BaseNPC npc, Spell spell, int damageModifier) {
         player.useEnergy(spell.getEnergyCost());
-        int damage = (int) (spell.getDamage()*(damageModifier/100.0));
+        int damage = (int) (spell.getDamage() * (damageModifier / 100.0));
         npc.takeDamage(damage);
 
     }
 
     public static void attack(BasePlayer player, BaseNPC npc, Spell spell) {
         if (player.getEnergy() >= spell.getEnergyCost() && player.getSpellBook().contains(spell)) {
-            switch (spell.getSpellType()) { //switch in case I want to add more functionallity to other spells
+            switch (spell.getSpellType()) { // switch ifall jag vill lägga till mer funktionalitet i andra spells
                 case NATURE:
                     if (player.containsRace("dwarf") && !player.containsRace("elf")) {
                         energyDamage(player, npc, spell, 80);
                         return;
-                    }
-                    else if (player.containsRace("elf")) {
+                    } else if (player.containsRace("elf")) {
                         energyDamage(player, npc, spell, 120);
                         return;
                     }
