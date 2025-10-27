@@ -1,6 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.professions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 
@@ -59,6 +60,27 @@ public class ProfessionTest {
 		doc.setProfessionLevel(3);
 		doc.levelUpProfession();
 		assertEquals(doc.getProfessionLevel(), 4);
+	}
+	
+	@Test
+	void basicSelfHealOnNonDoctor() {
+		BasePlayer player = new BasePlayer();
+		player.takeDamage(1);
+		int healthBefore = player.getHealth();
+		Doctor.basicSelfHeal(player);
+		assertEquals(player.getHealth(), healthBefore); //the heal is just supposed to do nothing
+	}
+	
+	@Test 
+	void basicSelfHealOnLevel1Doctor() {
+		BasePlayer player = new BasePlayer();
+		player.takeDamage(1);
+		int healthBefore = player.getHealth();
+		Doctor doc = new Doctor();
+		doc.levelUpProfession();
+		player.addProfession(doc);
+		Doctor.basicSelfHeal(player);
+		assertTrue(player.getHealth() > healthBefore);
 	}
 	
 }

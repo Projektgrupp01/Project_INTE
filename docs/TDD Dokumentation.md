@@ -16,7 +16,8 @@ Race functionality
 BasePlayer has Set with Races
 
 Profession functionality
-Baseplayer has Set with Races
+Baseplayer has Set with Profession
+The doctor profession has a basic self heal. Implemented as something that just does nothing if player isn't a doctor
 
 NPC functionality
 Has Health

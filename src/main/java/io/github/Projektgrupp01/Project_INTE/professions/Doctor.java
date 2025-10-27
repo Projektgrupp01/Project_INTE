@@ -8,8 +8,16 @@ public class Doctor extends Profession{
 		super("Doctor");
 	}
 	
-	public static void basicSelfHeal(BasePlayer p) {
-		
+	public static void basicSelfHeal(BasePlayer player) {
+		int found = 0;
+		for (Profession prof : player.getProfessions()) {
+			if (prof.getProfessionName().equals("Doctor")&&prof.getProfessionLevel()>0) {
+				found =1;
+			}
+		}
+		if (found == 1) {
+			player.takeDamage(-1); //Add different method to baseplayer instead 
+		}
 	}
 
 }
