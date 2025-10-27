@@ -2,37 +2,47 @@ package io.github.Projektgrupp01.Project_INTE.map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import io.github.Projektgrupp01.Project_INTE.Map.BaseMap;
+import io.github.Projektgrupp01.Project_INTE.Map.Map;
+import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.Creature;
+import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import io.github.Projektgrupp01.Project_INTE.Map.Map;
 
 import java.util.Arrays;
 import java.lang.StringBuilder;
 import java.util.List;
 
-//borde verkligen döpa om testen
-//samordna så att map skapar inför varje test?
-//lägg till felmeddelanden för alla test?
 public class MapTest {
-    //borde jag testa initialisering av map med 0 el. neg?
 
     @Test
-    void getMapTest_notNull(){ //ändra t ngn annan assert? lista?
-       //byt namn + stil på test så det matchar toString-testen?
-        Map map = new Map(3, 4);
-        assertNotNull(map.getMap()); //borde jag ha assertequals eller nått här?
-        //ngt annat test som bekräftar att map:ens utseende är korrekt
+    void getMapTest_notNull_noInitializers(){
+       BaseMap map = new BaseMap();
+       assertNotNull(map.getMap());
+    }
+
+    @Test
+    void getMapTest_notNull_withInitializers(){
+        Map map = new BaseMap(3, 4);
+        assertNotNull(map.getMap());
     }
 
     @Test
     void getMapTest_noInitializers(){
-        Map map = new Map();
+        Map map = new BaseMap();
         char[][] array = new char[20][20];
         for(char[] row: array){
             Arrays.fill(row, '#');
         }
-        assertArrayEquals(map.getMap(), array);
+        assertArrayEquals(array, map.getMap());
+    }
+
+    @Test
+    void getMapTest_withInitializers(){
+        BaseMap map = new BaseMap(3, 4);
+        char[][] expected = {{'#','#', '#'},{'#','#', '#'},{'#','#', '#'}, {'#','#', '#'}};
+        assertArrayEquals(expected, map.getMap());
     }
 
     @Disabled
@@ -43,23 +53,23 @@ public class MapTest {
 
     //ev gör om dessa t sådant som testar m flera värden
     @Test
-    void createMapTest_x_noInitializers(){
-        Map map = new Map();
+    void createMapTest_x_noInitializers(){ //byt namn? testar skapandet av array inte karta
+        Map map = new BaseMap();
         char[][] mapArray = map.getMap();
-        assertEquals(20, mapArray[0].length); //vad exakt gör detta? dubbelkolla
+        assertEquals(20, mapArray[0].length);
     }
 
     @Test
-    void createMapTest_y_noInitializers(){
-        Map map = new Map();
+    void createMapTest_y_noInitializers(){ //byt namn? testar skapandet av array inte karta
+        Map map = new BaseMap();
         char[][] mapArray = map.getMap();
         assertEquals(20, mapArray.length);
     }
 
     @Disabled
-    @Test //döp om så man fattar det inte är namnet på en metod
-    void createMapTest_doesTunnelsExist(){
-        Map map = new Map();
+    @Test
+    void createMapTest_tunnelsExist(){
+        Map map = new BaseMap();
         char[][] mapArray = map.getMap();
 
         int nrOfTunnels = 0;
@@ -72,34 +82,24 @@ public class MapTest {
         }
 
         assertTrue(nrOfTunnels >= 50);
-    } //test för att kontrollera längd på gångar/storlek på rum?
-    //men då måste jag nog fixa så att jag kan lägga ut rum ordentligt först
-
-    @Disabled
-    @Test
-    void generateCreatures_Test(){
-        Map map = new Map();
-
-        //fixa annan/bättre loop?
-        //eller att man kan returnera position av enemies etc
-        List<Creature> creatures = map.getCreatures();
-
-        //borde jag göra ngt test för att kontrollera m vkn täthet de placeras?
-        assertTrue(creatures.size() >= 5);
-
     }
 
     @Disabled
     @Test
-    void generateStuff_Test(){ //byt namn
-        Map map = new Map();
-
-        //fixa annan/bättre loop?
-        //eller att man kan returnera position av enemies etc
-        List<Creature> creatures = map.getCreatures();
-
-        //borde jag göra ngt test för att kontrollera m vkn täthet de placeras?
+    void generateNPCs_Test(){
+        BaseMap map = new BaseMap();
+        List<BaseNPC> creatures = map.getNPCs();
         assertTrue(creatures.size() >= 5);
+    }
+
+    @Disabled
+    @Test
+    void generateEquipment_Test(){
+        BaseMap map = new BaseMap();
+
+        List<Equipment> equipment = map.getEquipment();
+
+        assertTrue(equipment.size() >= 5);
 
     }
 
@@ -117,14 +117,13 @@ public class MapTest {
 
     @Disabled
     @Test
-    void rememberMapTest(){ //byt namn t ngt mer begripligt
+    void rememberMapTest(){
 
     }
 
-    //tostring-testerna är väldigt lika...c suggestions
     @Test
     void Map_toStringTest_NoInitializers(){
-        Map map = new Map();
+        Map map = new BaseMap();
 
         StringBuilder expected = new StringBuilder();
         //för att testa att map-ens storlek/utseende blir som förväntat
@@ -134,22 +133,22 @@ public class MapTest {
             }
             expected.append("\n");
         }
-        assertEquals(map.toString(), expected.toString());
+        assertEquals(expected.toString(), map.toString());
     }
 
-    @Test
+    @Test //UGH. vet att det blir fel här med rader/kolumner. fixa sen!
     void Map_toStringTest_WithInitializers(){
-        Map map = new Map(30,11);
+        Map map = new BaseMap(30,11);
 
         StringBuilder expected = new StringBuilder();
         //för att testa att map-ens storlek/utseende blir som förväntat
-        for(int i = 0; i < 30; i++){
-            for(int j = 0; j < 11; j++){
+        for(int i = 0; i < 11; i++){ //rader - y
+            for(int j = 0; j < 30; j++){ //kolumner - x
                 expected.append("#");
             }
             expected.append("\n");
         }
-        assertEquals(map.toString(), expected.toString());
+        assertEquals(expected.toString(), map.toString());
     }
 
 }
