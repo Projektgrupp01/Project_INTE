@@ -1,6 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.professions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
@@ -70,6 +71,13 @@ public class ProfessionTest {
 		player.addProfession(baker);
 		assertEquals(2, player.getProfessions().size());
 		
+	}
+	
+	@Test 
+	void addNullProfession() {
+		BasePlayer player = new BasePlayer();
+		assertThrows(IllegalArgumentException.class,() -> { 
+           player.addProfession(null);});
 	}
 	
 	@Test

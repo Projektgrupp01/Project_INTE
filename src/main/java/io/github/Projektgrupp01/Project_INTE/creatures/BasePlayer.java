@@ -98,6 +98,9 @@ public class BasePlayer implements Player {
 	}
 
 	public void addRace(Race race) {
+		if (race == null) {
+			throw new IllegalArgumentException("Race cannot be null");
+		}
 		int duplicate = 0;
 		for (Race raceInSet : races) {
 			if (race.getRaceName().equals(raceInSet.getRaceName())) {
@@ -114,6 +117,9 @@ public class BasePlayer implements Player {
 	}
 	
 	public void addProfession(Profession profession) {
+		if (profession == null) {
+			throw new IllegalArgumentException("Profession cannot be null");
+		}
 		int duplicate = 0;
 		for (Profession prof : professions) {
 			if (prof.getProfessionName().equals(profession.getProfessionName())) {
