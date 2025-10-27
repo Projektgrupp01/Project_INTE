@@ -3,7 +3,11 @@ package io.github.Projektgrupp01.Project_INTE.creatures;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.github.Projektgrupp01.Project_INTE.quests.Quest;
+import io.github.Projektgrupp01.Project_INTE.quests.Quest.Status;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
+import io.github.Projektgrupp01.Project_INTE.races.Race;
+import io.github.Projektgrupp01.Project_INTE.professions.Profession;
 import java.util.Collections;
 
 public class BasePlayer implements Player {
@@ -12,7 +16,11 @@ public class BasePlayer implements Player {
 	private int strength;
 	private int energy;
 	private String name;
-	private HashSet<Spell> spellBook = new HashSet<>();
+	private Set<Spell> spellBook = new HashSet<>();
+	private Set<Quest> startedQuests = new HashSet<>();
+	private Set<Quest> completedQuests = new HashSet<>();
+	private Set<Race> races = new HashSet<>();
+	private Set<Profession> professions = new HashSet<>();
 	private int level = 1;
 	private long experience = 0;
 	private final long baseExp = 100;
@@ -89,6 +97,44 @@ public class BasePlayer implements Player {
 		spellBook.remove(spell);
 	}
 
+	public void addRace(Race race) {
+		if (race == null) {
+			throw new IllegalArgumentException("Race cannot be null");
+		}
+		int duplicate = 0;
+		for (Race raceInSet : races) {
+			if (race.getRaceName().equals(raceInSet.getRaceName())) {
+				duplicate = 1;
+			}
+		}
+		if (duplicate == 0) {
+			races.add(race);
+		}
+	}
+	
+	public Set<Race> getRaces(){
+		return Collections.unmodifiableSet(races);
+	}
+	
+	public void addProfession(Profession profession) {
+		if (profession == null) {
+			throw new IllegalArgumentException("Profession cannot be null");
+		}
+		int duplicate = 0;
+		for (Profession prof : professions) {
+			if (prof.getProfessionName().equals(profession.getProfessionName())) {
+				duplicate = 1;
+			}
+		}
+		if (duplicate == 0) {
+			professions.add(profession);
+		}
+	}
+	
+	public Set<Profession> getProfessions(){
+		return Collections.unmodifiableSet(professions);
+	}
+	
 	@Override
 	public String getName() {
 		return name;
@@ -116,6 +162,40 @@ public class BasePlayer implements Player {
 			experience -= getExperienceToNextLevel();
 			level++;
 		}
+	}
+
+	public Set<Quest> getActiveQuests() {
+		return Collections.unmodifiableSet(startedQuests);
+	}
+	
+	public Set<Quest> getCompletedQuest() {
+		return Collections.unmodifiableSet(completedQuests);
+	}
+
+	public void acceptQuest(Quest quest) {
+		if (quest == null) {
+			throw new NullPointerException("Quest cannot be null");
+		}
+		if (startedQuests.contains(quest) || completedQuests.contains(quest)) {
+			throw new IllegalStateException("Quest is already started or completed.");
+		}
+		startedQuests.add(quest);
+		quest.start();
+	}
+
+	public void completeQuest(Quest quest) {
+		if (quest == null) {
+			throw new NullPointerException("Quest cannot be null");
+		}
+		if (!startedQuests.contains(quest)) {
+			throw new IllegalStateException("Quest has not been accepted yet.");
+		}
+		if (completedQuests.contains(quest)) {
+			throw new IllegalStateException("Quest has already been completed.");
+		}
+		startedQuests.add(quest);
+		addExperience(quest.getReward());
+		quest.complete();
 	}
 
 }

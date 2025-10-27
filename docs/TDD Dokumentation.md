@@ -10,9 +10,14 @@ Can die.
 Should be possible to adjust stats with items, magic buffs, jobs, races
 added a spellbook. can add spells and remove spells.
 can gain experience and levels
+players are considered Creatures
 
 Race functionality
-Has name of race that can be gotten with getRace() using a decorator
+BasePlayer has Set with Races
+
+Profession functionality
+Baseplayer has Set with Profession
+The doctor profession has a basic self heal. Implemented as something that just does nothing if player isn't a doctor
 
 NPC functionality
 Has Health
@@ -20,8 +25,14 @@ Can lose health
 Can die
 Has disposition towards player (Hostile, friendly, neutral)
 Can be interacted with (Friendly greets you, neutral ignores you and hostile attacks)
+NPCs are considered Creatures
 
-NPCs and Players are considered Creatures
+Quests:
+Name
+Description
+Status (Not started, started, completed)
+Mission (Later)
+Reward
 
 Magic functionality:
 Consumes energy
