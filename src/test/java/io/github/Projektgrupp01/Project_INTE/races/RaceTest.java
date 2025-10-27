@@ -73,4 +73,20 @@ public class RaceTest {
 		assertEquals(elf.toString(),"Elf");
 
 	}
+	
+	@Test 
+	void doesContainRace() {
+		BasePlayer player = new BasePlayer();
+		Race elf = new Elf();
+		player.addRace(elf);
+		assertTrue(player.containsRace("Elf"));
+	}
+	
+	@Test 
+	void doesNotContainRace() {
+		BasePlayer player = new BasePlayer();
+		Race elf = new Elf();
+		player.addRace(elf);
+		assertFalse(player.containsRace("Dwarf"));
+	}
 }

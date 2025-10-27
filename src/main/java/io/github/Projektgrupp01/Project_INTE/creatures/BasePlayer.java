@@ -135,6 +135,16 @@ public class BasePlayer implements Player {
 		return Collections.unmodifiableSet(professions);
 	}
 	
+	public boolean containsRace(String raceName) {
+		boolean contains = false;
+		for (Race race : races) {
+			if (race.getRaceName() == raceName) {
+				contains = true;
+			}
+		}
+		return contains;
+	}
+	
 	@Override
 	public String getName() {
 		return name;
