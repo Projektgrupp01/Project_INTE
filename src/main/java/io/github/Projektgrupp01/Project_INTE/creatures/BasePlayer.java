@@ -66,6 +66,9 @@ public class BasePlayer implements Player {
 	public void takeDamage(int damage) {
 		setHealth(health - damage);
 	}
+	public void useEnergy(int energy){
+		setEnergy(this.energy - energy);
+	}
 
 	public boolean isDead() {
 		return health <= 0;
