@@ -1,5 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.creatures.decorators;
 
+import java.util.Set;
+
 import io.github.Projektgrupp01.Project_INTE.creatures.Player;
 import io.github.Projektgrupp01.Project_INTE.quests.Quest;
 
@@ -64,6 +66,10 @@ public abstract class PlayerDecorator implements Player {
 	public void addExperience(long amount) {
 		player.addExperience(amount);
 	}
+	@Override
+	public void setLevel(int setLevel) {
+		player.setLevel(setLevel);
+	}
 
 	@Override
 	public void acceptQuest(Quest quest) {
@@ -73,6 +79,10 @@ public abstract class PlayerDecorator implements Player {
 	@Override
 	public void completeQuest(Quest quest) {
 		player.completeQuest(quest);
+	}
+	@Override
+	public Set<Quest> getActiveQuests() {
+		return player.getActiveQuests();
 	}
 
 }
