@@ -316,4 +316,133 @@ public class EquipmentTest {
         Equipment robe = new Equipment("Velvet Robe", EquipmentType.CHEST);
         assertNull(robe.getPhysicalDefense());
     }
+
+    // Amulet and rings stats tests
+
+    @Test
+    void ringCanGiveHealthBonus() {
+        Equipment ring = new Equipment("Ring of Life", EquipmentType.RING);
+        ring.setHealthBonus(20);
+        assertEquals(20, ring.getHealthBonus());
+    }
+
+    @Test
+    void amuletCanGiveHealthBonus() {
+        Equipment amulet = new Equipment("Amulet of Life", EquipmentType.AMULET);
+        amulet.setHealthBonus(10);
+        assertEquals(10, amulet.getHealthBonus());
+    }
+
+    @Test
+    void healthBonusCannotBeNegative() {
+        Equipment ring = new Equipment("Ring", EquipmentType.RING);
+        try {
+            ring.setHealthBonus(-10);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void healthBonusCanBeZero() {
+        Equipment ring = new Equipment("Cosmetic Ring", EquipmentType.RING);
+        ring.setHealthBonus(0);
+        assertEquals(0, ring.getHealthBonus());
+    }
+
+    @Test
+    void ringWithoutHealthBonusReturnsNull() {
+        Equipment ring = new Equipment("Ring", EquipmentType.RING);
+        assertNull(ring.getHealthBonus());
+    }
+
+    @Test
+    void ringCanGiveEnergyBonus() {
+        Equipment ring = new Equipment("Ring of Energy", EquipmentType.RING);
+        ring.setEnergyBonus(15);
+        assertEquals(15, ring.getEnergyBonus());
+    }
+
+    @Test
+    void amuletCanGiveEnergyBonus() {
+        Equipment amulet = new Equipment("Amulet of Energy", EquipmentType.AMULET);
+        amulet.setEnergyBonus(25);
+        assertEquals(25, amulet.getEnergyBonus());
+    }
+
+    @Test
+    void energyBonusCannotBeNegative() {
+        Equipment amulet = new Equipment("Amulet", EquipmentType.AMULET);
+        try {
+            amulet.setEnergyBonus(-10);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void energyBonusCanBeZero() {
+        Equipment ring = new Equipment("Cosmetic Ring", EquipmentType.RING);
+        ring.setEnergyBonus(0);
+        assertEquals(0, ring.getEnergyBonus());
+    }
+
+    @Test
+    void weaponsCannotGiveEnergyBonus() {
+        Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
+        try {
+            sword.setEnergyBonus(60);
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException e) {
+        }
+    }
+
+    @Test
+    void ringCanGiveMagicBonus() {
+        Equipment ring = new Equipment("Ring of Magic", EquipmentType.RING);
+        ring.setMagicBonus(15);
+        assertEquals(15, ring.getMagicBonus());
+    }
+
+    @Test
+    void amuletCanGiveMagicBonus() {
+        Equipment amulet = new Equipment("Amulet of Magic", EquipmentType.AMULET);
+        amulet.setMagicBonus(25);
+        assertEquals(25, amulet.getMagicBonus());
+    }
+
+    @Test
+    void magicBonusCannotBeNegative() {
+        Equipment amulet = new Equipment("Amulet", EquipmentType.AMULET);
+        try {
+            amulet.setMagicBonus(-10);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void ringCanHaveMoreThanOneBonus() {
+        Equipment ring = new Equipment("Legendary Ring", EquipmentType.RING);
+        ring.setMagicBonus(20);
+        ring.setHealthBonus(15);
+        ring.setEnergyBonus(25);
+
+        assertEquals(20, ring.getMagicBonus());
+        assertEquals(15, ring.getHealthBonus());
+        assertEquals(25, ring.getEnergyBonus());
+    }
+
+    @Test
+    void amuletCanHaveMoreThanOneBonus() {
+        Equipment amulet = new Equipment("Divine Amulet", EquipmentType.AMULET);
+        amulet.setMagicBonus(30);
+        amulet.setHealthBonus(50);
+        amulet.setEnergyBonus(40);
+
+        assertEquals(30, amulet.getMagicBonus());
+        assertEquals(50, amulet.getHealthBonus());
+        assertEquals(40, amulet.getEnergyBonus());
+    }
+
 }

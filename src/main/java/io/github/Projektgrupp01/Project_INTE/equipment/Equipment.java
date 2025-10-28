@@ -1,5 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.equipment;
 
+import java.nio.channels.IllegalSelectorException;
+
 public class Equipment {
 
     private String name;
@@ -10,6 +12,9 @@ public class Equipment {
     private Integer magicDamage;
     private Integer physicalDefense;
     private Integer magicDefense;
+    private Integer magicBonus;
+    private Integer healthBonus;
+    private Integer energyBonus;
 
     public Equipment(String name, EquipmentType type) {
 
@@ -176,6 +181,50 @@ public class Equipment {
             totalDefense += magicDefense;
         }
         return totalDefense;
+    }
+
+    // magic power for amulets and rings
+    public void setMagicBonus(int magicBonus) {
+        if (type != EquipmentType.RING && type != EquipmentType.AMULET) {
+            throw new IllegalStateException("This equipment cannot give magic power");
+        }
+
+        if (magicBonus < 0) {
+            throw new IllegalArgumentException("Magic bonus cannot be negative");
+        }
+        this.magicBonus = magicBonus;
+    }
+
+    public Integer getMagicBonus() {
+        return magicBonus;
+    }
+
+    public void setHealthBonus(int healthBonus) {
+        if (type != EquipmentType.RING && type != EquipmentType.AMULET) {
+            throw new IllegalStateException("This equipment cannot give health bonus");
+        }
+        if (healthBonus < 0) {
+            throw new IllegalArgumentException("Health bonus cannot be negative");
+        }
+        this.healthBonus = healthBonus;
+    }
+
+    public Integer getHealthBonus() {
+        return healthBonus;
+    }
+
+    public void setEnergyBonus(int energyBonus) {
+        if (type != EquipmentType.RING && type != EquipmentType.AMULET) {
+            throw new IllegalStateException("This equipment cannot give energy bonus");
+        }
+        if (energyBonus < 0) {
+            throw new IllegalArgumentException("Energy bonus cannot be negative");
+        }
+        this.energyBonus = energyBonus;
+    }
+
+    public Integer getEnergyBonus() {
+        return energyBonus;
     }
 
 }
