@@ -1,5 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.spells;
 
+import io.github.Projektgrupp01.Project_INTE.Weather.WeatherEffect;
+import io.github.Projektgrupp01.Project_INTE.Weather.WorldState;
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 
@@ -16,21 +18,22 @@ public class AttackSpells {
 
     }
 
-    public static void attack(BasePlayer player, BaseNPC npc, Spell spell) {
+    public static void attack(BasePlayer player, BaseNPC npc, Spell spell, WorldState worldState) {
+        double m = WeatherEffect.modifier(spell.getSpellType(), worldState.getWeather());
         if (player.getEnergy() >= spell.getEnergyCost() && player.getSpellBook().contains(spell)) {
             switch (spell.getSpellType()) { // switch ifall jag vill lägga till mer funktionalitet i andra spells
                 case NATURE:
                     if (player.containsRace("dwarf") && !player.containsRace("elf")) {
-                        energyDamage(player, npc, spell, 80);
+                        energyDamage(player, npc, spell, (int) (80*m));
                         return;
                     } else if (player.containsRace("elf")) {
-                        energyDamage(player, npc, spell, 120);
+                        energyDamage(player, npc, spell, (int)(120*m));
                         return;
                     }
-                    energyDamage(player, npc, spell, 100);
+                    energyDamage(player, npc, spell, (int)(100*m));
                     return;
                 default:
-                    energyDamage(player, npc, spell, 100);
+                    energyDamage(player, npc, spell, (int)(100*m));
                     return;
             }
         }
