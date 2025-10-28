@@ -139,6 +139,15 @@ public class ProfessionTest {
 	}
 	
 	@Test
+	void levelUpWrongName() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		player.addProfession(doc);
+		Profession.levelUpNamedProfession(player, "Baker");
+		assertEquals(0, doc.getProfessionLevel());
+	}
+	
+	@Test
 	void basicSelfHealOnNonDoctor() {
 		BasePlayer player = new BasePlayer();
 		player.takeDamage(1);
@@ -153,7 +162,7 @@ public class ProfessionTest {
 		player.takeDamage(1);
 		int healthBefore = player.getHealth();
 		Doctor doc = new Doctor();
-		doc.levelUpProfession();
+		player.addProfession(doc);
 		Doctor.basicSelfHeal(player);
 		assertEquals(player.getHealth(), healthBefore);
 	}
