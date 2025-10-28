@@ -3,34 +3,34 @@ package io.github.Projektgrupp01.Project_INTE.map;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.github.Projektgrupp01.Project_INTE.Map.BaseMap;
-import io.github.Projektgrupp01.Project_INTE.Map.Map;
-import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
-import io.github.Projektgrupp01.Project_INTE.creatures.Creature;
-import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.lang.StringBuilder;
-import java.util.List;
 
 public class MapTest {
 
+    BaseMap map;
+
+    @BeforeEach
+    void createTestMap(){
+        map = new BaseMap();
+    }
+
     @Test
     void getMapTest_notNull_noInitializers(){
-       BaseMap map = new BaseMap();
        assertNotNull(map.getMap());
     }
 
     @Test
     void getMapTest_notNull_withInitializers(){
-        Map map = new BaseMap(3, 4);
+        map = new BaseMap(3, 4);
         assertNotNull(map.getMap());
     }
 
     @Test
     void getMapTest_noInitializers(){
-        Map map = new BaseMap();
         char[][] array = new char[20][20];
         for(char[] row: array){
             Arrays.fill(row, '#');
@@ -40,28 +40,25 @@ public class MapTest {
 
     @Test
     void getMapTest_withInitializers(){
-        BaseMap map = new BaseMap(4, 3);
+        map = new BaseMap(4, 3);
         char[][] expected = {{'#','#', '#'},{'#','#', '#'},{'#','#', '#'}, {'#','#', '#'}};
         assertArrayEquals(expected, map.getMap());
     }
 
     @Test
     void createMapTest_x_noInitializers(){
-        Map map = new BaseMap();
         char[][] mapArray = map.getMap();
         assertEquals(20, mapArray[0].length);
     }
 
     @Test
     void createMapTest_y_noInitializers(){
-        Map map = new BaseMap();
         char[][] mapArray = map.getMap();
         assertEquals(20, mapArray.length);
     }
 
     @Test
     void createMapTest_tunnelsExist(){
-        Map map = new BaseMap();
         map.createMap();
         char[][] mapArray = map.getMap();
 
@@ -72,28 +69,156 @@ public class MapTest {
             }
         }
         nrOfTunnels = (nrOfTunnels / mapArray.length);
-        //om jag lägger in density sen borde jag ändra här
+        //om jag lägger in density sen borde jag ändra här först
         assertTrue(nrOfTunnels >= 2, "nrOfTunnels: " + nrOfTunnels + " och 5/2: " + 5/2);
     }
 
     @Test
-    void generateNPCs_Test(){
-        BaseMap map = new BaseMap();
+    void generateNPCs_listNotNull(){
+        map.createMap();
         assertNotNull(map.getNPCs());
     }
 
     @Test
-    void generateEquipment_Test(){
-        BaseMap map = new BaseMap();
+    void generateEquipment_listNotNull(){
+        map.createMap();
         assertNotNull(map.getEquipment());
     }
 
-    //behövs fler tester för att utveckla populate
+    @Test
+    void checkNrOfNPCs_lowerBound(){
+        map.createMap();
+        assertTrue(map.getNPCs().size() >= 1, "Was actually: " + map.getNPCs());
+    }
+
+    @Test
+    void checkNrOfNPCs_upperBound(){
+        map.createMap();
+        assertTrue(map.getNPCs().size() <= 5);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl2upperBound(){
+        map.createMap(2);
+        assertTrue(map.getEquipment().size() <= 10);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl3upperBound(){
+        map.createMap(3);
+        assertTrue(map.getEquipment().size() <= 15);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl4upperBound(){
+        map.createMap(4);
+        assertTrue(map.getEquipment().size() <= 20);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl5upperBound(){
+        map.createMap(5);
+        assertTrue(map.getEquipment().size() <= 25);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl6upperBound(){
+        map.createMap(6);
+        assertTrue(map.getEquipment().size() <= 30);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl7upperBound(){
+        map.createMap(7);
+        assertTrue(map.getEquipment().size() <= 35);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl8upperBound(){
+        map.createMap(8);
+        assertTrue(map.getEquipment().size() <= 40);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl9upperBound(){
+        map.createMap(9);
+        assertTrue(map.getEquipment().size() <= 45);
+    }
+
+    @Test
+    void checkNrOfNPCsByPlayerLevel_lvl10upperBound(){
+        map.createMap(10);
+        assertTrue(map.getEquipment().size() <= 50);
+    }
+
+    @Test
+    void checkNrOfEquipment_lowerBound(){
+        map.createMap();
+        assertTrue(map.getEquipment().size() >= 1);
+    }
+
+    @Test
+    void checkNrOfEquipment_upperBound(){
+        map.createMap();
+        assertTrue(map.getEquipment().size() <= 5);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl2upperBound(){
+        map.createMap(2);
+        assertTrue(map.getEquipment().size() <= 10);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl3upperBound(){
+        map.createMap(3);
+        assertTrue(map.getEquipment().size() <= 15);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl4upperBound(){
+        map.createMap(4);
+        assertTrue(map.getEquipment().size() <= 20);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl5upperBound(){
+        map.createMap(5);
+        assertTrue(map.getEquipment().size() <= 25);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl6upperBound(){
+        map.createMap(6);
+        assertTrue(map.getEquipment().size() <= 30);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl7upperBound(){
+        map.createMap(7);
+        assertTrue(map.getEquipment().size() <= 35);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl8upperBound(){
+        map.createMap(8);
+        assertTrue(map.getEquipment().size() <= 40);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl9upperBound(){
+        map.createMap(9);
+        assertTrue(map.getEquipment().size() <= 45);
+    }
+
+    @Test
+    void checkNrOfEquipmentByPlayerLevel_lvl10upperBound(){
+        map.createMap(10);
+        assertTrue(map.getEquipment().size() <= 50);
+    }
 
     @Test
     void Map_toStringTest_NoInitializers(){
-        Map map = new BaseMap();
-
         StringBuilder expected = new StringBuilder();
         for(int i = 0; i < 20; i++){
             for(int j = 0; j < 20; j++){
@@ -106,7 +231,7 @@ public class MapTest {
 
     @Test
     void Map_toStringTest_WithInitializers(){
-        Map map = new BaseMap(30,11);
+        map = new BaseMap(30,11);
 
         StringBuilder expected = new StringBuilder();
         for(int i = 0; i < 30; i++){
