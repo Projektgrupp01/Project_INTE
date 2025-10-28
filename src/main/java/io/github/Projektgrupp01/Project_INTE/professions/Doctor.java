@@ -12,7 +12,6 @@ public class Doctor extends Profession{
 		super("Doctor", startingLevel);
 	}
 	
-	//Heal player if player has at least one level of Doctor
 	public static void basicSelfHeal(BasePlayer player) {
 		int found = 0;
 		for (Profession prof : player.getProfessions()) {
@@ -21,7 +20,7 @@ public class Doctor extends Profession{
 			}
 		}
 		if (found == 1) {
-			player.takeDamage(-1); //Add different method to basePlayer instead?
+			player.takeDamage(-1);
 		}
 	}
 

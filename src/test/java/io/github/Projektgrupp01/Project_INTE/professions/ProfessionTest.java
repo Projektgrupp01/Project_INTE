@@ -53,7 +53,7 @@ public class ProfessionTest {
 	}
 	
 	@Test
-	void addTwoSameProfession() {
+	void addTwoProfessionSameName() {
 		BasePlayer player = new BasePlayer();
 		Doctor doc = new Doctor();
 		Doctor doc2 = new Doctor();
@@ -143,7 +143,18 @@ public class ProfessionTest {
 		player.takeDamage(1);
 		int healthBefore = player.getHealth();
 		Doctor.basicSelfHeal(player);
-		assertEquals(player.getHealth(), healthBefore); //the heal is just supposed to do nothing
+		assertEquals(player.getHealth(), healthBefore);
+	}
+	
+	@Test
+	void basicSelfHealOnLevel0Doctor() {
+		BasePlayer player = new BasePlayer();
+		player.takeDamage(1);
+		int healthBefore = player.getHealth();
+		Doctor doc = new Doctor();
+		doc.levelUpProfession();
+		Doctor.basicSelfHeal(player);
+		assertEquals(player.getHealth(), healthBefore);
 	}
 	
 	@Test 
