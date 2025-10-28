@@ -3,7 +3,6 @@ package io.github.Projektgrupp01.Project_INTE.equipment;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -155,4 +154,319 @@ public class EquipmentTest {
         } catch (IllegalStateException e) {
         }
     }
+
+    // Equipment stats tests
+
+    // Attack tests
+    @Test
+    void weaponDealsAttackDamage() {
+        Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
+        sword.setAttackDamage(30);
+        assertEquals(30, sword.getAttackDamage());
+
+    }
+
+    @Test
+    void weaponCannotDealNegativeDamage() {
+        Equipment spear = new Equipment("Spear", EquipmentType.WEAPON);
+        try {
+            spear.setAttackDamage(-15);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+
+        }
+    }
+
+    @Test
+    void weaponDealsMagicDamage() {
+
+        Equipment magicSword = new Equipment("Magic Sword", EquipmentType.WEAPON);
+        magicSword.setMagicDamage(25);
+        assertEquals(25, magicSword.getMagicDamage());
+    }
+
+    @Test
+    void weaponCanDealHybridDamage() {
+
+        Equipment soulBlade = new Equipment("Soul Blade", EquipmentType.WEAPON);
+        soulBlade.setAttackDamage(10);
+        soulBlade.setMagicDamage(10);
+        assertEquals(10, soulBlade.getAttackDamage());
+        assertEquals(10, soulBlade.getMagicDamage());
+        assertEquals(20, soulBlade.getTotalDamage());
+    }
+
+    @Test
+    void weaponCanDealZeroDamage() {
+        Equipment soulBlade = new Equipment("Soul Blade", EquipmentType.WEAPON);
+        soulBlade.setAttackDamage(0);
+        soulBlade.setMagicDamage(0);
+        assertEquals(0, soulBlade.getAttackDamage());
+        assertEquals(0, soulBlade.getMagicDamage());
+    }
+
+    @Test
+    void weaponWithoutDamageTypeReturnsNull() {
+        Equipment stick = new Equipment("Stick", EquipmentType.WEAPON);
+        assertNull(stick.getAttackDamage());
+        assertNull(stick.getMagicDamage());
+    }
+
+    // Defense tests
+
+    @Test
+    void helmetWithPhysicalDefense() {
+        Equipment helmet = new Equipment("Iron Helmet", EquipmentType.HELMET);
+        helmet.setPhysicalDefense(5);
+        assertEquals(5, helmet.getPhysicalDefense());
+    }
+
+    @Test
+    void chestWithPhysicalDefense() {
+        Equipment chest = new Equipment("Iron Chest", EquipmentType.CHEST);
+        chest.setPhysicalDefense(6);
+        assertEquals(6, chest.getPhysicalDefense());
+    }
+
+    @Test
+    void legsWithMagicDefense() {
+        Equipment legs = new Equipment("Warded Legplates", EquipmentType.LEGS);
+        legs.setMagicDefense(5);
+        assertEquals(5, legs.getMagicDefense());
+    }
+
+    @Test
+    void bootsWithMagicDefense() {
+        Equipment boots = new Equipment("Warded Boots", EquipmentType.BOOTS);
+        boots.setMagicDefense(6);
+        assertEquals(6, boots.getMagicDefense());
+    }
+
+    @Test
+    void armorCanHaveHybridDefense() {
+        Equipment chestplate = new Equipment("Voidsteel Chestplate", EquipmentType.CHEST);
+        chestplate.setPhysicalDefense(5);
+        chestplate.setMagicDefense(10);
+
+        assertEquals(5, chestplate.getPhysicalDefense());
+        assertEquals(10, chestplate.getMagicDefense());
+        assertEquals(15, chestplate.getTotalDefense());
+    }
+
+    @Test
+    void magicDefenseCannotBeNegative() {
+        Equipment gloves = new Equipment("Voidsteel Gloves", EquipmentType.GLOVES);
+        try {
+            gloves.setMagicDefense(-6);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void physicalDefenseCannotBeNegative() {
+        Equipment gloves = new Equipment("Voidsteel Gloves", EquipmentType.GLOVES);
+        try {
+            gloves.setPhysicalDefense(-5);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void weaponsCannotHaveMagicDefenseStats() {
+        Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
+        try {
+            sword.setMagicDefense(6);
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException e) {
+        }
+    }
+
+    @Test
+    void weaponsCannotHavePhysicalDefenseStats() {
+        Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
+        try {
+            sword.setPhysicalDefense(5);
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException e) {
+        }
+    }
+
+    @Test
+    void ringsCannotHaveDefenseStats() {
+        Equipment ring = new Equipment("Magic Ring", EquipmentType.RING);
+        try {
+            ring.setPhysicalDefense(5);
+            ring.setMagicDefense(6);
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException e) {
+        }
+    }
+
+    @Test
+    void defenseCanBeZero() {
+        Equipment hat = new Equipment("Velvet Hat", EquipmentType.HELMET);
+        hat.setPhysicalDefense(0);
+        assertEquals(0, hat.getPhysicalDefense());
+    }
+
+    @Test
+    void armorWithoutDefenseReturnsNull() {
+        Equipment robe = new Equipment("Velvet Robe", EquipmentType.CHEST);
+        assertNull(robe.getPhysicalDefense());
+    }
+
+    // Amulet and rings stats tests
+
+    @Test
+    void ringCanGiveHealthBonus() {
+        Equipment ring = new Equipment("Ring of Life", EquipmentType.RING);
+        ring.setHealthBonus(20);
+        assertEquals(20, ring.getHealthBonus());
+    }
+
+    @Test
+    void amuletCanGiveHealthBonus() {
+        Equipment amulet = new Equipment("Amulet of Life", EquipmentType.AMULET);
+        amulet.setHealthBonus(10);
+        assertEquals(10, amulet.getHealthBonus());
+    }
+
+    @Test
+    void healthBonusCannotBeNegative() {
+        Equipment ring = new Equipment("Ring", EquipmentType.RING);
+        try {
+            ring.setHealthBonus(-10);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void healthBonusCanBeZero() {
+        Equipment ring = new Equipment("Cosmetic Ring", EquipmentType.RING);
+        ring.setHealthBonus(0);
+        assertEquals(0, ring.getHealthBonus());
+    }
+
+    @Test
+    void ringWithoutHealthBonusReturnsNull() {
+        Equipment ring = new Equipment("Ring", EquipmentType.RING);
+        assertNull(ring.getHealthBonus());
+    }
+
+    @Test
+    void ringCanGiveEnergyBonus() {
+        Equipment ring = new Equipment("Ring of Energy", EquipmentType.RING);
+        ring.setEnergyBonus(15);
+        assertEquals(15, ring.getEnergyBonus());
+    }
+
+    @Test
+    void amuletCanGiveEnergyBonus() {
+        Equipment amulet = new Equipment("Amulet of Energy", EquipmentType.AMULET);
+        amulet.setEnergyBonus(25);
+        assertEquals(25, amulet.getEnergyBonus());
+    }
+
+    @Test
+    void energyBonusCannotBeNegative() {
+        Equipment amulet = new Equipment("Amulet", EquipmentType.AMULET);
+        try {
+            amulet.setEnergyBonus(-10);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void energyBonusCanBeZero() {
+        Equipment ring = new Equipment("Cosmetic Ring", EquipmentType.RING);
+        ring.setEnergyBonus(0);
+        assertEquals(0, ring.getEnergyBonus());
+    }
+
+    @Test
+    void weaponsCannotGiveEnergyBonus() {
+        Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
+        try {
+            sword.setEnergyBonus(60);
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException e) {
+        }
+    }
+
+    @Test
+    void ringCanGiveMagicBonus() {
+        Equipment ring = new Equipment("Ring of Magic", EquipmentType.RING);
+        ring.setMagicBonus(15);
+        assertEquals(15, ring.getMagicBonus());
+    }
+
+    @Test
+    void amuletCanGiveMagicBonus() {
+        Equipment amulet = new Equipment("Amulet of Magic", EquipmentType.AMULET);
+        amulet.setMagicBonus(25);
+        assertEquals(25, amulet.getMagicBonus());
+    }
+
+    @Test
+    void magicBonusCannotBeNegative() {
+        Equipment amulet = new Equipment("Amulet", EquipmentType.AMULET);
+        try {
+            amulet.setMagicBonus(-10);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void ringCanHaveMoreThanOneBonus() {
+        Equipment ring = new Equipment("Legendary Ring", EquipmentType.RING);
+        ring.setMagicBonus(20);
+        ring.setHealthBonus(15);
+        ring.setEnergyBonus(25);
+
+        assertEquals(20, ring.getMagicBonus());
+        assertEquals(15, ring.getHealthBonus());
+        assertEquals(25, ring.getEnergyBonus());
+    }
+
+    @Test
+    void amuletCanHaveMoreThanOneBonus() {
+        Equipment amulet = new Equipment("Divine Amulet", EquipmentType.AMULET);
+        amulet.setMagicBonus(30);
+        amulet.setHealthBonus(50);
+        amulet.setEnergyBonus(40);
+
+        assertEquals(30, amulet.getMagicBonus());
+        assertEquals(50, amulet.getHealthBonus());
+        assertEquals(40, amulet.getEnergyBonus());
+    }
+
+    // Level requirements tests
+    @Test
+    void equipmentWithoutLevelRequirement() {
+        Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
+        assertEquals(0, sword.getLevelRequirement());
+    }
+
+    @Test
+    void equipmentWithLevelRequirement() {
+        Equipment sword = new Equipment("Samurai Sword", EquipmentType.WEAPON);
+        sword.setLevelRequirement(10);
+        assertEquals(10, sword.getLevelRequirement());
+    }
+
+    @Test
+    void levelRequirementCannotBeNegative() {
+        Equipment sword = new Equipment(" Negative Sword", EquipmentType.WEAPON);
+        try {
+            sword.setLevelRequirement(-5);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
 }
