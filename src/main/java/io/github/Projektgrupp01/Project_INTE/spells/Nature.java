@@ -1,9 +1,9 @@
 package io.github.Projektgrupp01.Project_INTE.spells;
 
-public class Nature extends Spell{
+public class Nature extends Spell {
 
-    protected Nature(){
-        super(5,7,"nature");
+    protected Nature() {
+        super(5, 7, "nature");
 
     }
 
@@ -20,5 +20,5 @@ public class Nature extends Spell{
     public String castSpell() {
         return "A nature spell has been casted!";
     }
-    
+
 }

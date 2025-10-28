@@ -16,10 +16,14 @@ import io.github.Projektgrupp01.Project_INTE.quests.Quest;
 public class PlayerTest {
 
 	private Player player;
+	private NPC friendlyNPC;
+	private Quest quest;
 
 	@BeforeEach
 	void setUp() {
 		player = new BasePlayer();
+		quest = new Quest("Test Quest", "Description of Test Quest.", 50, 0);
+		friendlyNPC = new BaseNPC("Friendly Bob", 1, NPC.Disposition.FRIENDLY);
 	}
 
 	@Test
@@ -91,21 +95,22 @@ public class PlayerTest {
 		player.addExperience(300);
 		assertEquals(3, player.getLevel());
 	}
+	@Test
+	void playerLevelCanBeSet() {
+		player.setLevel(2);
+		assertEquals((2), player.getLevel());
+	}
 
-//	@Test
-//	void playerCanAcceptQuestGivenByNPC() {
-//		Quest quest = new Quest("Help the village!", "Kill 5 rats to save the village.", 50);
-//		BaseNPC friendlyNPC = new BaseNPC("Friendly Bob", 50, NPC.Disposition.FRIENDLY);
-//		friendlyNPC.setQuest(quest);
-//		friendlyNPC.interact(player);
-//
-//		assertTrue(player.getActiveQuests().contains(quest));
-//		assertEquals(Quest.Status.STARTED, quest.getStatus());
-//	}
+	@Test
+	void playerCanAcceptQuestGivenByNPC() {
+		friendlyNPC.addQuest(quest);
+		friendlyNPC.interact(player);
+		assertTrue(player.getActiveQuests().contains(quest));
+		assertEquals(Quest.Status.STARTED, quest.getStatus());
+	}
 
 	@Test
 	void playerIsRewardedAndQuestCompletedByQuestCompletion() {
-		Quest quest = new Quest("Help the village!", "Kill 5 rats to save the village.", 50);
 		player.acceptQuest(quest);
 		player.completeQuest(quest);
 		assertEquals(Quest.Status.COMPLETED, quest.getStatus());

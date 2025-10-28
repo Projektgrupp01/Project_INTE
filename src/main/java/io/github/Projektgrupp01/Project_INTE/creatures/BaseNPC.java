@@ -1,5 +1,9 @@
 package io.github.Projektgrupp01.Project_INTE.creatures;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import io.github.Projektgrupp01.Project_INTE.quests.Quest;
 
 public class BaseNPC implements NPC {
@@ -10,6 +14,7 @@ public class BaseNPC implements NPC {
 	private int energy;
 	private String name;
 	private Disposition disposition;
+	private Set<Quest> offeredQuests = new HashSet<>();
 
 	public BaseNPC(String name, int health, Disposition disposition) {
 		this.name = name;
@@ -71,9 +76,16 @@ public class BaseNPC implements NPC {
 
 	@Override
 	public void interact(Creature otherCreature) {
+		if (!(otherCreature instanceof Player player)) return;
+		
 		switch (disposition) {
 		case FRIENDLY:
 			System.out.println(name + " greets you.");
+			for (Quest quest : offeredQuests) {
+				if (quest.meetsRequirement(player)) {
+					offerQuest(player, quest);
+				}
+			}
 			otherCreature.takeDamage(-10);
 			break;
 		case NEUTRAL:
@@ -88,5 +100,23 @@ public class BaseNPC implements NPC {
 		}
 
 	}
+	private void offerQuest(Player player, Quest quest) {
+		if (!quest.meetsRequirement(player)) {
+			throw new IllegalArgumentException("You do not meet the requirements.");
+		}
+		player.acceptQuest(quest);
+	}
+
+	@Override
+	public void addQuest(Quest quest) {
+		offeredQuests.add(quest);
+	}
+
+	@Override
+	public Set<Quest> getQuests() {
+		return Collections.unmodifiableSet(offeredQuests);
+	}
+	
+	
 
 }

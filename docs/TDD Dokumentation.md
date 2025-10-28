@@ -16,7 +16,8 @@ Race functionality
 BasePlayer has Set with Races
 
 Profession functionality
-Baseplayer has Set with Races
+Baseplayer has Set with Profession
+The doctor profession has a basic self heal. Implemented as something that just does nothing if player isn't a doctor
 
 NPC functionality
 Has Health
@@ -24,13 +25,14 @@ Can lose health
 Can die
 Has disposition towards player (Hostile, friendly, neutral)
 Can be interacted with (Friendly greets you, neutral ignores you and hostile attacks)
+Can offer quests
 NPCs are considered Creatures
 
 Quests:
 Name
 Description
-Status (Not started, started, completed)
-Mission (Later)
+Status 
+Mission stages/steps
 Reward
 
 Magic functionality:
@@ -41,3 +43,5 @@ has cast call
 
 Map functionality:
 based on 2-dimensional array, can return the structure in string format
+randomly generated map
+randomly generated "noice" (NPCs, equipment)
