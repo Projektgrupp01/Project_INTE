@@ -1,7 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.spells;
 
-import io.github.Projektgrupp01.Project_INTE.Weather.WeatherEffect;
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState;
+import io.github.Projektgrupp01.Project_INTE.World.WeatherEffect;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState;
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 

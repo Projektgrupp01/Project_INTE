@@ -13,9 +13,6 @@ public abstract class Spell {
         if (energyCost < 0) {
             throw new IllegalArgumentException("mana cost can't negative");
         }
-        if (energyCost < 0) {
-            throw new IllegalArgumentException("mana cost can't negative");
-        }
         if (damage < 0) {
             throw new IllegalArgumentException("damage can't negative");
         }

@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState;
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState.Weather;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState.Weather;
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition;
