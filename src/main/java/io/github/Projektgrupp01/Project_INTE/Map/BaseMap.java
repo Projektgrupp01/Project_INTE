@@ -1,13 +1,9 @@
 package io.github.Projektgrupp01.Project_INTE.Map;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
-import io.github.Projektgrupp01.Project_INTE.creatures.NPC;
 import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition.HOSTILE;
 import static io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType.CHEST;
@@ -20,7 +16,7 @@ public class BaseMap implements Map{
     private final int[][] DIRECTIONS = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
     private char [][] mapArray;
     private final char EQUIPMENT = 'x';
-    private final char NPC = 'n'; //ev ändra om du lägger till olika typer/vill lägga till specifik typ
+    private final char NPC = 'n';
     private ArrayList<BaseNPC> listOfNPCs = new ArrayList<>();
     private ArrayList<Equipment> listOfEquipment = new ArrayList<>();
 
@@ -39,25 +35,29 @@ public class BaseMap implements Map{
     }
 
     public List<BaseNPC> getNPCs(){
-        return new ArrayList<BaseNPC>();
+        return Collections.unmodifiableList(listOfNPCs);
     }
 
     public List<Equipment> getEquipment(){
-        return new ArrayList<Equipment>();
+        return Collections.unmodifiableList(listOfEquipment);
     }
 
-    //finns det ngn anledning till att ha kvar denna metod över huvud taget?
-    // ev slå ihop m createMap sen
     private void createArray(int x, int y){
         mapArray = new char[x][y];
        for(char[] row: mapArray){
             Arrays.fill(row, '#');
-        }
+       }
     }
 
     public void createMap(){
-        int steps = 300;
+        createMap(1, 300);
+    }
 
+    public void createMap(int level){
+        createMap(level, 300);
+    }
+
+    public void createMap(int level, int steps){
         mapArray[0][0] = ' ';
         int currentRow = 0;
         int currentColumn = 1;
@@ -77,8 +77,11 @@ public class BaseMap implements Map{
             }
         }
 
-        populateMap(NPC, random.nextInt(1,5));
-        populateMap(EQUIPMENT, random.nextInt(1,5));
+        int nrOfNPCs = level * random.nextInt(1,5);
+        int nrOfEquipment = level * random.nextInt(1,5);
+
+        populateMap(NPC, nrOfNPCs);
+        populateMap(EQUIPMENT, nrOfEquipment);
 
     }
 
@@ -88,7 +91,6 @@ public class BaseMap implements Map{
             int posY = random.nextInt(y);
             if(mapArray[posX][posY] == ' '){
                 mapArray[posX][posY] = object;
-                //fixa slumpning
                 if(object == NPC){ listOfNPCs.add(new BaseNPC("namnsson", 10, HOSTILE));}
                 else if(object == EQUIPMENT){listOfEquipment.add(new Equipment("namn", CHEST ));}
             }else{

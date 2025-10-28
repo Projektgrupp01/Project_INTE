@@ -18,6 +18,11 @@ public abstract class PlayerDecorator implements Player {
 	}
 
 	@Override
+	public int getMaxHealth() {
+		return player.getMaxHealth();
+	}
+
+	@Override
 	public int getSpeed() {
 		return player.getSpeed();
 	}
@@ -30,6 +35,11 @@ public abstract class PlayerDecorator implements Player {
 	@Override
 	public int getEnergy() {
 		return player.getEnergy();
+	}
+
+	@Override
+	public int getMaxEnergy() {
+		return player.getMaxEnergy();
 	}
 
 	@Override
@@ -66,6 +76,7 @@ public abstract class PlayerDecorator implements Player {
 	public void addExperience(long amount) {
 		player.addExperience(amount);
 	}
+
 	@Override
 	public void setLevel(int setLevel) {
 		player.setLevel(setLevel);
@@ -80,6 +91,7 @@ public abstract class PlayerDecorator implements Player {
 	public void completeQuest(Quest quest) {
 		player.completeQuest(quest);
 	}
+
 	@Override
 	public Set<Quest> getActiveQuests() {
 		return player.getActiveQuests();
