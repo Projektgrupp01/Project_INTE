@@ -2,12 +2,12 @@ package io.github.Projektgrupp01.Project_INTE.spells;
 
 public class Nature extends Spell {
 
-    protected Nature() {
+    public Nature() {
         super(5, 7, "nature");
 
     }
 
-    protected Nature(int energyCost, int damage, String name) {
+    public Nature(int energyCost, int damage, String name) {
         super(energyCost, damage, name);
     }
 

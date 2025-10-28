@@ -53,6 +53,10 @@ public class BasePlayer implements Player {
 		return health;
 	}
 
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
 	public int getSpeed() {
 		return speed;
 	}
@@ -63,6 +67,10 @@ public class BasePlayer implements Player {
 
 	public int getEnergy() {
 		return energy;
+	}
+
+	public int getMaxEnergy() {
+		return maxEnergy;
 	}
 
 	public void takeDamage(int damage) {
