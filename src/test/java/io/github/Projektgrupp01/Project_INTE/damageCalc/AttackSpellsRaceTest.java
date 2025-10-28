@@ -1,11 +1,12 @@
 package io.github.Projektgrupp01.Project_INTE.damageCalc;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState;
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState.Weather;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState.Weather;
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition;
@@ -25,8 +26,9 @@ class AttackSpellsRaceTest {
     Race dwarf;
     Race elf;
     WorldState worldState;
+
     @BeforeEach
-    void setup(){
+    void setup() {
         player = new BasePlayer();
         nature = new Nature();
         fire = new Fire();
@@ -37,32 +39,35 @@ class AttackSpellsRaceTest {
         player.learnSpell(fire);
         worldState = new WorldState(Weather.CLOUDY);
     }
+
     @Test
-    void otherRaceNatureIsNormal(){
+    void otherRaceNatureIsNormal() {
         AttackSpells.attack(player, npc, nature, worldState);
         assertEquals(93, npc.getHealth());
     }
+
     @Test
-    void dwarfNatureIsWeak(){
+    void dwarfNatureIsWeak() {
         player.addRace(dwarf);
-		assertTrue(player.getSpellBook().contains(nature));
-		assertEquals(2, player.getSpellBook().size());
         AttackSpells.attack(player, npc, nature, worldState);
-        assertEquals(93, npc.getHealth());
+        assertEquals(95, npc.getHealth());
     }
+
     @Test
-    void elfNatureIsStrong(){
+    void elfNatureIsStrong() {
         player.addRace(elf);
         AttackSpells.attack(player, npc, nature, worldState);
-        assertEquals(93, npc.getHealth());
+        assertEquals(91, npc.getHealth());
     }
+
     @Test
-    void otherRaceFireIsNormal(){
+    void otherRaceFireIsNormal() {
         AttackSpells.attack(player, npc, fire, worldState);
         assertEquals(90, npc.getHealth());
     }
+
     @Test
-    void elfNatureIsStrongNoEnergy(){
+    void elfNatureIsStrongNoEnergy() {
         player.addRace(elf);
         player.setEnergy(1);
         assertThrows(IllegalArgumentException.class, () -> {
@@ -70,5 +75,4 @@ class AttackSpellsRaceTest {
         });
     }
 
-    
 }

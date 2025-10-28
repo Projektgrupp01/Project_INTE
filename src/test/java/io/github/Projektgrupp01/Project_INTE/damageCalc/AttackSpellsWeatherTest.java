@@ -1,11 +1,12 @@
 package io.github.Projektgrupp01.Project_INTE.damageCalc;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState;
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState.Weather;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState.Weather;
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition;
@@ -24,8 +25,9 @@ class AttackSpellsWeatherTest {
     BaseNPC npc;
     Race dwarf, elf;
     WorldState worldState;
+
     @BeforeEach
-    void setup(){
+    void setup() {
         player = new BasePlayer();
         nature = new Nature();
         fire = new Fire();
@@ -38,75 +40,86 @@ class AttackSpellsWeatherTest {
         player.learnSpell(water);
         worldState = new WorldState(Weather.CLOUDY);
     }
-    //sunny
+
+    // sunny
     @Test
-    void sunnyFireTest(){
+    void sunnyFireTest() {
         worldState = new WorldState(Weather.SUNNY);
         AttackSpells.attack(player, npc, fire, worldState);
         assertEquals(89, npc.getHealth());
     }
+
     @Test
-    void sunnyWaterTest(){
+    void sunnyWaterTest() {
         worldState = new WorldState(Weather.SUNNY);
         AttackSpells.attack(player, npc, water, worldState);
         assertEquals(94, npc.getHealth());
     }
+
     @Test
-    void sunnyNatureTest(){
+    void sunnyNatureTest() {
         worldState = new WorldState(Weather.SUNNY);
         AttackSpells.attack(player, npc, nature, worldState);
         assertEquals(92, npc.getHealth());
     }
-    //rain
+
+    // rain
     @Test
-    void rainFireTest(){
+    void rainFireTest() {
         worldState = new WorldState(Weather.RAIN);
         AttackSpells.attack(player, npc, fire, worldState);
         assertEquals(95, npc.getHealth());
     }
+
     @Test
-    void rainWaterTest(){
+    void rainWaterTest() {
         worldState = new WorldState(Weather.RAIN);
         AttackSpells.attack(player, npc, water, worldState);
         assertEquals(91, npc.getHealth());
     }
+
     @Test
-    void rainNatureTest(){
+    void rainNatureTest() {
         worldState = new WorldState(Weather.RAIN);
         AttackSpells.attack(player, npc, nature, worldState);
         assertEquals(93, npc.getHealth());
     }
-    //storm
+
+    // storm
     @Test
-    void stormFireTest(){
+    void stormFireTest() {
         worldState = new WorldState(Weather.STORM);
         AttackSpells.attack(player, npc, fire, worldState);
         assertEquals(90, npc.getHealth());
     }
+
     @Test
-    void stormWaterTest(){
+    void stormWaterTest() {
         worldState = new WorldState(Weather.STORM);
         AttackSpells.attack(player, npc, water, worldState);
         assertEquals(92, npc.getHealth());
     }
+
     @Test
-    void stormNatureTest(){
+    void stormNatureTest() {
         worldState = new WorldState(Weather.STORM);
         AttackSpells.attack(player, npc, nature, worldState);
         assertEquals(95, npc.getHealth());
     }
-    //cloudy
+
+    // cloudy
     @Test
-    void cloudyFireTest(){
+    void cloudyFireTest() {
         worldState = new WorldState(Weather.CLOUDY);
         AttackSpells.attack(player, npc, fire, worldState);
         assertEquals(90, npc.getHealth());
     }
+
     @Test
-    void noEnergyWeatherTest(){
+    void noEnergyWeatherTest() {
         BasePlayer newPlayer = new BasePlayer("player", 100, 100, 100, 1, 100);
         worldState = new WorldState(Weather.STORM);
-        assertThrows(IllegalArgumentException.class, ()->{
+        assertThrows(IllegalArgumentException.class, () -> {
             AttackSpells.attack(newPlayer, npc, nature, worldState);
         });
     }
