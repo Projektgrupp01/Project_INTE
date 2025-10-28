@@ -32,8 +32,9 @@ public class NPCTest {
 	}
 	@Test
 	void friendlyNPCGreetsPlayer() {
+		player.takeDamage(10);
 		friendlyNPC.interact(player);
-		assertEquals(110, player.getHealth());
+		assertEquals(player.getMaxHealth(), player.getHealth());
 	}
     @Test
     void friendlyNPCCanBeAssignedQuests() {
