@@ -445,4 +445,28 @@ public class EquipmentTest {
         assertEquals(40, amulet.getEnergyBonus());
     }
 
+    // Level requirements tests
+    @Test
+    void equipmentWithoutLevelRequirement() {
+        Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
+        assertEquals(0, sword.getLevelRequirement());
+    }
+
+    @Test
+    void equipmentWithLevelRequirement() {
+        Equipment sword = new Equipment("Samurai Sword", EquipmentType.WEAPON);
+        sword.setLevelRequirement(10);
+        assertEquals(10, sword.getLevelRequirement());
+    }
+
+    @Test
+    void levelRequirementCannotBeNegative() {
+        Equipment sword = new Equipment(" Negative Sword", EquipmentType.WEAPON);
+        try {
+            sword.setLevelRequirement(-5);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
 }

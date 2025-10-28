@@ -15,6 +15,7 @@ public class Equipment {
     private Integer magicBonus;
     private Integer healthBonus;
     private Integer energyBonus;
+    private Integer levelRequirement = 0;
 
     public Equipment(String name, EquipmentType type) {
 
@@ -225,6 +226,17 @@ public class Equipment {
 
     public Integer getEnergyBonus() {
         return energyBonus;
+    }
+
+    public void setLevelRequirement(int levelRequirement) {
+        if (levelRequirement < 0) {
+            throw new IllegalArgumentException("Level requirement cannot be negative");
+        }
+        this.levelRequirement = levelRequirement;
+    }
+
+    public int getLevelRequirement() {
+        return levelRequirement;
     }
 
 }
