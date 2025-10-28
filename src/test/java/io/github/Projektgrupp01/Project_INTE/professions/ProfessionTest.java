@@ -63,6 +63,7 @@ public class ProfessionTest {
 		
 	}
 	
+	@Test
 	void addTwoDifferentProfessions() {
 		BasePlayer player = new BasePlayer();
 		Doctor doc = new Doctor();
