@@ -1,6 +1,6 @@
-package io.github.Projektgrupp01.Project_INTE.Weather;
+package io.github.Projektgrupp01.Project_INTE.World;
 
-import io.github.Projektgrupp01.Project_INTE.Weather.WorldState.Weather;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState.Weather;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell.SpellType;
 
 public final class WeatherEffect {

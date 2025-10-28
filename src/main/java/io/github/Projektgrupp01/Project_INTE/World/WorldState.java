@@ -1,4 +1,4 @@
-package io.github.Projektgrupp01.Project_INTE.Weather;
+package io.github.Projektgrupp01.Project_INTE.World;
 
 public class WorldState {
     private Weather weather;
