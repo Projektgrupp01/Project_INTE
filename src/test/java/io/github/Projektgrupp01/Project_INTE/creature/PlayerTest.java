@@ -95,10 +95,27 @@ public class PlayerTest {
 		player.addExperience(300);
 		assertEquals(3, player.getLevel());
 	}
+
 	@Test
 	void playerLevelCanBeSet() {
 		player.setLevel(2);
 		assertEquals((2), player.getLevel());
+	}
+
+	@Test
+	void playerLevelCanBeSetToMaxLevel(){
+		player.setLevel(10);
+		assertEquals((10), player.getLevel());
+	}
+
+	@Test
+	void playerLevelCannotBeSetTo0(){
+		assertThrows(IllegalStateException.class, () -> player.setLevel(0));
+	}
+
+	@Test
+	void playerLevelCannotBeSetTo11(){
+		assertThrows(IllegalStateException.class, () -> player.setLevel(11));
 	}
 
 	@Test

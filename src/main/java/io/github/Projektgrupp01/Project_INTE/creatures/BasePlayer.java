@@ -269,6 +269,8 @@ public class BasePlayer implements Player {
 	public void setLevel(int newLevel) {
 		if (newLevel <= 0) {
 			throw new IllegalStateException("Level can't be <=0");
+		}else if(newLevel > 10){
+			throw new IllegalStateException("Level can't be >10");
 		}
 		level = newLevel;
 	}
