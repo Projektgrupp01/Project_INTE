@@ -17,12 +17,7 @@ public class BaseNPC implements NPC {
 	private Set<Quest> offeredQuests = new HashSet<>();
 
 	public BaseNPC(String name, int health, Disposition disposition) {
-		this.name = name;
-		this.health = health;
-		this.disposition = disposition;
-		this.speed = 100;
-		this.strength = 100;
-		this.energy = 100;
+		this(name, health, disposition, 100, 100, 100);
 	}
 
 	public BaseNPC(String name, int health, Disposition disposition, int speed, int strength, int energy) {

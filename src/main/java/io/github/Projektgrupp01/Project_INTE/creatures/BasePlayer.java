@@ -68,11 +68,13 @@ public class BasePlayer implements Player {
 	}
 
 	public void takeDamage(int damage) {
-		setHealth(health - damage);
+			setHealth(health - damage);
 	}
 
 	public void useEnergy(int energy) {
-		setEnergy(this.energy - energy);
+		if(!isDead()) {
+			setEnergy(this.energy - energy);
+		}
 	}
 
 	public boolean isDead() {
@@ -83,17 +85,17 @@ public class BasePlayer implements Player {
 		if (spell == null) {
 			throw new NullPointerException("spell can't be null");
 		}
-		if (spellBook.contains(spell)) {
+		if (!spellBook.contains(spell)) {
 			throw new IllegalArgumentException("spell already learned");
 		}
-		spellBook.add(spell);
+			spellBook.add(spell);
 	}
 
 	public Set<Spell> getSpellBook() {
 		if (spellBook.isEmpty()) {
 			return Collections.emptySet();
 		}
-		return spellBook;
+		return Collections.unmodifiableSet(spellBook);
 	}
 
 	public void forgetSpell(Spell spell) {
@@ -182,7 +184,7 @@ public class BasePlayer implements Player {
 		experience += amount;
 		while (experience >= getExperienceToNextLevel()) {
 			experience -= getExperienceToNextLevel();
-			level++;
+			setLevel(level+1);
 		}
 	}
 
@@ -204,8 +206,10 @@ public class BasePlayer implements Player {
 		if (!quest.meetsRequirement(this)) {
 			throw new IllegalStateException("Player does not meet the quest requirements.");
 		}
-		startedQuests.add(quest);
-		quest.start();
+		if(!isDead()) {
+			startedQuests.add(quest);
+			quest.start();
+		}
 	}
 
 	public void completeQuest(Quest quest) {
@@ -249,7 +253,9 @@ public class BasePlayer implements Player {
 			health = 0;
 			return;
 		}
-		health = newHealth;
+		if(!isDead()) {
+			health = newHealth;
+		}
 	}
 
 	public void setMaxHealth(int newHealth) {
