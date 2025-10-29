@@ -17,25 +17,19 @@ public class BasePlayer implements Player {
 	private int strength;
 	private int maxEnergy;
 	private int energy;
-	private String name;
-	private Set<Spell> spellBook = new HashSet<>();
-	private Set<Quest> startedQuests = new HashSet<>();
-	private Set<Quest> completedQuests = new HashSet<>();
-	private Set<Race> races = new HashSet<>();
-	private Set<Profession> professions = new HashSet<>();
-	private int level = 1;
+	private final String name;
+	private final Set<Spell> spellBook = new HashSet<>();
+	private final Set<Quest> startedQuests = new HashSet<>();
+	private final Set<Quest> completedQuests = new HashSet<>();
+	private final Set<Race> races = new HashSet<>();
+	private final Set<Profession> professions = new HashSet<>();
+	private int level;
 	private long experience = 0;
 	private final long baseExp = 100;
 	private final double growthExponent = 2;
 
 	public BasePlayer() {
-		this.name = "BasePlayer";
-		this.health = 100;
-		this.maxHealth = 100;
-		this.speed = 100;
-		this.strength = 100;
-		this.energy = 100;
-		this.maxEnergy = 100;
+		this("BasePlayer", 100, 100, 100, 100, 1);
 	}
 
 	public BasePlayer(String name, int maxHealth, int speed, int strength, int maxEnergy, int level) {
