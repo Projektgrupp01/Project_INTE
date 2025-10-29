@@ -17,23 +17,13 @@ public class BasePlayer implements Player {
 	private int strength;
 	private int maxEnergy;
 	private int energy;
-<<<<<<< Upstream, based on origin/master
 	private final String name;
 	private final Set<Spell> spellBook = new HashSet<>();
-	private final Set<Quest> startedQuests = new HashSet<>();
+	private final Set<Quest> activeQuests = new HashSet<>();
 	private final Set<Quest> completedQuests = new HashSet<>();
 	private final Set<Race> races = new HashSet<>();
 	private final Set<Profession> professions = new HashSet<>();
 	private int level;
-=======
-	private String name;
-	private Set<Spell> spellBook = new HashSet<>();
-	private Set<Quest> activeQuests = new HashSet<>();
-	private Set<Quest> completedQuests = new HashSet<>();
-	private Set<Race> races = new HashSet<>();
-	private Set<Profession> professions = new HashSet<>();
-	private int level = 1;
->>>>>>> e882a9e Refactoring and testing / adding / fixing quest-things
 	private long experience = 0;
 	private final long baseExp = 100;
 	private final double growthExponent = 2;
@@ -78,11 +68,11 @@ public class BasePlayer implements Player {
 	}
 
 	public void takeDamage(int damage) {
-			setHealth(health - damage);
+		setHealth(health - damage);
 	}
 
 	public void useEnergy(int energy) {
-		if(!isDead()) {
+		if (!isDead()) {
 			setEnergy(this.energy - energy);
 		}
 	}
@@ -98,7 +88,7 @@ public class BasePlayer implements Player {
 		if (!spellBook.contains(spell)) {
 			throw new IllegalArgumentException("spell already learned");
 		}
-			spellBook.add(spell);
+		spellBook.add(spell);
 	}
 
 	public Set<Spell> getSpellBook() {
@@ -194,7 +184,7 @@ public class BasePlayer implements Player {
 		experience += amount;
 		while (experience >= getExperienceToNextLevel()) {
 			experience -= getExperienceToNextLevel();
-			setLevel(level+1);
+			setLevel(level + 1);
 		}
 	}
 
@@ -213,15 +203,10 @@ public class BasePlayer implements Player {
 		if (!quest.meetsRequirement(this)) {
 			throw new IllegalStateException("Player does not meet the quest requirements.");
 		}
-<<<<<<< Upstream, based on origin/master
-		if(!isDead()) {
-			startedQuests.add(quest);
-			quest.start();
+		if (!isDead()) {
+			activeQuests.add(quest);
+			quest.start(this);
 		}
-=======
-		quest.start(this);
-		activeQuests.add(quest);
->>>>>>> e882a9e Refactoring and testing / adding / fixing quest-things
 	}
 
 	public void completeQuest(Quest quest) {
@@ -264,7 +249,7 @@ public class BasePlayer implements Player {
 			health = 0;
 			return;
 		}
-		if(!isDead()) {
+		if (!isDead()) {
 			health = newHealth;
 		}
 	}
