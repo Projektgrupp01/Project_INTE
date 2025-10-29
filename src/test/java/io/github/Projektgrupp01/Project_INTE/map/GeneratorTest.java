@@ -1,6 +1,8 @@
 package io.github.Projektgrupp01.Project_INTE.map;
 
 import io.github.Projektgrupp01.Project_INTE.Map.Generator;
+import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
+import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +41,13 @@ public class GeneratorTest {
         String[] names = {"Stefan", "Bertil", "Ålög"};
         generator.addNPCNames(names);
         assertTrue(generator.getNPCNames().containsAll(Arrays.asList(names)));
+    }
+
+    @Test
+    void canAddEquipmentTest(){
+        Equipment equipment = new Equipment("Sword", EquipmentType.WEAPON);
+        generator.addEquipment(equipment);
+        assertTrue(generator.getEquipment().contains(equipment));
     }
 
     @Test

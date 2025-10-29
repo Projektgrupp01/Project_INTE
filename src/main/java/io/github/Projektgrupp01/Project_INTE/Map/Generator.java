@@ -1,13 +1,19 @@
 package io.github.Projektgrupp01.Project_INTE.Map;
 
+import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
+import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
+import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
+
 import java.util.*;
 
-public class Generator<T> {
+public class Generator {
 
     List<String> NPCNames = new ArrayList<>();
-    List<T> objectList = new ArrayList<>();
+    List<BaseNPC> NPCsList = new ArrayList<>();
+    List<Equipment> equipmentList = new ArrayList<>();
 
-    public List<T> generate(String type, int amount){
+    //alt. gör generisk. sen.
+    public List<Object> generate(String type, int amount){
         Random random = new Random();
 
         if((type.equalsIgnoreCase("npc") || type.equalsIgnoreCase("equipment")) && amount > 0) {
@@ -17,15 +23,11 @@ public class Generator<T> {
                 //objectList.add(random.nextInt(1, amount));
             }
 
-            return Collections.unmodifiableList(objectList);
+            return Collections.unmodifiableList(new ArrayList<>());
 
         }
-//        }else if(type.equals(null)){
-//
-//        }else {
 
-            throw new IllegalArgumentException("Type must be npc or equipment, amount must be an integer.");
-
+        throw new IllegalArgumentException("Type must be npc or equipment, amount must be an integer.");
 
     }
 
@@ -35,6 +37,14 @@ public class Generator<T> {
 
     public List<String> getNPCNames(){
         return Collections.unmodifiableList(NPCNames);
+    }
+
+    public void addEquipment(Equipment equipment){
+        equipmentList.add(equipment);
+    }
+
+    public List<Equipment> getEquipment(){
+        return Collections.unmodifiableList(equipmentList);
     }
 
 
