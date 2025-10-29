@@ -4,14 +4,14 @@ import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 
 public abstract class Profession {
 	
-	private String professionName;
+	final private String professionName;
 	private int professionLevel=0;
 	
 	public Profession(String professionName){
 		this.professionName = professionName;
 	}
 	
-	public Profession(String professionName, int startingLevel){
+	public Profession(String professionName, int startingLevel) {
 		this.professionName = professionName;
 		setProfessionLevel(startingLevel);
 	}

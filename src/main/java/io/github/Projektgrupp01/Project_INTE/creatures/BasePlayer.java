@@ -120,6 +120,7 @@ public class BasePlayer implements Player {
 		for (Race raceInSet : races) {
 			if (race.getRaceName().equals(raceInSet.getRaceName())) {
 				duplicate = 1;
+				break;
 			}
 		}
 		if (duplicate == 0) {
@@ -139,6 +140,7 @@ public class BasePlayer implements Player {
 		for (Profession prof : professions) {
 			if (prof.getProfessionName().equals(profession.getProfessionName())) {
 				duplicate = 1;
+				break;
 			}
 		}
 		if (duplicate == 0) {
@@ -155,6 +157,7 @@ public class BasePlayer implements Player {
 		for (Race race : races) {
 			if (race.getRaceName().equals(raceName)) {
 				contains = true;
+				break;
 			}
 		}
 		return contains;
