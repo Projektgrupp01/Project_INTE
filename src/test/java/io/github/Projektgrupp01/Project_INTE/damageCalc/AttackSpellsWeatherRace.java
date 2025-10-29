@@ -82,7 +82,7 @@ class AttackSpellsWeatherRace {
     void elfFireCloudy() {
         player.addRace(elf);
         AttackSpells.attack(player, npc, fire, stateCloudy);
-        assertEquals(96, npc.getHealth());
+        assertEquals(90, npc.getHealth());
     }
 
     @Test

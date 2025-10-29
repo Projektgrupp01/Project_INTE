@@ -26,7 +26,7 @@ public class AttackSpells {
                     if (player.containsRace("Dwarf") && !player.containsRace("Elf")) {
                         energyDamage(player, npc, spell, (int) (80 * m));
                         return;
-                    } else if (player.containsRace("elf")) {
+                    } else if (player.containsRace("Elf")) {
                         energyDamage(player, npc, spell, (int) (140 * m));
                         return;
                     }
