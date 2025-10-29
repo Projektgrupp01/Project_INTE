@@ -17,6 +17,7 @@ public class BasePlayer implements Player {
 	private int strength;
 	private int maxEnergy;
 	private int energy;
+<<<<<<< Upstream, based on origin/master
 	private final String name;
 	private final Set<Spell> spellBook = new HashSet<>();
 	private final Set<Quest> startedQuests = new HashSet<>();
@@ -24,6 +25,15 @@ public class BasePlayer implements Player {
 	private final Set<Race> races = new HashSet<>();
 	private final Set<Profession> professions = new HashSet<>();
 	private int level;
+=======
+	private String name;
+	private Set<Spell> spellBook = new HashSet<>();
+	private Set<Quest> activeQuests = new HashSet<>();
+	private Set<Quest> completedQuests = new HashSet<>();
+	private Set<Race> races = new HashSet<>();
+	private Set<Profession> professions = new HashSet<>();
+	private int level = 1;
+>>>>>>> e882a9e Refactoring and testing / adding / fixing quest-things
 	private long experience = 0;
 	private final long baseExp = 100;
 	private final double growthExponent = 2;
@@ -189,7 +199,7 @@ public class BasePlayer implements Player {
 	}
 
 	public Set<Quest> getActiveQuests() {
-		return Collections.unmodifiableSet(startedQuests);
+		return Collections.unmodifiableSet(activeQuests);
 	}
 
 	public Set<Quest> getCompletedQuest() {
@@ -200,31 +210,32 @@ public class BasePlayer implements Player {
 		if (quest == null) {
 			throw new NullPointerException("Quest cannot be null");
 		}
-		if (startedQuests.contains(quest) || completedQuests.contains(quest)) {
-			throw new IllegalStateException("Quest is already started or completed.");
-		}
 		if (!quest.meetsRequirement(this)) {
 			throw new IllegalStateException("Player does not meet the quest requirements.");
 		}
+<<<<<<< Upstream, based on origin/master
 		if(!isDead()) {
 			startedQuests.add(quest);
 			quest.start();
 		}
+=======
+		quest.start(this);
+		activeQuests.add(quest);
+>>>>>>> e882a9e Refactoring and testing / adding / fixing quest-things
 	}
 
 	public void completeQuest(Quest quest) {
 		if (quest == null) {
 			throw new NullPointerException("Quest cannot be null");
 		}
-		if (!startedQuests.contains(quest)) {
+		if (!activeQuests.contains(quest)) {
 			throw new IllegalStateException("Quest has not been accepted yet.");
 		}
 		if (completedQuests.contains(quest)) {
 			throw new IllegalStateException("Quest has already been completed.");
 		}
-		startedQuests.add(quest);
-		addExperience(quest.getReward());
-		quest.complete();
+		completedQuests.add(quest);
+		quest.complete(this);
 	}
 
 	public void setEnergy(int newEnergy) {

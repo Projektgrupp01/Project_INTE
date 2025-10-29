@@ -1,8 +1,5 @@
 package io.github.Projektgrupp01.Project_INTE.creature;
 
-import io.github.Projektgrupp01.Project_INTE.spells.Fire;
-import io.github.Projektgrupp01.Project_INTE.spells.Spell;
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
@@ -103,18 +100,18 @@ public class PlayerTest {
 	}
 
 	@Test
-	void playerLevelCanBeSetToMaxLevel(){
+	void playerLevelCanBeSetToMaxLevel() {
 		player.setLevel(10);
 		assertEquals((10), player.getLevel());
 	}
 
 	@Test
-	void playerLevelCannotBeSetTo0(){
+	void playerLevelCannotBeSetTo0() {
 		assertThrows(IllegalStateException.class, () -> player.setLevel(0));
 	}
 
 	@Test
-	void playerLevelCannotBeSetTo11(){
+	void playerLevelCannotBeSetTo11() {
 		assertThrows(IllegalStateException.class, () -> player.setLevel(11));
 	}
 
