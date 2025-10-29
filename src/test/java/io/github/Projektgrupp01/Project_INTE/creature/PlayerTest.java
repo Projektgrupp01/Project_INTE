@@ -123,7 +123,7 @@ public class PlayerTest {
 		friendlyNPC.addQuest(quest);
 		friendlyNPC.interact(player);
 		assertTrue(player.getActiveQuests().contains(quest));
-		assertEquals(Quest.Status.STARTED, quest.getStatus());
+		assertEquals(Quest.Status.ACCEPTED, quest.getStatus());
 	}
 
 	@Test

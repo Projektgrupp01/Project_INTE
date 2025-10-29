@@ -31,9 +31,9 @@ NPCs are considered Creatures
 Quests:
 Name
 Description
-Status 
-Mission stages/steps
 Reward
+Status (Reached a stage where it requires changes to expand into mission stages/steps) 
+Mission stages/steps
 
 Magic functionality:
 Consumes energy

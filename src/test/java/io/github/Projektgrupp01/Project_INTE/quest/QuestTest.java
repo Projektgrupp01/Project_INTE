@@ -38,7 +38,7 @@ class QuestTest {
 	@Test
 	void questCanBeStarted() {
 		quest.start();
-		assertEquals(Quest.Status.STARTED, quest.getStatus());
+		assertEquals(Quest.Status.ACCEPTED, quest.getStatus());
 	}
 
 	@Test

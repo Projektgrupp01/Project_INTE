@@ -20,7 +20,7 @@ public class GoblinRaidQuestTest {
 	
 	@BeforeEach
 	void setUp() {
-		quest = new Quest("The Goblin Raid");
+		quest = new Quest("The Goblin Raid", "The village is being attacked by Goblins! Please save us! [Kill 3 goblins before the village is destroyed in 10 minutes]", 100, 5);
 		questNPC = new BaseNPC("Friendly Bob",50, NPC.Disposition.FRIENDLY);
 		player = new BasePlayer();
 	}

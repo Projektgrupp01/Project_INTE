@@ -76,9 +76,9 @@ public class BaseNPC implements NPC {
 
 	@Override
 	public void interact(Creature otherCreature) {
-		if (!(otherCreature instanceof Player player))
+		if (!(otherCreature instanceof Player player)) {
 			return;
-
+		}
 		switch (disposition) {
 		case FRIENDLY:
 			System.out.println(name + " greets you.");

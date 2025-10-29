@@ -4,28 +4,21 @@ import io.github.Projektgrupp01.Project_INTE.creatures.Player;
 
 public class Quest {
 	public enum Status {
-		AVAILABLE, STARTED, COMPLETED
+		LOCKED, AVAILABLE, ACCEPTED, IN_PROGRESS, FAILED, PERMANENT_LOCKED, SUCCESS_NORMAL, SUCCESS_BONUS, COMPLETED
 	}
 
 	private final String name;
 	private final String description;
-	private Status status = Status.AVAILABLE;
+	private Status status;
 	private final long rewardExperience;
 	private final int requiredLevel;
 	
-	public Quest(String name) {
-		this.name = name;
-		this.description = "";
-		this.rewardExperience = 0;
-		this.requiredLevel = 0;
-
-	}
-
 	public Quest(String name, String description, long rewardExperience, int requiredLevel) {
 		this.name = name;
 		this.description = description;
 		this.rewardExperience = rewardExperience;
 		this.requiredLevel = requiredLevel;
+		this.status = Status.AVAILABLE;
 
 	}
 
@@ -49,11 +42,11 @@ public class Quest {
 		if (status != Status.AVAILABLE) {
 			throw new IllegalStateException("Quest has already been started or completed.");
 		}
-		status = Status.STARTED;
+		status = Status.ACCEPTED;
 	}
 
 	public void complete() {
-		if (status != Status.STARTED) {
+		if (status != Status.ACCEPTED) {
 			throw new IllegalStateException("Quest has to be Started before they can be completed.");
 		}
 		

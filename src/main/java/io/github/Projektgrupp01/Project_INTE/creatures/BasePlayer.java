@@ -204,6 +204,9 @@ public class BasePlayer implements Player {
 		if (startedQuests.contains(quest) || completedQuests.contains(quest)) {
 			throw new IllegalStateException("Quest is already started or completed.");
 		}
+		if (!quest.meetsRequirement(this)) {
+			throw new IllegalStateException("Player does not meet the quest requirements.");
+		}
 		startedQuests.add(quest);
 		quest.start();
 	}
@@ -277,7 +280,7 @@ public class BasePlayer implements Player {
 	public void setLevel(int newLevel) {
 		if (newLevel <= 0) {
 			throw new IllegalStateException("Level can't be <=0");
-		}else if(newLevel > 10){
+		} else if (newLevel > 10) {
 			throw new IllegalStateException("Level can't be >10");
 		}
 		level = newLevel;
