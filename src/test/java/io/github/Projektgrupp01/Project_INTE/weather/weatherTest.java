@@ -19,6 +19,12 @@ class weatherTest {
         storm = new WorldState(Weather.STORM);
     }
     @Test
+    void setWeather(){
+        WorldState w = new WorldState(Weather.RAIN);
+        w.setWeather(Weather.CLOUDY);
+        assertEquals(Weather.CLOUDY, w.getWeather());
+    }
+    @Test
     void weatherSunny(){
         assertEquals(1.2, WeatherEffect.modifier(SpellType.NATURE, Weather.SUNNY));
         assertEquals(Weather.SUNNY, sunny.getWeather());
