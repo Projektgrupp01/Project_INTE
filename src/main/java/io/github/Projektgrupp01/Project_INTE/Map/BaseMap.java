@@ -8,13 +8,14 @@ import java.util.*;
 
 public class BaseMap implements Map {
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private final Random random = new Random();
     private final Generator generator = new Generator();
     private final int[][] DIRECTIONS = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
     private char[][] mapArray;
     private int walkableArea;
+    private final char TUNNEL = ' ';
     private final char EQUIPMENT = 'x';
     private final char NPC = 'n';
     private final String[] NPCNames = {"Bertil", "Mina", "Gustav"};
@@ -68,7 +69,7 @@ public class BaseMap implements Map {
         listOfNPCs = new ArrayList<>();
         listOfEquipment = new ArrayList<>();
 
-        mapArray[0][0] = ' ';
+        mapArray[0][0] = TUNNEL;
         walkableArea = 1;
         int currentRow = 0;
         int currentColumn = 1;
@@ -104,7 +105,7 @@ public class BaseMap implements Map {
             while (!placed && attempts < (x * y)) {
                 int posX = random.nextInt(x);
                 int posY = random.nextInt(y);
-                if (mapArray[posX][posY] == ' ') {
+                if (mapArray[posX][posY] == TUNNEL) {
                     mapArray[posX][posY] = object;
                     placed = true;
                     if (object == NPC) {
