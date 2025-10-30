@@ -45,11 +45,31 @@ class QuestTest {
 	}
 
 	@Test
+	void questStatusCanBeSetToAllStatuses() {
+		for (Quest.Status status : Quest.Status.values()) {
+			quest.setStatus(status);
+			assertEquals(status, quest.getStatus(), "Status should be set correctly for " + status);
+		}
+	}
+
+	@Test
+	void questStatusCannotBeSetToNull() {
+		assertThrows(NullPointerException.class, () -> quest.setStatus(null));
+	}
+
+	@Test
 	void questWithAvailableStatusCanBeStarted() {
 		quest.setStatus(Status.AVAILABLE);
 		quest.start(player);
 		assertEquals(Quest.Status.ACCEPTED, quest.getStatus());
 	}
+
+	@Test
+	void questWithoutAvailableStatusCannotBeStarted() {
+		quest.setStatus(Status.IN_PROGRESS);
+		assertThrows(IllegalStateException.class, () -> quest.start(player));
+	}
+
 	@Test
 	void questWithLockedStatusCannotBeStarted() {
 		questWithRequirements.start(player);
@@ -61,18 +81,93 @@ class QuestTest {
 		quest.setStatus(Status.ACCEPTED);
 		assertFalse(player.getActiveQuests().contains(quest));
 	}
-	
+
 	@Test
 	void questWithNormalSuccessCanBeCompletedWithNormalReward() {
 		quest.setStatus(Status.SUCCESS_NORMAL);
 		quest.complete(player);
 		assertEquals(Quest.Status.COMPLETED, quest.getStatus());
 	}
+
 	@Test
 	void questWithBonusSuccessCanBeCompletedWithBonusReward() {
-		quest.setStatus(Status.SUCCESS_NORMAL);
+		quest.setStatus(Status.SUCCESS_BONUS);
 		quest.complete(player);
+		assertEquals(2, player.getLevel());
 		assertEquals(Quest.Status.COMPLETED, quest.getStatus());
+	}
+
+	@Test
+	void questWithCompletedStatusCannotBeCompletedAgain() {
+		quest.start(player);
+		quest.complete(player);
+		assertThrows(IllegalStateException.class, () -> quest.complete(player));
+	}
+
+	@Test
+	void questWithLockedPermanentLockOrAvailableCannotBeCompleted() {
+		quest.setStatus(Status.AVAILABLE);
+		assertThrows(IllegalStateException.class, () -> quest.complete(player));
+		quest.setStatus(Status.LOCKED);
+		assertThrows(IllegalStateException.class, () -> quest.complete(player));
+		quest.setStatus(Status.PERMANENT_LOCK);
+		assertThrows(IllegalStateException.class, () -> quest.complete(player));
+	}
+
+	@Test
+	void questWithStatusAcceptedCanFail() {
+		quest.setStatus(Status.ACCEPTED);
+		quest.fail();
+		assertEquals(Status.FAILED, quest.getStatus());
+	}
+
+	@Test
+	void questWithStatusInProgressCanFail() {
+		quest.setStatus(Status.IN_PROGRESS);
+		quest.fail();
+		assertEquals(Status.FAILED, quest.getStatus());
+	}
+
+	@Test
+	void questWithStatusFailedCannotFailAgain() {
+		quest.setStatus(Status.FAILED);
+		assertThrows(IllegalStateException.class, () -> quest.fail());
+	}
+
+	@Test
+	void questWithStatusAvailableCannotFail() {
+		quest.setStatus(Status.AVAILABLE);
+		assertThrows(IllegalStateException.class, () -> quest.fail());
+	}
+
+	@Test
+	void questWithStatusLockedCannotFail() {
+		quest.setStatus(Status.LOCKED);
+		assertThrows(IllegalStateException.class, () -> quest.fail());
+	}
+
+	@Test
+	void questWithStatusPermanentLockCannotFail() {
+		quest.setStatus(Status.PERMANENT_LOCK);
+		assertThrows(IllegalStateException.class, () -> quest.fail());
+	}
+
+	@Test
+	void questWithStatusSuccessNormalCannotFail() {
+		quest.setStatus(Status.SUCCESS_NORMAL);
+		assertThrows(IllegalStateException.class, () -> quest.fail());
+	}
+
+	@Test
+	void questWithStatusSuccessBonusCannotFail() {
+		quest.setStatus(Status.SUCCESS_BONUS);
+		assertThrows(IllegalStateException.class, () -> quest.fail());
+	}
+
+	@Test
+	void questWithStatusCompletedCannotFail() {
+		quest.setStatus(Status.COMPLETED);
+		assertThrows(IllegalStateException.class, () -> quest.fail());
 	}
 
 	@Test

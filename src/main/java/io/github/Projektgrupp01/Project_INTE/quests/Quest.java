@@ -78,7 +78,6 @@ public class Quest {
 		case COMPLETED:
 			status = Status.COMPLETED;
 			break;
-
 		}
 	}
 
@@ -92,38 +91,32 @@ public class Quest {
 			System.out.println("You do not meet the level requirements.");
 			return;
 		}
-		System.out.println("The quest is not available");
+		throw new IllegalStateException("The quest is not available");
 	}
 
 	public void fail() {
 		switch (status) {
-        case IN_PROGRESS:
-        case ACCEPTED:
-            status = Status.FAILED;
-            System.out.println("Quest failed. You can retry if you have attempts left.");
-            return;
+		case IN_PROGRESS:
+		case ACCEPTED:
+			status = Status.FAILED;
+			System.out.println("Quest failed. You can retry if you have attempts left.");
+			return;
 
-        case FAILED:
-            System.out.println("Quest already marked as failed. Complete it to retry.");
-            return;
+		case FAILED:
+			throw new IllegalStateException("Quest already marked as failed. Complete it to retry.");
 
-        case AVAILABLE:
-        case LOCKED:
-            System.out.println("You can't fail a quest that hasn't been started.");
-            return;
+		case AVAILABLE:
+		case LOCKED:
+			throw new IllegalStateException("You can't fail a quest that hasn't been started.");
 
-        case PERMANENT_LOCK:
-            System.out.println("You are permanently locked from this quest.");
-            return;
+		case PERMANENT_LOCK:
+			throw new IllegalStateException("You are permanently locked from this quest.");
 
-        case SUCCESS_NORMAL:
-        case SUCCESS_BONUS:
-        case COMPLETED:
-            System.out.println("You can’t fail a quest that has already been completed.");
-            return;
+		case SUCCESS_NORMAL:
+		case SUCCESS_BONUS:
+		case COMPLETED:
+			throw new IllegalStateException("You can’t fail a quest that has already been completed.");
 
-        default:
-            System.out.println("Invalid state transition in fail().");
 		}
 	}
 
@@ -144,9 +137,8 @@ public class Quest {
 			return;
 
 		case COMPLETED:
-			System.out.println("You have already completed this quest.");
-			return;
-			
+			throw new IllegalStateException("You have already completed this quest.");
+
 		case FAILED:
 			attempt++;
 			if (allowedAttempts > 0 && attempt >= allowedAttempts) {
@@ -164,11 +156,8 @@ public class Quest {
 		case LOCKED:
 		case PERMANENT_LOCK:
 		case AVAILABLE:
-			System.out.println("You have not completed the objective yet.");
-			return;
-		
-		default:
-			throw new NullPointerException("Status cannot be null.");
+			throw new IllegalStateException("You have not completed the objective yet.");
+
 		}
 	}
 
