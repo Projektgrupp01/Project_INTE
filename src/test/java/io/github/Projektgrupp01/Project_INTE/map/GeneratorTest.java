@@ -1,10 +1,10 @@
 package io.github.Projektgrupp01.Project_INTE.map;
 
 import io.github.Projektgrupp01.Project_INTE.Map.Generator;
+import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
 import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -22,26 +22,6 @@ public class GeneratorTest {
         Equipment treasure = new Equipment("Treasure", EquipmentType.CHEST);
         Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
         generator.addEquipmentTemplates(treasure, sword);
-    }
-
-    @Test
-    void generateNPCWrongTypeThrowsExceptionTest(){
-        assertThrows(IllegalArgumentException.class, () -> generator.generateNPC('f', 1));
-    }
-
-    @Test
-    void generateEquipmentWrongTypeThrowsExceptionTest(){
-        assertThrows(IllegalArgumentException.class, () -> generator.generateEquipment('f', 1));
-    }
-
-    @Test
-    void generateWrongAmountOfNPCsThrowsExceptionTest(){
-        assertThrows(IllegalArgumentException.class, () -> generator.generateNPC('n', -1));
-    }
-
-    @Test
-    void generateWrongAmountOfEquipmentThrowsExceptionTest(){
-        assertThrows(IllegalArgumentException.class, () -> generator.generateEquipment('x', -1));
     }
 
     @Test
@@ -65,24 +45,37 @@ public class GeneratorTest {
     }
 
     @Test
-    void generatorGenerateReturnsNPCList(){
-        assertEquals(generator.getNPCs(), generator.generateNPC('n', 1));
-    }
-
-    @Test
-    void generatorGenerateReturnsEquipmentList(){
-        assertEquals(generator.getEquipment(), generator.generateEquipment('x', 1));
-    }
-
-    @Test
-    void generatorGenerateNPCReturnsCorrectNrOfNPCs(){
-        generator.generateNPC('n', 2);
+    void generatorReturnsNPCList(){
+        generator.generateNPC();
+        generator.generateNPC();
         assertEquals(2, generator.getNPCs().size());
     }
 
     @Test
-    void generatorCreateEquipmentReturnsCorrectNrOfEquipment(){
-        generator.generateEquipment('x', 43);
+    void generatorNPCListContainsNPC(){
+        BaseNPC NPC = generator.generateNPC();
+        assertEquals(NPC, generator.getNPCs().getFirst());
+    }
+
+    @Test
+    void generatorEquipmentListContainsEquipment(){
+        Equipment equipment = generator.generateEquipment();
+        assertEquals(equipment, generator.getEquipment().getFirst());
+    }
+
+    @Test
+    void generatorGenerateNPCReturnsCorrectNrOfNPCs(){
+        for(int i = 0; i < 7; i++){
+            generator.generateNPC();
+        }
+        assertEquals(7, generator.getNPCs().size());
+    }
+
+    @Test
+    void generatorGenerateEquipmentReturnsCorrectNrOfEquipment(){
+        for(int i = 0; i < 43; i++){
+            generator.generateEquipment();
+        }
         assertEquals(43, generator.getEquipment().size());
     }
 

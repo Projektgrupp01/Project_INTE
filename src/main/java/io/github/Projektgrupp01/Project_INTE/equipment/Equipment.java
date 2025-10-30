@@ -249,8 +249,8 @@ public class Equipment {
     }
 
     private void validateArmorOnly(String defenseType) {
-        if (type != EquipmentType.WEAPON) {
-            throw new IllegalStateException("Only weapons can " + defenseType);
+        if (!isArmorEquipmentType(type)) {
+            throw new IllegalStateException("Only armor can " + defenseType);
         }
     }
 
@@ -262,7 +262,7 @@ public class Equipment {
 
     private void validateLevelRequirementInput(int value, String level) {
         if (value > 10) {
-            throw new IllegalArgumentException(level + " cannot be negative");
+            throw new IllegalArgumentException(level + " level requirement cannot exceed max player level (10)");
         }
     }
 

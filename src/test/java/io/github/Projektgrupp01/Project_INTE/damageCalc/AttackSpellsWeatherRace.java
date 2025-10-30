@@ -24,7 +24,7 @@ class AttackSpellsWeatherRace {
     Spell nature, fire, water;
     BaseNPC npc;
     Race dwarf, elf;
-    WorldState stateSunny, stateStorm, stateCloudy;
+    WorldState stateSunny, stateStorm, stateCloudy, stateRain;
 
     @BeforeEach
     void setup() {
@@ -41,6 +41,7 @@ class AttackSpellsWeatherRace {
         stateSunny = new WorldState(Weather.SUNNY);
         stateStorm = new WorldState(Weather.STORM);
         stateCloudy = new WorldState(Weather.CLOUDY);
+        stateRain = new WorldState(Weather.RAIN);
     }
 
     @Test
@@ -75,6 +76,12 @@ class AttackSpellsWeatherRace {
     void dwarfNatureCloudy() {
         player.addRace(dwarf);
         AttackSpells.attack(player, npc, nature, stateCloudy);
+        assertEquals(95, npc.getHealth());
+    }
+    @Test
+    void dwarfNatureRainy() {
+        player.addRace(dwarf);
+        AttackSpells.attack(player, npc, nature, stateRain);
         assertEquals(95, npc.getHealth());
     }
 

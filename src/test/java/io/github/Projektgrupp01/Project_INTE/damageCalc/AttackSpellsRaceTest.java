@@ -65,11 +65,28 @@ class AttackSpellsRaceTest {
         AttackSpells.attack(player, npc, fire, worldState);
         assertEquals(90, npc.getHealth());
     }
+    @Test
+    void playerHasTwoRaces() {
+        player.addRace(elf);
+        player.addRace(dwarf);
+        AttackSpells.attack(player, npc, nature, worldState);
+        assertEquals(91, npc.getHealth());
+    }
+
+    
 
     @Test
-    void elfNatureIsStrongNoEnergy() {
+    void noEnergyExceptionThrows() {
         player.addRace(elf);
         player.setEnergy(1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            AttackSpells.attack(player, npc, nature, worldState);
+        });
+    }
+    @Test
+    void noSpellExceptionThrows() {
+        player.addRace(elf);
+        player.forgetSpell(nature);
         assertThrows(IllegalArgumentException.class, () -> {
             AttackSpells.attack(player, npc, nature, worldState);
         });
