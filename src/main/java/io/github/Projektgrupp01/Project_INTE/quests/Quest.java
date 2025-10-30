@@ -163,7 +163,6 @@ public class Quest {
 
 	public boolean meetsRequirement(Player player) {
 		return player.getLevel() >= requiredLevel && status != Status.PERMANENT_LOCK;
-
 	}
 
 	public void unlockIfEligible(Player player) {

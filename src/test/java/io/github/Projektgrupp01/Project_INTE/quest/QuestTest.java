@@ -81,7 +81,11 @@ class QuestTest {
 		quest.setStatus(Status.ACCEPTED);
 		assertFalse(player.getActiveQuests().contains(quest));
 	}
-
+	@Test
+	void meetsRequirementFailsWithPermanentLockEvenIfLevelRequirementMet() {
+	    quest.setStatus(Status.PERMANENT_LOCK);
+	    assertFalse(quest.meetsRequirement(player));
+	}
 	@Test
 	void questWithNormalSuccessCanBeCompletedWithNormalReward() {
 		quest.setStatus(Status.SUCCESS_NORMAL);
@@ -181,15 +185,12 @@ class QuestTest {
 
 	@Test
 	void questsWithAllowedAttemptsCanOnlyBeRepeatedAllowedTimes() {
-		questWithRequirements.start(playerWithRequirements);
-		questWithRequirements.fail();
-		questWithRequirements.complete(playerWithRequirements);
-		questWithRequirements.start(playerWithRequirements);
-		questWithRequirements.fail();
-		questWithRequirements.complete(playerWithRequirements);
-		questWithRequirements.start(playerWithRequirements);
-		questWithRequirements.fail();
-		questWithRequirements.complete(playerWithRequirements);
+		for (int i = 0; i < 3; i++) {
+			questWithRequirements.start(playerWithRequirements);
+			questWithRequirements.fail();
+			questWithRequirements.complete(playerWithRequirements);
+			
+		}
 		assertEquals(Status.PERMANENT_LOCK, questWithRequirements.getStatus());
 
 	}

@@ -36,9 +36,11 @@ public class GoblinRaidQuestTest {
 		assertTrue(player.getActiveQuests().isEmpty());
 		assertEquals(Quest.Status.LOCKED, quest.getStatus());
 		player.setLevel(5);
-//        assertEquals(Quest.Status.AVAILABLE, quest.getStatus());
-//        questNPC.interact(player);
-//        questNPC.offerQuest(player, quest);
+		quest.unlockIfEligible(player);
+        assertEquals(Quest.Status.AVAILABLE, quest.getStatus());
+        questNPC.interact(player);
+        assertEquals(Quest.Status.ACCEPTED, quest.getStatus());
+        assertTrue(player.getActiveQuests().contains(quest));
 //        questNPC.playerRefuseOffer(player);
 //        assertTrue(player.getActiveQuests().isEmpty());
 //        assertEquals(Quest.Status.AVAILABLE, quest.getStatus());
