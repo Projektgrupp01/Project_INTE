@@ -85,7 +85,7 @@ public class BasePlayer implements Player {
 		if (spell == null) {
 			throw new NullPointerException("spell can't be null");
 		}
-		if (!spellBook.contains(spell)) {
+		if (spellBook.contains(spell)) {
 			throw new IllegalArgumentException("spell already learned");
 		}
 		spellBook.add(spell);
