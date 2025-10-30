@@ -13,7 +13,7 @@ import io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition;
 import io.github.Projektgrupp01.Project_INTE.races.Dwarf;
 import io.github.Projektgrupp01.Project_INTE.races.Elf;
 import io.github.Projektgrupp01.Project_INTE.races.Race;
-import io.github.Projektgrupp01.Project_INTE.spells.AttackSpells;
+import io.github.Projektgrupp01.Project_INTE.spells.SpellDamageCalculator;
 import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 import io.github.Projektgrupp01.Project_INTE.spells.Nature;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
@@ -45,21 +45,21 @@ class AttackSpellsWeatherTest {
     @Test
     void sunnyFireTest() {
         worldState = new WorldState(Weather.SUNNY);
-        AttackSpells.attack(player, npc, fire, worldState);
+        SpellDamageCalculator.attack(player, npc, fire, worldState);
         assertEquals(89, npc.getHealth());
     }
 
     @Test
     void sunnyWaterTest() {
         worldState = new WorldState(Weather.SUNNY);
-        AttackSpells.attack(player, npc, water, worldState);
+        SpellDamageCalculator.attack(player, npc, water, worldState);
         assertEquals(94, npc.getHealth());
     }
 
     @Test
     void sunnyNatureTest() {
         worldState = new WorldState(Weather.SUNNY);
-        AttackSpells.attack(player, npc, nature, worldState);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
         assertEquals(92, npc.getHealth());
     }
 
@@ -67,21 +67,21 @@ class AttackSpellsWeatherTest {
     @Test
     void rainFireTest() {
         worldState = new WorldState(Weather.RAIN);
-        AttackSpells.attack(player, npc, fire, worldState);
+        SpellDamageCalculator.attack(player, npc, fire, worldState);
         assertEquals(95, npc.getHealth());
     }
 
     @Test
     void rainWaterTest() {
         worldState = new WorldState(Weather.RAIN);
-        AttackSpells.attack(player, npc, water, worldState);
+        SpellDamageCalculator.attack(player, npc, water, worldState);
         assertEquals(91, npc.getHealth());
     }
 
     @Test
     void rainNatureTest() {
         worldState = new WorldState(Weather.RAIN);
-        AttackSpells.attack(player, npc, nature, worldState);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
         assertEquals(93, npc.getHealth());
     }
 
@@ -89,21 +89,21 @@ class AttackSpellsWeatherTest {
     @Test
     void stormFireTest() {
         worldState = new WorldState(Weather.STORM);
-        AttackSpells.attack(player, npc, fire, worldState);
+        SpellDamageCalculator.attack(player, npc, fire, worldState);
         assertEquals(90, npc.getHealth());
     }
 
     @Test
     void stormWaterTest() {
         worldState = new WorldState(Weather.STORM);
-        AttackSpells.attack(player, npc, water, worldState);
+        SpellDamageCalculator.attack(player, npc, water, worldState);
         assertEquals(92, npc.getHealth());
     }
 
     @Test
     void stormNatureTest() {
         worldState = new WorldState(Weather.STORM);
-        AttackSpells.attack(player, npc, nature, worldState);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
         assertEquals(95, npc.getHealth());
     }
 
@@ -111,7 +111,7 @@ class AttackSpellsWeatherTest {
     @Test
     void cloudyFireTest() {
         worldState = new WorldState(Weather.CLOUDY);
-        AttackSpells.attack(player, npc, fire, worldState);
+        SpellDamageCalculator.attack(player, npc, fire, worldState);
         assertEquals(90, npc.getHealth());
     }
 
@@ -120,7 +120,7 @@ class AttackSpellsWeatherTest {
         BasePlayer newPlayer = new BasePlayer("player", 100, 100, 100, 1, 100);
         worldState = new WorldState(Weather.STORM);
         assertThrows(IllegalArgumentException.class, () -> {
-            AttackSpells.attack(newPlayer, npc, nature, worldState);
+            SpellDamageCalculator.attack(newPlayer, npc, nature, worldState);
         });
     }
 

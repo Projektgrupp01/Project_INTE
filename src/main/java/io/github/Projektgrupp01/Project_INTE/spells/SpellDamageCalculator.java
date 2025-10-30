@@ -5,9 +5,9 @@ import io.github.Projektgrupp01.Project_INTE.World.WorldState;
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 
-public class AttackSpells {
+public class SpellDamageCalculator {
 
-    private AttackSpells() {
+    private SpellDamageCalculator() {
     }
 
     // if damageModifier = 100 then the damage is not modified

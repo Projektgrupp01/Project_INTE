@@ -13,7 +13,7 @@ import io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition;
 import io.github.Projektgrupp01.Project_INTE.races.Dwarf;
 import io.github.Projektgrupp01.Project_INTE.races.Elf;
 import io.github.Projektgrupp01.Project_INTE.races.Race;
-import io.github.Projektgrupp01.Project_INTE.spells.AttackSpells;
+import io.github.Projektgrupp01.Project_INTE.spells.SpellDamageCalculator;
 import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 import io.github.Projektgrupp01.Project_INTE.spells.Nature;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
@@ -42,34 +42,34 @@ class AttackSpellsRaceTest {
 
     @Test
     void otherRaceNatureIsNormal() {
-        AttackSpells.attack(player, npc, nature, worldState);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
         assertEquals(93, npc.getHealth());
     }
 
     @Test
     void dwarfNatureIsWeak() {
         player.addRace(dwarf);
-        AttackSpells.attack(player, npc, nature, worldState);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
         assertEquals(95, npc.getHealth());
     }
 
     @Test
     void elfNatureIsStrong() {
         player.addRace(elf);
-        AttackSpells.attack(player, npc, nature, worldState);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
         assertEquals(91, npc.getHealth());
     }
 
     @Test
     void otherRaceFireIsNormal() {
-        AttackSpells.attack(player, npc, fire, worldState);
+        SpellDamageCalculator.attack(player, npc, fire, worldState);
         assertEquals(90, npc.getHealth());
     }
     @Test
     void playerHasTwoRaces() {
         player.addRace(elf);
         player.addRace(dwarf);
-        AttackSpells.attack(player, npc, nature, worldState);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
         assertEquals(91, npc.getHealth());
     }
     @Test
@@ -77,7 +77,7 @@ class AttackSpellsRaceTest {
         player.addRace(elf);
         player.setEnergy(1);
         assertThrows(IllegalArgumentException.class, () -> {
-            AttackSpells.attack(player, npc, nature, worldState);
+            SpellDamageCalculator.attack(player, npc, nature, worldState);
         });
     }
     @Test
@@ -85,7 +85,7 @@ class AttackSpellsRaceTest {
         player.addRace(elf);
         player.forgetSpell(nature);
         assertThrows(IllegalArgumentException.class, () -> {
-            AttackSpells.attack(player, npc, nature, worldState);
+            SpellDamageCalculator.attack(player, npc, nature, worldState);
         });
     }
 

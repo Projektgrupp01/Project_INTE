@@ -13,7 +13,7 @@ import io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition;
 import io.github.Projektgrupp01.Project_INTE.races.Dwarf;
 import io.github.Projektgrupp01.Project_INTE.races.Elf;
 import io.github.Projektgrupp01.Project_INTE.races.Race;
-import io.github.Projektgrupp01.Project_INTE.spells.AttackSpells;
+import io.github.Projektgrupp01.Project_INTE.spells.SpellDamageCalculator;
 import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 import io.github.Projektgrupp01.Project_INTE.spells.Nature;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
@@ -47,48 +47,48 @@ class AttackSpellsWeatherRace {
     @Test
     void elfNatureSunny() {
         player.addRace(elf);
-        AttackSpells.attack(player, npc, nature, stateSunny);
+        SpellDamageCalculator.attack(player, npc, nature, stateSunny);
         assertEquals(89, npc.getHealth());
     }
 
     @Test
     void elfNatureStorm() {
         player.addRace(elf);
-        AttackSpells.attack(player, npc, nature, stateStorm);
+        SpellDamageCalculator.attack(player, npc, nature, stateStorm);
         assertEquals(93, npc.getHealth());
     }
 
     @Test
     void dwarfNatureSunny() {
         player.addRace(dwarf);
-        AttackSpells.attack(player, npc, nature, stateSunny);
+        SpellDamageCalculator.attack(player, npc, nature, stateSunny);
         assertEquals(94, npc.getHealth());
     }
 
     @Test
     void dwarfNatureStorm() {
         player.addRace(dwarf);
-        AttackSpells.attack(player, npc, nature, stateStorm);
+        SpellDamageCalculator.attack(player, npc, nature, stateStorm);
         assertEquals(96, npc.getHealth());
     }
 
     @Test
     void dwarfNatureCloudy() {
         player.addRace(dwarf);
-        AttackSpells.attack(player, npc, nature, stateCloudy);
+        SpellDamageCalculator.attack(player, npc, nature, stateCloudy);
         assertEquals(95, npc.getHealth());
     }
     @Test
     void dwarfNatureRainy() {
         player.addRace(dwarf);
-        AttackSpells.attack(player, npc, nature, stateRain);
+        SpellDamageCalculator.attack(player, npc, nature, stateRain);
         assertEquals(95, npc.getHealth());
     }
 
     @Test
     void elfFireCloudy() {
         player.addRace(elf);
-        AttackSpells.attack(player, npc, fire, stateCloudy);
+        SpellDamageCalculator.attack(player, npc, fire, stateCloudy);
         assertEquals(90, npc.getHealth());
     }
 
@@ -97,7 +97,7 @@ class AttackSpellsWeatherRace {
         player.addRace(elf);
         BasePlayer p = new BasePlayer("player", 100, 100, 100, 1, 100);
         assertThrows(IllegalArgumentException.class, () -> {
-            AttackSpells.attack(p, npc, fire, stateCloudy);
+            SpellDamageCalculator.attack(p, npc, fire, stateCloudy);
         });
     }
 
