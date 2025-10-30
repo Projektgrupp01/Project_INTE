@@ -72,9 +72,6 @@ class AttackSpellsRaceTest {
         AttackSpells.attack(player, npc, nature, worldState);
         assertEquals(91, npc.getHealth());
     }
-
-    
-
     @Test
     void noEnergyExceptionThrows() {
         player.addRace(elf);
