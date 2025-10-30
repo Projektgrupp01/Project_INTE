@@ -15,11 +15,13 @@ public class PlayerTest {
 	private Player player;
 	private NPC friendlyNPC;
 	private Quest quest;
+	private Quest questWithRequirements;
 
 	@BeforeEach
 	void setUp() {
 		player = new BasePlayer();
 		quest = new Quest("Test Quest", "Description of Test Quest.", 50, 0);
+		questWithRequirements = new Quest("Help the village!", "Kill 5 rats to save the village.", 50, 5, 3);
 		friendlyNPC = new BaseNPC("Friendly Bob", 1, NPC.Disposition.FRIENDLY);
 	}
 
@@ -106,13 +108,99 @@ public class PlayerTest {
 	}
 
 	@Test
-	void playerLevelCannotBeSetTo0() {
+	void playerLevelCannotBeSetTo0OrLower() {
 		assertThrows(IllegalStateException.class, () -> player.setLevel(0));
 	}
 
 	@Test
 	void playerLevelCannotBeSetTo11() {
 		assertThrows(IllegalStateException.class, () -> player.setLevel(11));
+	}
+
+	@Test
+	void playerEnergyDefaultsTo0IfLower() {
+		player.setEnergy(-10);
+		assertEquals((0), player.getEnergy());
+	}
+
+	@Test
+	void playerEnergyCannotBeSetToHigherThanMaxEnergy() {
+		assertThrows(IllegalStateException.class, () -> player.setEnergy(101));
+	}
+
+	@Test
+	void playerMaxEnergyCanBeSet() {
+		player.setMaxEnergy(101);
+		assertEquals(101, player.getMaxEnergy());
+	}
+
+	@Test
+	void playerMaxEnergyCannotBeSetTo0OrLess() {
+		assertThrows(IllegalStateException.class, () -> player.setMaxEnergy(0));
+	}
+	
+	@Test
+	void playerHealthCanBeSet() {
+		player.setHealth(60);
+		assertEquals(60, player.getHealth());
+	}
+	@Test
+	void playerHealthDefaultsTo0IfLower() {
+		player.setHealth(-1);
+		assertEquals(0, player.getHealth());
+	}
+	
+	@Test
+	void playerHealthCannotBeSetHigherThanMaxHealth() {
+		assertThrows(IllegalStateException.class, () -> player.setHealth(101));
+	}
+	@Test
+	void playerStrengthCanBeSet() {
+		player.setStrength(60);
+		assertEquals(60, player.getStrength());
+	}
+	
+	@Test
+	void playerStrengthCannotBe0OrLess() {
+		assertThrows(IllegalStateException.class, () -> player.setStrength(-1));
+	}
+	
+	@Test
+	void playerSpeedCanBeSet() {
+		player.setSpeed(60);
+		assertEquals(60, player.getSpeed());
+	}
+	
+	@Test
+	void playerSpeedCannotBe0OrLess() {
+		assertThrows(IllegalStateException.class, () -> player.setSpeed(-1));
+	}
+	@Test
+	void playerMaxHealthCanBeSet() {
+		player.setMaxHealth(101);
+		assertEquals(101, player.getMaxHealth());
+	}
+
+	@Test
+	void playerMaxHealthCannotBeSetTo0OrLess() {
+		assertThrows(IllegalStateException.class, () -> player.setMaxHealth(0));
+	}
+
+	@Test
+	void playerCannotAcceptNullQuest() {
+		assertThrows(NullPointerException.class, () -> player.acceptQuest(null));
+	}
+
+	@Test
+	void playerCannotAcceptQuestWithoutRequirementsMet() {
+		assertThrows(IllegalStateException.class, () -> player.acceptQuest(questWithRequirements));
+	}
+
+	@Test
+	void deadPlayerCannotAcceptQuests() {
+		player.takeDamage(100);
+		player.acceptQuest(quest);
+		assertFalse(player.getActiveQuests().contains(quest));
 	}
 
 	@Test
@@ -124,6 +212,30 @@ public class PlayerTest {
 	}
 
 	@Test
+	void playerCannotCompleteNullQuest() {
+		assertThrows(NullPointerException.class, () -> player.completeQuest(null));
+	}
+
+	@Test
+	void playerCannotCompleteQuestThatHasntStarted() {
+		assertThrows(IllegalStateException.class, () -> player.completeQuest(quest));
+	}
+
+	@Test
+	void playerCannotCompleteQuestThatHasBeenCompletedAlready() {
+		player.acceptQuest(quest);
+		player.completeQuest(quest);
+		assertThrows(IllegalStateException.class, () -> player.completeQuest(quest));
+	}
+
+	@Test
+	void playersCompletedQuestsContainsCompletedQuests() {
+		player.acceptQuest(quest);
+		player.completeQuest(quest);
+		assertTrue(player.getCompletedQuests().contains(quest));
+	}
+
+	@Test
 	void playerIsRewardedAndQuestCompletedByQuestCompletion() {
 		player.acceptQuest(quest);
 		player.completeQuest(quest);
@@ -131,4 +243,11 @@ public class PlayerTest {
 		assertEquals(50, player.getExperience());
 	}
 
+	@Test
+	void deadPlayerCannotCompleteQuests() {
+		player.acceptQuest(quest);
+		player.takeDamage(100);
+		player.completeQuest(quest);
+		assertFalse(player.getCompletedQuests().contains(quest));
+	}
 }

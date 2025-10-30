@@ -88,8 +88,8 @@ public class Quest {
 			status = Status.ACCEPTED;
 			return;
 		}
-		if (status == Status.LOCKED && !meetsRequirement(player)) {
-			System.out.println("You do not meet the requirements.");
+		if (status == Status.LOCKED) {
+			System.out.println("You do not meet the level requirements.");
 			return;
 		}
 		System.out.println("The quest is not available");

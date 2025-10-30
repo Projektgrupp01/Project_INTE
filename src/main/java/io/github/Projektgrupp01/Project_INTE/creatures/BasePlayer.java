@@ -125,7 +125,7 @@ public class BasePlayer implements Player {
 		if (profession == null) {
 			throw new IllegalArgumentException("Profession cannot be null");
 		}
-		if(!containsProfession(profession.getProfessionName())) {
+		if (!containsProfession(profession.getProfessionName())) {
 			professions.add(profession);
 		}
 	}
@@ -144,7 +144,7 @@ public class BasePlayer implements Player {
 		}
 		return contains;
 	}
-	
+
 	public boolean containsProfession(String professionName) {
 		boolean contains = false;
 		for (Profession profession : professions) {
@@ -189,7 +189,7 @@ public class BasePlayer implements Player {
 		return Collections.unmodifiableSet(activeQuests);
 	}
 
-	public Set<Quest> getCompletedQuest() {
+	public Set<Quest> getCompletedQuests() {
 		return Collections.unmodifiableSet(completedQuests);
 	}
 
@@ -210,14 +210,16 @@ public class BasePlayer implements Player {
 		if (quest == null) {
 			throw new NullPointerException("Quest cannot be null");
 		}
-		if (!activeQuests.contains(quest)) {
-			throw new IllegalStateException("Quest has not been accepted yet.");
-		}
 		if (completedQuests.contains(quest)) {
 			throw new IllegalStateException("Quest has already been completed.");
 		}
-		completedQuests.add(quest);
-		quest.complete(this);
+		if (!activeQuests.contains(quest)) {
+			throw new IllegalStateException("Quest has not been accepted yet.");
+		}
+		if (!isDead()) {
+			completedQuests.add(quest);
+			quest.complete(this);
+		}
 	}
 
 	public void setEnergy(int newEnergy) {
@@ -246,28 +248,26 @@ public class BasePlayer implements Player {
 			health = 0;
 			return;
 		}
-		if (!isDead()) {
-			health = newHealth;
-		}
+		health = newHealth;
 	}
 
 	public void setMaxHealth(int newHealth) {
 		if (newHealth <= 0) {
-			throw new IllegalStateException("max health can't be <=0");
+			throw new IllegalStateException("max health can't be <= 0");
 		}
 		maxHealth = newHealth;
 	}
 
 	public void setStrength(int newStrength) {
 		if (newStrength <= 0) {
-			throw new IllegalStateException("Strength can't be <=0");
+			throw new IllegalStateException("Strength can't be <= 0");
 		}
 		strength = newStrength;
 	}
 
 	public void setSpeed(int newSpeed) {
 		if (newSpeed <= 0) {
-			throw new IllegalStateException("Speed can't be <=0");
+			throw new IllegalStateException("Speed can't be <= 0");
 		}
 		speed = newSpeed;
 	}
@@ -275,9 +275,9 @@ public class BasePlayer implements Player {
 	@Override
 	public void setLevel(int newLevel) {
 		if (newLevel <= 0) {
-			throw new IllegalStateException("Level can't be <=0");
+			throw new IllegalStateException("Level can't be <= 0");
 		} else if (newLevel > 10) {
-			throw new IllegalStateException("Level can't be >10");
+			throw new IllegalStateException("Level can't be > 10");
 		}
 		level = newLevel;
 	}

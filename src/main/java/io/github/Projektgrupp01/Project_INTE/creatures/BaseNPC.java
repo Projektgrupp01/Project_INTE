@@ -96,13 +96,11 @@ public class BaseNPC implements NPC {
 			System.out.println(name + " attacks!");
 			otherCreature.takeDamage(10);
 			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + disposition);
 		}
 
 	}
 
-	private void offerQuest(Player player, Quest quest) {
+	public void offerQuest(Player player, Quest quest) {
 		if (!quest.meetsRequirement(player)) {
 			throw new IllegalArgumentException("You do not meet the requirements.");
 		}

@@ -16,4 +16,6 @@ public interface NPC extends Creature {
 	void addQuest(Quest quest);
 
 	Set<Quest> getQuests();
+
+	void offerQuest(Player player, Quest quest);
 }
