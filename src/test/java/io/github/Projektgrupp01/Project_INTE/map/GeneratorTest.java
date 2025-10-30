@@ -16,7 +16,7 @@ public class GeneratorTest {
     Generator generator;
 
     @BeforeEach
-    void createGenerator(){
+    void createGenerator() {
         generator = new Generator();
         generator.addNPCNames("Misan", "Snorkfröken", "My", "Snobben", "Hemulen", "Bisamråttan", "Mumin", "Mårran");
         Equipment treasure = new Equipment("Treasure", EquipmentType.CHEST);
@@ -25,55 +25,55 @@ public class GeneratorTest {
     }
 
     @Test
-    void canAddNPCNamesTest(){
+    void canAddNPCNamesTest() {
         generator.addNPCNames("Stefan");
         assertTrue(generator.getNPCNames().contains("Stefan"));
     }
 
     @Test
-    void canAddMultipleNPCNamesTest(){
+    void canAddMultipleNPCNamesTest() {
         String[] names = {"Stefan", "Bertil", "Ålög"};
         generator.addNPCNames(names);
         assertTrue(generator.getNPCNames().containsAll(Arrays.asList(names)));
     }
 
     @Test
-    void canAddEquipmentTemplatesTest(){
+    void canAddEquipmentTemplatesTest() {
         Equipment equipment = new Equipment("Mace", EquipmentType.WEAPON);
         generator.addEquipmentTemplates(equipment);
         assertTrue(generator.getEquipmentTemplates().contains(equipment));
     }
 
     @Test
-    void generatorReturnsNPCList(){
+    void generatorReturnsNPCList() {
         generator.generateNPC();
         generator.generateNPC();
         assertEquals(2, generator.getNPCs().size());
     }
 
     @Test
-    void generatorNPCListContainsNPC(){
+    void generatorNPCListContainsNPC() {
         BaseNPC NPC = generator.generateNPC();
         assertEquals(NPC, generator.getNPCs().getFirst());
     }
 
     @Test
-    void generatorEquipmentListContainsEquipment(){
+    void generatorEquipmentListContainsEquipment() {
         Equipment equipment = generator.generateEquipment();
         assertEquals(equipment, generator.getEquipment().getFirst());
     }
 
     @Test
-    void generatorGenerateNPCReturnsCorrectNrOfNPCs(){
-        for(int i = 0; i < 7; i++){
+    void generatorGenerateNPCReturnsCorrectNrOfNPCs() {
+        for (int i = 0; i < 7; i++) {
             generator.generateNPC();
         }
         assertEquals(7, generator.getNPCs().size());
     }
 
     @Test
-    void generatorGenerateEquipmentReturnsCorrectNrOfEquipment(){
-        for(int i = 0; i < 43; i++){
+    void generatorGenerateEquipmentReturnsCorrectNrOfEquipment() {
+        for (int i = 0; i < 43; i++) {
             generator.generateEquipment();
         }
         assertEquals(43, generator.getEquipment().size());

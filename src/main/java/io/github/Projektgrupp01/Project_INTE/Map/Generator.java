@@ -14,16 +14,16 @@ public class Generator {
     List<Equipment> equipmentList = new ArrayList<>();
     Random random = new Random();
 
-    public BaseNPC generateNPC(){
-            String name = NPCNames.get(random.nextInt(NPCNames.size()));
-            int health = random.nextInt(10, 100);
-            NPC.Disposition disposition = getRandomDisposition();
-            int speed = random.nextInt();
-            int strength = random.nextInt();
-            int energy = random.nextInt();
+    public BaseNPC generateNPC() {
+        String name = NPCNames.get(random.nextInt(NPCNames.size()));
+        int health = random.nextInt(10, 100);
+        NPC.Disposition disposition = getRandomDisposition();
+        int speed = random.nextInt();
+        int strength = random.nextInt();
+        int energy = random.nextInt();
         BaseNPC newNPC = new BaseNPC(name, health, disposition, speed, strength, energy);
         NPCsList.add(newNPC);
-            return newNPC;
+        return newNPC;
     }
 
     public Equipment generateEquipment() {

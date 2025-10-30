@@ -38,7 +38,7 @@ public class BaseMap implements Map {
         return mapArray;
     }
 
-    public int getNrOfWalkableArea(){
+    public int getNrOfWalkableArea() {
         return walkableArea;
     }
 
@@ -113,7 +113,7 @@ public class BaseMap implements Map {
                     } else if (object == EQUIPMENT) {
                         listOfEquipment.add(generator.generateEquipment());
                     }
-                }else {
+                } else {
                     attempts++;
                 }
             }
