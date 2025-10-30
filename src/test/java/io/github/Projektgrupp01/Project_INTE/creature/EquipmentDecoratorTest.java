@@ -103,15 +103,17 @@ public class EquipmentDecoratorTest {
     }
 
     @Test
-    void canEquipItemAtMinimumValidLevel() {
-        Player player = new BasePlayer("Starter Protagonist", 100, 100, 100, 100, 1);
-        Equipment ring = new Equipment("Starter Ring", EquipmentType.RING);
-        ring.setLevelRequirement(1);
+    void cannotEquipItemAbovePlayerLevel() {
+        Player player = new BasePlayer("Protagonist", 100, 100, 100, 100, 4);
 
-        Player equipped = new EquipmentDecorator(player, ring);
+        Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
+        sword.setLevelRequirement(5);
 
-        assertNotNull(equipped);
-        assertEquals(1, equipped.getLevel());
+        try {
+            Player equipped = new EquipmentDecorator(player, sword);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     @Test
@@ -138,17 +140,15 @@ public class EquipmentDecoratorTest {
     }
 
     @Test
-    void cannotEquipItemAbovePlayerLevel() {
-        Player player = new BasePlayer("Protagonist", 100, 100, 100, 100, 2);
+    void canEquipItemAtMinimumValidLevel() {
+        Player player = new BasePlayer("Starter Protagonist", 100, 100, 100, 100, 1);
+        Equipment ring = new Equipment("Starter Ring", EquipmentType.RING);
+        ring.setLevelRequirement(1);
 
-        Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
-        sword.setLevelRequirement(10);
+        Player equipped = new EquipmentDecorator(player, ring);
 
-        try {
-            Player equipped = new EquipmentDecorator(player, sword);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertNotNull(equipped);
+        assertEquals(1, equipped.getLevel());
     }
 
     @Test

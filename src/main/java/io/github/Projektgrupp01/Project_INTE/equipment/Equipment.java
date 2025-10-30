@@ -205,6 +205,7 @@ public class Equipment {
     // Level requirement system
     public void setLevelRequirement(int levelRequirement) {
         validNonNegativeInputs(levelRequirement, "Level requirement");
+        validateLevelRequirementInput(levelRequirement, name);
         this.levelRequirement = levelRequirement;
     }
 
@@ -256,6 +257,12 @@ public class Equipment {
     private void validateAccessoryOnly(String bonus) {
         if (!isAccessoryType(type)) {
             throw new IllegalStateException("Only weapons can " + bonus);
+        }
+    }
+
+    private void validateLevelRequirementInput(int value, String level) {
+        if (value > 10) {
+            throw new IllegalArgumentException(level + " cannot be negative");
         }
     }
 

@@ -3,6 +3,7 @@ package io.github.Projektgrupp01.Project_INTE.equipment;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -464,6 +465,17 @@ public class EquipmentTest {
         Equipment sword = new Equipment(" Negative Sword", EquipmentType.WEAPON);
         try {
             sword.setLevelRequirement(-5);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void levelRequirementCannotExceedMaxPlayerLevel() {
+        Equipment sword = new Equipment("Impossible Sword", EquipmentType.WEAPON);
+
+        try {
+            sword.setLevelRequirement(11);
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }
