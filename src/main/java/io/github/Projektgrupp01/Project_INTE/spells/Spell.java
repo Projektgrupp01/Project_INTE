@@ -40,5 +40,4 @@ public abstract class Spell {
     public abstract SpellType getSpellType();
 
     public abstract String castSpell();
-
 }

@@ -28,7 +28,7 @@ public final class WeatherEffect {
                 if (spelltype == SpellType.NATURE)
                     m *= 0.8;
                 break;
-            case CLOUDY:
+            default:
                 break;
         }
         return m;
