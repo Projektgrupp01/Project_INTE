@@ -101,7 +101,7 @@ public class BaseMap implements Map {
         for (int i = 0; i < nrOfObject; i++) {
             boolean placed = false;
             int attempts = 0;
-            while (!placed && attempts < (mapArray.length * mapArray.length)) {
+            while (!placed && attempts < (x * y)) {
                 int posX = random.nextInt(x);
                 int posY = random.nextInt(y);
                 if (mapArray[posX][posY] == ' ') {

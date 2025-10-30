@@ -46,6 +46,11 @@ public class MapTest {
     }
 
     @Test
+    void walkableAreaTest_IsZeroBeforeMapCreation(){
+        assertEquals(0 ,map.getNrOfWalkableArea());
+    }
+
+    @Test
     void createMapTest_x_noInitializers(){
         char[][] mapArray = map.getMap();
         assertEquals(20, mapArray[0].length);

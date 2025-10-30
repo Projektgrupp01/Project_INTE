@@ -1,10 +1,8 @@
 package io.github.Projektgrupp01.Project_INTE.Map;
 
 import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
-import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 import io.github.Projektgrupp01.Project_INTE.creatures.NPC;
 import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
-import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
 
 import java.util.*;
 

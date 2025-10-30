@@ -5,7 +5,6 @@ import io.github.Projektgrupp01.Project_INTE.creatures.BaseNPC;
 import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
 import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
