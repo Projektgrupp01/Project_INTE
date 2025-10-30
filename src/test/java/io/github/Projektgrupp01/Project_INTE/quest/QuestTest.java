@@ -77,6 +77,7 @@ class QuestTest {
 		questWithRequirements.complete(playerWithRequirements);
 		questWithRequirements.start(playerWithRequirements);
 		questWithRequirements.fail();
+		questWithRequirements.complete(playerWithRequirements);
 		assertEquals(Status.PERMANENT_LOCK, questWithRequirements.getStatus());
 
 	}

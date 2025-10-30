@@ -96,15 +96,34 @@ public class Quest {
 	}
 
 	public void fail() {
-		if (status != Status.IN_PROGRESS && status != Status.ACCEPTED) {
-			System.out.println("You can only fail a quest in progress.");
-		}
+		switch (status) {
+        case IN_PROGRESS:
+        case ACCEPTED:
+            status = Status.FAILED;
+            System.out.println("Quest failed. You can retry if you have attempts left.");
+            return;
 
-		attempt++;
-		if (allowedAttempts > 0 && attempt >= allowedAttempts) {
-			status = Status.PERMANENT_LOCK;
-		} else {
-			status = Status.FAILED;
+        case FAILED:
+            System.out.println("Quest already marked as failed. Complete it to retry.");
+            return;
+
+        case AVAILABLE:
+        case LOCKED:
+            System.out.println("You can't fail a quest that hasn't been started.");
+            return;
+
+        case PERMANENT_LOCK:
+            System.out.println("You are permanently locked from this quest.");
+            return;
+
+        case SUCCESS_NORMAL:
+        case SUCCESS_BONUS:
+        case COMPLETED:
+            System.out.println("You can’t fail a quest that has already been completed.");
+            return;
+
+        default:
+            System.out.println("Invalid state transition in fail().");
 		}
 	}
 
