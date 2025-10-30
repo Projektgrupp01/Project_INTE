@@ -155,7 +155,7 @@ public class Equipment {
         this.magicDefense = magicDefense;
     }
 
-    public int getMagicDefense() {
+    public Integer getMagicDefense() {
         return magicDefense;
     }
 
@@ -249,20 +249,20 @@ public class Equipment {
     }
 
     private void validateArmorOnly(String defenseType) {
-        if (type != EquipmentType.WEAPON) {
-            throw new IllegalStateException("Only weapons can " + defenseType);
+        if (!isArmorEquipmentType(type)) {
+            throw new IllegalStateException("Only armor can " + defenseType);
         }
     }
 
     private void validateAccessoryOnly(String bonus) {
         if (!isAccessoryType(type)) {
-            throw new IllegalStateException("Only weapons can " + bonus);
+            throw new IllegalStateException("Only accessories can " + bonus);
         }
     }
 
     private void validateLevelRequirementInput(int value, String level) {
         if (value > 10) {
-            throw new IllegalArgumentException(level + " cannot be negative");
+            throw new IllegalArgumentException(level + " level requirement cannot exceed max player level (10)");
         }
     }
 

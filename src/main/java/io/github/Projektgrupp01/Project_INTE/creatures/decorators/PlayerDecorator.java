@@ -81,26 +81,32 @@ public abstract class PlayerDecorator implements Player {
 	public void setLevel(int newLevel) {
 		player.setLevel(newLevel);
 	}
+
 	@Override
 	public void setEnergy(int newEnergy) {
 		player.setEnergy(newEnergy);
 	}
+
 	@Override
 	public void setMaxEnergy(int newMaxEnergy) {
 		player.setMaxEnergy(newMaxEnergy);
 	}
+
 	@Override
 	public void setHealth(int newHealth) {
 		player.setHealth(newHealth);
 	}
+
 	@Override
 	public void setStrength(int newStrength) {
 		player.setHealth(newStrength);
 	}
+
 	@Override
 	public void setSpeed(int newSpeed) {
 		player.setHealth(newSpeed);
 	}
+
 	@Override
 	public void setMaxHealth(int newmaxHealth) {
 		player.setMaxEnergy(newmaxHealth);
@@ -120,6 +126,7 @@ public abstract class PlayerDecorator implements Player {
 	public Set<Quest> getActiveQuests() {
 		return player.getActiveQuests();
 	}
+
 	@Override
 	public Set<Quest> getCompletedQuests() {
 		return player.getCompletedQuests();

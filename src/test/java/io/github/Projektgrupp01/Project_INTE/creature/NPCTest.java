@@ -37,22 +37,26 @@ public class NPCTest {
 	void getDispositionTest() {
 		assertEquals(NPC.Disposition.HOSTILE, hostileNPC.getDisposition());
 	}
+
 	@Test
 	void getNameTest() {
 		assertEquals("Friendly Bob", friendlyNPC.getName());
 	}
+
 	@Test
 	void getSpeedTest() {
 		assertEquals(100, friendlyNPC.getSpeed());
 	}
+
 	@Test
 	void getStrengthTest() {
 		assertEquals(100, friendlyNPC.getStrength());
 	}
+
 	@Test
 	void getEnergyTest() {
 		assertEquals(100, friendlyNPC.getEnergy());
-		
+
 	}
 
 	@Test

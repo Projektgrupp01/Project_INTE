@@ -138,43 +138,46 @@ public class PlayerTest {
 	void playerMaxEnergyCannotBeSetTo0OrLess() {
 		assertThrows(IllegalStateException.class, () -> player.setMaxEnergy(0));
 	}
-	
+
 	@Test
 	void playerHealthCanBeSet() {
 		player.setHealth(60);
 		assertEquals(60, player.getHealth());
 	}
+
 	@Test
 	void playerHealthDefaultsTo0IfLower() {
 		player.setHealth(-1);
 		assertEquals(0, player.getHealth());
 	}
-	
+
 	@Test
 	void playerHealthCannotBeSetHigherThanMaxHealth() {
 		assertThrows(IllegalStateException.class, () -> player.setHealth(101));
 	}
+
 	@Test
 	void playerStrengthCanBeSet() {
 		player.setStrength(60);
 		assertEquals(60, player.getStrength());
 	}
-	
+
 	@Test
 	void playerStrengthCannotBe0OrLess() {
 		assertThrows(IllegalStateException.class, () -> player.setStrength(-1));
 	}
-	
+
 	@Test
 	void playerSpeedCanBeSet() {
 		player.setSpeed(60);
 		assertEquals(60, player.getSpeed());
 	}
-	
+
 	@Test
 	void playerSpeedCannotBe0OrLess() {
 		assertThrows(IllegalStateException.class, () -> player.setSpeed(-1));
 	}
+
 	@Test
 	void playerMaxHealthCanBeSet() {
 		player.setMaxHealth(101);
