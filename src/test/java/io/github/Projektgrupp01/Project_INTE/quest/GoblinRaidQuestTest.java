@@ -15,27 +15,27 @@ import io.github.Projektgrupp01.Project_INTE.quests.Quest;
 
 public class GoblinRaidQuestTest {
 	private Quest quest;
-    private Player player;
+	private Player player;
 	private BaseNPC questNPC;
-	
+
 	@BeforeEach
 	void setUp() {
-		quest = new Quest("The Goblin Raid");
-		questNPC = new BaseNPC("Friendly Bob",50, NPC.Disposition.FRIENDLY);
+		quest = new Quest("The Goblin Raid",
+				"The village is being attacked by Goblins! Please save us! [Kill 3 goblins before the village is destroyed in 10 minutes]",
+				100, 5, 0);
+		questNPC = new BaseNPC("Friendly Bob", 50, NPC.Disposition.FRIENDLY);
 		player = new BasePlayer();
 	}
-	
+
 	@Test
 	void possibleNormalCompletionFlowOfTheGoblinRaid() {
-        questNPC.addQuest(quest);
-        player.setLevel(4);
-        // unimplemented
-//        assertEquals(Quest.Status.LOCKED, quest.getStatus());
-//        questNPC.interact(player);
-//        assertThrows(Exception.class, () -> questNPC.offerQuest(player, quest));
-//        assertTrue(player.getActiveQuests().isEmpty());
-//        assertEquals(Quest.Status.LOCKED, quest.getStatus());
-//        player.setLevel(5);
+		questNPC.addQuest(quest);
+		player.setLevel(4);
+		assertTrue(!quest.meetsRequirement(player));
+		questNPC.interact(player);
+        assertTrue(player.getActiveQuests().isEmpty());
+        assertEquals(Quest.Status.LOCKED, quest.getStatus());
+        player.setLevel(5);
 //        assertEquals(Quest.Status.AVAILABLE, quest.getStatus());
 //        questNPC.interact(player);
 //        questNPC.offerQuest(player, quest);

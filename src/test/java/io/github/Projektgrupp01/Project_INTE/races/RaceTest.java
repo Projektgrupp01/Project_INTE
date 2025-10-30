@@ -13,13 +13,13 @@ public class RaceTest {
 	@Test
 	void newElf() {
 		Race elf = new Elf();
-		assertEquals(elf.getRaceName(),"Elf");
+		assertEquals("Elf", elf.getRaceName());
 	}
 	
 	@Test
 	void newDwarf() {
 		Race dwarf = new Dwarf();
-		assertEquals(dwarf.getRaceName(),"Dwarf");
+		assertEquals("Dwarf", dwarf.getRaceName());
 	}
 	
 	@Test
@@ -29,7 +29,7 @@ public class RaceTest {
 		player.addRace(dwarf);
 		HashSet<Race> comparingSet = new HashSet<>();
 		comparingSet.add(dwarf);
-		assertEquals(player.getRaces(),comparingSet);
+		assertEquals(comparingSet, player.getRaces());
 	}
 	
 	@Test
@@ -68,9 +68,9 @@ public class RaceTest {
 	}
 	
 	@Test
-	void checktoString() {
+	void checkToString() {
 		Race elf = new Elf();
-		assertEquals(elf.toString(),"Elf");
+		assertEquals("Elf", elf.toString());
 
 	}
 	
@@ -88,5 +88,15 @@ public class RaceTest {
 		Race elf = new Elf();
 		player.addRace(elf);
 		assertFalse(player.containsRace("Dwarf"));
+	}
+	
+	@Test 
+	void doesContainRaceWithTwoInSet() {
+		BasePlayer player = new BasePlayer();
+		Race elf = new Elf();
+		Race dwarf = new Dwarf();
+		player.addRace(elf);
+		player.addRace(dwarf);
+		assertTrue(player.containsRace("Elf"));
 	}
 }

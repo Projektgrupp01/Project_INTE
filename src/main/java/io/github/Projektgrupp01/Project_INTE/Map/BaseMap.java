@@ -12,13 +12,13 @@ public class BaseMap implements Map{
 
     private int x;
     private int y;
-    private Random random = new Random();
+    private final Random random = new Random();
     private final int[][] DIRECTIONS = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
     private char [][] mapArray;
     private final char EQUIPMENT = 'x';
     private final char NPC = 'n';
-    private ArrayList<BaseNPC> listOfNPCs = new ArrayList<>();
-    private ArrayList<Equipment> listOfEquipment = new ArrayList<>();
+    private final ArrayList<BaseNPC> listOfNPCs = new ArrayList<>();
+    private final ArrayList<Equipment> listOfEquipment = new ArrayList<>();
 
     public BaseMap(){
         this(20,20);

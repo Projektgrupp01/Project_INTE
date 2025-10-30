@@ -17,12 +17,7 @@ public class BaseNPC implements NPC {
 	private Set<Quest> offeredQuests = new HashSet<>();
 
 	public BaseNPC(String name, int health, Disposition disposition) {
-		this.name = name;
-		this.health = health;
-		this.disposition = disposition;
-		this.speed = 100;
-		this.strength = 100;
-		this.energy = 100;
+		this(name, health, disposition, 100, 100, 100);
 	}
 
 	public BaseNPC(String name, int health, Disposition disposition, int speed, int strength, int energy) {
@@ -76,8 +71,9 @@ public class BaseNPC implements NPC {
 
 	@Override
 	public void interact(Creature otherCreature) {
-		if (!(otherCreature instanceof Player player)) return;
-		
+		if (!(otherCreature instanceof Player player)) {
+			return;
+		}
 		switch (disposition) {
 		case FRIENDLY:
 			System.out.println(name + " greets you.");
@@ -86,7 +82,12 @@ public class BaseNPC implements NPC {
 					offerQuest(player, quest);
 				}
 			}
-			otherCreature.takeDamage(-10);
+			if (player.getHealth() <= player.getMaxHealth() - 10) {
+				player.takeDamage(-10);
+			} else if (player.getHealth() < player.getMaxHealth()) {
+				int healAmount = player.getMaxHealth() - player.getHealth();
+				player.takeDamage(-healAmount);
+			}
 			break;
 		case NEUTRAL:
 			System.out.println(name + " ignores you.");
@@ -95,12 +96,11 @@ public class BaseNPC implements NPC {
 			System.out.println(name + " attacks!");
 			otherCreature.takeDamage(10);
 			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + disposition);
 		}
 
 	}
-	private void offerQuest(Player player, Quest quest) {
+
+	public void offerQuest(Player player, Quest quest) {
 		if (!quest.meetsRequirement(player)) {
 			throw new IllegalArgumentException("You do not meet the requirements.");
 		}
@@ -116,7 +116,5 @@ public class BaseNPC implements NPC {
 	public Set<Quest> getQuests() {
 		return Collections.unmodifiableSet(offeredQuests);
 	}
-	
-	
 
 }

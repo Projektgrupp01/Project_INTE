@@ -17,61 +17,80 @@ import io.github.Projektgrupp01.Project_INTE.spells.AttackSpells;
 import io.github.Projektgrupp01.Project_INTE.spells.Fire;
 import io.github.Projektgrupp01.Project_INTE.spells.Nature;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
+import io.github.Projektgrupp01.Project_INTE.spells.Water;
 
-class AttackSpellsRaceTest {
+class AttackSpellsWeatherRace {
     BasePlayer player;
-    Spell nature;
-    Spell fire;
+    Spell nature, fire, water;
     BaseNPC npc;
-    Race dwarf;
-    Race elf;
-    WorldState worldState;
+    Race dwarf, elf;
+    WorldState stateSunny, stateStorm, stateCloudy;
 
     @BeforeEach
     void setup() {
         player = new BasePlayer();
         nature = new Nature();
         fire = new Fire();
+        water = new Water();
         npc = new BaseNPC("monster", 100, Disposition.HOSTILE);
         dwarf = new Dwarf();
         elf = new Elf();
         player.learnSpell(nature);
         player.learnSpell(fire);
-        worldState = new WorldState(Weather.CLOUDY);
+        player.learnSpell(water);
+        stateSunny = new WorldState(Weather.SUNNY);
+        stateStorm = new WorldState(Weather.STORM);
+        stateCloudy = new WorldState(Weather.CLOUDY);
     }
 
     @Test
-    void otherRaceNatureIsNormal() {
-        AttackSpells.attack(player, npc, nature, worldState);
+    void elfNatureSunny() {
+        player.addRace(elf);
+        AttackSpells.attack(player, npc, nature, stateSunny);
+        assertEquals(89, npc.getHealth());
+    }
+
+    @Test
+    void elfNatureStorm() {
+        player.addRace(elf);
+        AttackSpells.attack(player, npc, nature, stateStorm);
         assertEquals(93, npc.getHealth());
     }
 
     @Test
-    void dwarfNatureIsWeak() {
+    void dwarfNatureSunny() {
         player.addRace(dwarf);
-        AttackSpells.attack(player, npc, nature, worldState);
+        AttackSpells.attack(player, npc, nature, stateSunny);
+        assertEquals(94, npc.getHealth());
+    }
+
+    @Test
+    void dwarfNatureStorm() {
+        player.addRace(dwarf);
+        AttackSpells.attack(player, npc, nature, stateStorm);
+        assertEquals(96, npc.getHealth());
+    }
+
+    @Test
+    void dwarfNatureCloudy() {
+        player.addRace(dwarf);
+        AttackSpells.attack(player, npc, nature, stateCloudy);
         assertEquals(95, npc.getHealth());
     }
 
     @Test
-    void elfNatureIsStrong() {
+    void elfFireCloudy() {
         player.addRace(elf);
-        AttackSpells.attack(player, npc, nature, worldState);
-        assertEquals(91, npc.getHealth());
-    }
-
-    @Test
-    void otherRaceFireIsNormal() {
-        AttackSpells.attack(player, npc, fire, worldState);
+        AttackSpells.attack(player, npc, fire, stateCloudy);
         assertEquals(90, npc.getHealth());
     }
 
     @Test
-    void elfNatureIsStrongNoEnergy() {
+    void elfFireNoEnergy() {
         player.addRace(elf);
-        player.setEnergy(1);
+        BasePlayer p = new BasePlayer("player", 100, 100, 100, 1, 100);
         assertThrows(IllegalArgumentException.class, () -> {
-            AttackSpells.attack(player, npc, nature, worldState);
+            AttackSpells.attack(p, npc, fire, stateCloudy);
         });
     }
 

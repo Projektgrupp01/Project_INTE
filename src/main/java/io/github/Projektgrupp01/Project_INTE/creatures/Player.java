@@ -11,6 +11,14 @@ public interface Player extends Creature {
 
 	long getExperienceToNextLevel();
 
+	int getMaxHealth();
+
+	int getMaxEnergy();
+
+	void setLevel(int level);
+	
+	void setEnergy(int i);
+
 	void addExperience(long amount);
 
 	void acceptQuest(Quest quest);
@@ -19,10 +27,18 @@ public interface Player extends Creature {
 
 	public Set<Quest> getActiveQuests();
 
-	void setLevel(int level);
+	Set<Quest> getCompletedQuests();
 
-	int getMaxHealth();
+	void setMaxEnergy(int i);
 
-	int getMaxEnergy();
+	void setMaxHealth(int i);
+
+	void setHealth(int i);
+
+	void setStrength(int i);
+
+	void setSpeed(int i);
+
+
 
 }

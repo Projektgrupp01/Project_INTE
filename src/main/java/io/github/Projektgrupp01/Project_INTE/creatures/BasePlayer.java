@@ -17,25 +17,19 @@ public class BasePlayer implements Player {
 	private int strength;
 	private int maxEnergy;
 	private int energy;
-	private String name;
-	private Set<Spell> spellBook = new HashSet<>();
-	private Set<Quest> startedQuests = new HashSet<>();
-	private Set<Quest> completedQuests = new HashSet<>();
-	private Set<Race> races = new HashSet<>();
-	private Set<Profession> professions = new HashSet<>();
-	private int level = 1;
+	private final String name;
+	private final Set<Spell> spellBook = new HashSet<>();
+	private final Set<Quest> activeQuests = new HashSet<>();
+	private final Set<Quest> completedQuests = new HashSet<>();
+	private final Set<Race> races = new HashSet<>();
+	private final Set<Profession> professions = new HashSet<>();
+	private int level;
 	private long experience = 0;
 	private final long baseExp = 100;
 	private final double growthExponent = 2;
 
 	public BasePlayer() {
-		this.name = "BasePlayer";
-		this.health = 100;
-		this.maxHealth = 100;
-		this.speed = 100;
-		this.strength = 100;
-		this.energy = 100;
-		this.maxEnergy = 100;
+		this("BasePlayer", 100, 100, 100, 100, 1);
 	}
 
 	public BasePlayer(String name, int maxHealth, int speed, int strength, int maxEnergy, int level) {
@@ -78,7 +72,9 @@ public class BasePlayer implements Player {
 	}
 
 	public void useEnergy(int energy) {
-		setEnergy(this.energy - energy);
+		if (!isDead()) {
+			setEnergy(this.energy - energy);
+		}
 	}
 
 	public boolean isDead() {
@@ -99,7 +95,7 @@ public class BasePlayer implements Player {
 		if (spellBook.isEmpty()) {
 			return Collections.emptySet();
 		}
-		return spellBook;
+		return Collections.unmodifiableSet(spellBook);
 	}
 
 	public void forgetSpell(Spell spell) {
@@ -116,13 +112,7 @@ public class BasePlayer implements Player {
 		if (race == null) {
 			throw new IllegalArgumentException("Race cannot be null");
 		}
-		int duplicate = 0;
-		for (Race raceInSet : races) {
-			if (race.getRaceName().equals(raceInSet.getRaceName())) {
-				duplicate = 1;
-			}
-		}
-		if (duplicate == 0) {
+		if (!containsRace(race.getRaceName())) {
 			races.add(race);
 		}
 	}
@@ -135,13 +125,7 @@ public class BasePlayer implements Player {
 		if (profession == null) {
 			throw new IllegalArgumentException("Profession cannot be null");
 		}
-		int duplicate = 0;
-		for (Profession prof : professions) {
-			if (prof.getProfessionName().equals(profession.getProfessionName())) {
-				duplicate = 1;
-			}
-		}
-		if (duplicate == 0) {
+		if (!containsProfession(profession.getProfessionName())) {
 			professions.add(profession);
 		}
 	}
@@ -155,6 +139,18 @@ public class BasePlayer implements Player {
 		for (Race race : races) {
 			if (race.getRaceName().equals(raceName)) {
 				contains = true;
+				break;
+			}
+		}
+		return contains;
+	}
+
+	public boolean containsProfession(String professionName) {
+		boolean contains = false;
+		for (Profession profession : professions) {
+			if (profession.getProfessionName().equals(professionName)) {
+				contains = true;
+				break;
 			}
 		}
 		return contains;
@@ -185,15 +181,15 @@ public class BasePlayer implements Player {
 		experience += amount;
 		while (experience >= getExperienceToNextLevel()) {
 			experience -= getExperienceToNextLevel();
-			level++;
+			setLevel(level + 1);
 		}
 	}
 
 	public Set<Quest> getActiveQuests() {
-		return Collections.unmodifiableSet(startedQuests);
+		return Collections.unmodifiableSet(activeQuests);
 	}
 
-	public Set<Quest> getCompletedQuest() {
+	public Set<Quest> getCompletedQuests() {
 		return Collections.unmodifiableSet(completedQuests);
 	}
 
@@ -201,26 +197,29 @@ public class BasePlayer implements Player {
 		if (quest == null) {
 			throw new NullPointerException("Quest cannot be null");
 		}
-		if (startedQuests.contains(quest) || completedQuests.contains(quest)) {
-			throw new IllegalStateException("Quest is already started or completed.");
+		if (!quest.meetsRequirement(this)) {
+			throw new IllegalStateException("Player does not meet the quest requirements.");
 		}
-		startedQuests.add(quest);
-		quest.start();
+		if (!isDead()) {
+			activeQuests.add(quest);
+			quest.start(this);
+		}
 	}
 
 	public void completeQuest(Quest quest) {
 		if (quest == null) {
 			throw new NullPointerException("Quest cannot be null");
 		}
-		if (!startedQuests.contains(quest)) {
-			throw new IllegalStateException("Quest has not been accepted yet.");
-		}
 		if (completedQuests.contains(quest)) {
 			throw new IllegalStateException("Quest has already been completed.");
 		}
-		startedQuests.add(quest);
-		addExperience(quest.getReward());
-		quest.complete();
+		if (!activeQuests.contains(quest)) {
+			throw new IllegalStateException("Quest has not been accepted yet.");
+		}
+		if (!isDead()) {
+			completedQuests.add(quest);
+			quest.complete(this);
+		}
 	}
 
 	public void setEnergy(int newEnergy) {
@@ -254,21 +253,21 @@ public class BasePlayer implements Player {
 
 	public void setMaxHealth(int newHealth) {
 		if (newHealth <= 0) {
-			throw new IllegalStateException("max health can't be <=0");
+			throw new IllegalStateException("max health can't be <= 0");
 		}
 		maxHealth = newHealth;
 	}
 
 	public void setStrength(int newStrength) {
 		if (newStrength <= 0) {
-			throw new IllegalStateException("Strength can't be <=0");
+			throw new IllegalStateException("Strength can't be <= 0");
 		}
 		strength = newStrength;
 	}
 
 	public void setSpeed(int newSpeed) {
 		if (newSpeed <= 0) {
-			throw new IllegalStateException("Speed can't be <=0");
+			throw new IllegalStateException("Speed can't be <= 0");
 		}
 		speed = newSpeed;
 	}
@@ -276,9 +275,9 @@ public class BasePlayer implements Player {
 	@Override
 	public void setLevel(int newLevel) {
 		if (newLevel <= 0) {
-			throw new IllegalStateException("Level can't be <=0");
-		}else if(newLevel > 10){
-			throw new IllegalStateException("Level can't be >10");
+			throw new IllegalStateException("Level can't be <= 0");
+		} else if (newLevel > 10) {
+			throw new IllegalStateException("Level can't be > 10");
 		}
 		level = newLevel;
 	}

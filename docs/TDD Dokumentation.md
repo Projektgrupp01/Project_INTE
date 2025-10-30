@@ -10,6 +10,7 @@ Can die.
 Should be possible to adjust stats with items, magic buffs, jobs, races
 added a spellbook. can add spells and remove spells.
 can gain experience and levels
+can accept quests and keep track of them.
 players are considered Creatures
 
 Race functionality
@@ -24,16 +25,19 @@ Has Health
 Can lose health
 Can die
 Has disposition towards player (Hostile, friendly, neutral)
-Can be interacted with (Friendly greets you, neutral ignores you and hostile attacks)
+Can be interacted with (Friendly greets you and offers quests, neutral ignores you and hostile attacks)
 Can offer quests
 NPCs are considered Creatures
 
 Quests:
 Name
 Description
-Status 
-Mission stages/steps
 Reward
+Status 
+have level requirements
+can fail
+be completed
+Mission stages/steps
 
 Magic functionality:
 Consumes energy
@@ -46,3 +50,6 @@ based on 2-dimensional array, can return the structure in string format
 randomly generated map
 randomly generated "noice" (NPCs, equipment)
 difficulty dependent on player level
+
+Generator:
+generates random objects for the Map

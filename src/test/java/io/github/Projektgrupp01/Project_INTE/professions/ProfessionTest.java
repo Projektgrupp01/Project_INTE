@@ -1,6 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.professions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,31 +16,31 @@ public class ProfessionTest {
 	@Test
 	void newDoctor() {
 		Doctor doc = new Doctor();
-		assertEquals(doc.getProfessionName(),"Doctor");
+		assertEquals("Doctor", doc.getProfessionName());
 	}
 	
 	@Test
 	void newDoctorStartingLevel() {
 		Doctor doc = new Doctor(2);
-		assertEquals(doc.getProfessionLevel(), 2);
+		assertEquals(2, doc.getProfessionLevel());
 	}
 	
 	@Test
 	void newDoctorStartingLevelName() {
 		Doctor doc = new Doctor(2);
-		assertEquals(doc.getProfessionName(), "Doctor");
+		assertEquals( "Doctor", doc.getProfessionName());
 	}
 	
 	@Test
 	void newBakerStartingLevel() {
 		Baker baker = new Baker(3);
-		assertEquals(baker.getProfessionLevel(), 3);
+		assertEquals(3, baker.getProfessionLevel());
 	}
 	
 	@Test
 	void newBakerStartingLevelName() {
 		Baker baker = new Baker(3);
-		assertEquals(baker.getProfessionName(), "Baker");
+		assertEquals("Baker", baker.getProfessionName());
 	}
 	
 	@Test
@@ -49,7 +50,7 @@ public class ProfessionTest {
 		player.addProfession(doc);
 		HashSet<Profession> comparingSet = new HashSet<>();
 		comparingSet.add(doc);
-		assertEquals(player.getProfessions(),comparingSet);
+		assertEquals(comparingSet, player.getProfessions());
 	}
 	
 	@Test
@@ -90,7 +91,7 @@ public class ProfessionTest {
 	@Test
 	void checktoString() {
 		Doctor doc = new Doctor();
-		assertEquals(doc.toString(),"Level: 0 Doctor");
+		assertEquals("Level: 0 Doctor", doc.toString());
 
 	}
 	
@@ -118,7 +119,7 @@ public class ProfessionTest {
 	void levelUpProfessionFromZero() {
 		Doctor doc = new Doctor();
 		doc.levelUpProfession();
-		assertEquals(doc.getProfessionLevel(), 1);
+		assertEquals(1, doc.getProfessionLevel());
 	}
 	
 	@Test
@@ -126,7 +127,7 @@ public class ProfessionTest {
 		Doctor doc = new Doctor();
 		doc.setProfessionLevel(3);
 		doc.levelUpProfession();
-		assertEquals(doc.getProfessionLevel(), 4);
+		assertEquals(4, doc.getProfessionLevel());
 	}
 	
 	@Test
@@ -153,7 +154,7 @@ public class ProfessionTest {
 		player.takeDamage(1);
 		int healthBefore = player.getHealth();
 		Doctor.basicSelfHeal(player);
-		assertEquals(player.getHealth(), healthBefore);
+		assertEquals(healthBefore, player.getHealth());
 	}
 	
 	@Test
@@ -164,7 +165,7 @@ public class ProfessionTest {
 		Doctor doc = new Doctor();
 		player.addProfession(doc);
 		Doctor.basicSelfHeal(player);
-		assertEquals(player.getHealth(), healthBefore);
+		assertEquals(healthBefore, player.getHealth());
 	}
 	
 	@Test 
@@ -191,5 +192,30 @@ public class ProfessionTest {
 		assertEquals(healthBefore, player.getHealth());
 	}
 	
+	@Test 
+	void doesContainProfession() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		player.addProfession(doc);
+		assertTrue(player.containsProfession("Doctor"));
+	}
+	
+	@Test 
+	void doesNotContainProfession() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		player.addProfession(doc);
+		assertFalse(player.containsProfession("Baker"));
+	}
+	
+	@Test 
+	void doesContainProfessionWithTwoInSet() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		Baker baker = new Baker();
+		player.addProfession(doc);
+		player.addProfession(baker);
+		assertTrue(player.containsProfession("Doctor"));
+	}
 
 }
