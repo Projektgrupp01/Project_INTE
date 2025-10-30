@@ -11,79 +11,72 @@ public class Generator {
 
     List<String> NPCNames = new ArrayList<>();
     List<BaseNPC> NPCsList = new ArrayList<>();
-    List<String> EquipmentNames = new ArrayList<>();
+    List<Equipment> EquipmentTemplates = new ArrayList<>();
     List<Equipment> equipmentList = new ArrayList<>();
     Random random = new Random();
 
-    public List<?> generate(String type, int amount){
-
-        if(type.equalsIgnoreCase("npc") && amount > 0) {
-
+    public List<BaseNPC> generateNPC(char type, int amount) {
+        if (type == 'n' && amount > 0) {
             for (int i = 0; i < amount; i++) {
-
                 NPCsList.add(addNPC());
             }
-
             return Collections.unmodifiableList(NPCsList);
-
-        }else if(type.equalsIgnoreCase("equipment") && amount > 0){
-            for (int i = 0; i < amount; i++) {
-
-                equipmentList.add(addEquipment());
-            }
-
-            return Collections.unmodifiableList(equipmentList);
+        } else {
+            throw new IllegalArgumentException("Not a recognized type, or amount is too low.");
         }
-
-        throw new IllegalArgumentException("Type must be npc or equipment, amount must be an integer.");
-
     }
 
-    public void addNPCNames(String...names){
+    public List<Equipment> generateEquipment(char type, int amount) {
+        if (type == 'x' && amount > 0) {
+            for (int i = 0; i < amount; i++) {
+                equipmentList.add(addEquipment());
+            }
+            return Collections.unmodifiableList(equipmentList);
+        } else {
+            throw new IllegalArgumentException("Not a recognized type, or amount is too low.");
+        }
+    }
+
+    public void addNPCNames(String... names) {
         NPCNames.addAll(Arrays.asList(names));
     }
 
-    public List<String> getNPCNames(){
+    public List<String> getNPCNames() {
         return Collections.unmodifiableList(NPCNames);
     }
 
-    private BaseNPC addNPC(/*BaseNPC npc*/){
+    private BaseNPC addNPC(/*BaseNPC npc*/) {
         String name = NPCNames.get(random.nextInt(NPCNames.size()));
         int health = random.nextInt(10, 100);
         NPC.Disposition disposition = getRandomDisposition();
         int speed = random.nextInt();
         int strength = random.nextInt();
         int energy = random.nextInt();
-        //borde ha test som kontrollerar att attribut sätts korrekt? eller finns det i npc?
         return new BaseNPC(name, health, disposition, speed, strength, energy);
     }
 
-    private NPC.Disposition getRandomDisposition(){
+    private NPC.Disposition getRandomDisposition() {
         NPC.Disposition[] dispositions = NPC.Disposition.values();
         return dispositions[random.nextInt(dispositions.length)];
     }
 
-    public List<BaseNPC> getNPCs(){
+    public List<BaseNPC> getNPCs() {
         return Collections.unmodifiableList(NPCsList);
     }
 
-    public void addEquipmentNames(String...names){
-        EquipmentNames.addAll(Arrays.asList(names));
+    public void addEquipmentTemplates(Equipment... equipment) {
+        EquipmentTemplates.addAll(Arrays.asList(equipment));
     }
 
-    private Equipment addEquipment(){
-        String name = EquipmentNames.get(random.nextInt(EquipmentNames.size()));
-        EquipmentType type = getRandomEquipmentType();
-        return new Equipment(name, type);
+    public List<Equipment> getEquipmentTemplates() {
+        return Collections.unmodifiableList(EquipmentTemplates);
     }
 
-    private EquipmentType getRandomEquipmentType(){
-        EquipmentType[] equipmentTypes = EquipmentType.values();
-        return equipmentTypes[random.nextInt(equipmentTypes.length)];
+    private Equipment addEquipment() {
+        return EquipmentTemplates.get(random.nextInt(EquipmentTemplates.size()));
     }
 
-    //ev ta bort denna metod. alt lägg t likadan för npc
-    public List<Equipment> getEquipment(){
+    public List<Equipment> getEquipment() {
         return Collections.unmodifiableList(equipmentList);
     }
 

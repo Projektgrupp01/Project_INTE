@@ -19,17 +19,29 @@ public class GeneratorTest {
     void createGenerator(){
         generator = new Generator();
         generator.addNPCNames("Misan", "Snorkfröken", "My", "Snobben", "Hemulen", "Bisamråttan", "Mumin", "Mårran");
-        generator.addEquipmentNames("Sak", "Ting", "Grej");
+        Equipment treasure = new Equipment("Treasure", EquipmentType.CHEST);
+        Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
+        generator.addEquipmentTemplates(treasure, sword);
     }
 
     @Test
-    void generateWrongTypeThrowsExceptionTest(){
-        assertThrows(IllegalArgumentException.class, () -> generator.generate("fel", 1));
+    void generateNPCWrongTypeThrowsExceptionTest(){
+        assertThrows(IllegalArgumentException.class, () -> generator.generateNPC('f', 1));
     }
 
     @Test
-    void generateWrongAmountThrowsExceptionTest(){
-        assertThrows(IllegalArgumentException.class, () -> generator.generate("npc", -1));
+    void generateEquipmentWrongTypeThrowsExceptionTest(){
+        assertThrows(IllegalArgumentException.class, () -> generator.generateEquipment('f', 1));
+    }
+
+    @Test
+    void generateWrongAmountOfNPCsThrowsExceptionTest(){
+        assertThrows(IllegalArgumentException.class, () -> generator.generateNPC('n', -1));
+    }
+
+    @Test
+    void generateWrongAmountOfEquipmentThrowsExceptionTest(){
+        assertThrows(IllegalArgumentException.class, () -> generator.generateEquipment('x', -1));
     }
 
     @Test
@@ -45,35 +57,33 @@ public class GeneratorTest {
         assertTrue(generator.getNPCNames().containsAll(Arrays.asList(names)));
     }
 
-    @Disabled
     @Test
-    void canAddEquipmentTest(){
-        Equipment equipment = new Equipment("Sword", EquipmentType.WEAPON);
-        generator.addEquipment(equipment);
-        assertTrue(generator.getEquipment().contains(equipment));
+    void canAddEquipmentTemplatesTest(){
+        Equipment equipment = new Equipment("Mace", EquipmentType.WEAPON);
+        generator.addEquipmentTemplates(equipment);
+        assertTrue(generator.getEquipmentTemplates().contains(equipment));
     }
 
     @Test
     void generatorGenerateReturnsNPCList(){
-        assertEquals(generator.getNPCs(), generator.generate("npc", 1));
+        assertEquals(generator.getNPCs(), generator.generateNPC('n', 1));
     }
 
     @Test
     void generatorGenerateReturnsEquipmentList(){
-        assertEquals(generator.getEquipment(), generator.generate("equipment", 1));
+        assertEquals(generator.getEquipment(), generator.generateEquipment('x', 1));
     }
 
     @Test
     void generatorGenerateNPCReturnsCorrectNrOfNPCs(){
-        generator.generate("npc", 2);
+        generator.generateNPC('n', 2);
         assertEquals(2, generator.getNPCs().size());
     }
 
     @Test
     void generatorCreateEquipmentReturnsCorrectNrOfEquipment(){
-        generator.generate("equipment", 43);
+        generator.generateEquipment('x', 43);
         assertEquals(43, generator.getEquipment().size());
     }
 
-    //borde göra test för att kontrollera
 }

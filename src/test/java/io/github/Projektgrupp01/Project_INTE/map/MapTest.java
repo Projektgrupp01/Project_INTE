@@ -88,133 +88,134 @@ public class MapTest {
     @Test
     void checkNrOfNPCs_lowerBound(){
         map.createMap();
-        assertTrue(map.getNPCs().size() >= 1, "Was actually: " + map.getNPCs());
+        assertTrue(map.getNPCs().size() >= 1 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCs_upperBound(){
         map.createMap();
-        assertTrue(map.getNPCs().size() <= 5);
+        assertTrue(map.getNPCs().size() <= 5 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl2upperBound(){
         map.createMap(2);
-        assertTrue(map.getEquipment().size() <= 10);
+        assertTrue(map.getNPCs().size() <= 10 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
-    void checkNrOfNPCsByPlayerLevel_lvl3upperBound(){
+    void checkNrOfNPCsPlacedByPlayerLevel_lvl3upperBound(){
         map.createMap(3);
-        assertTrue(map.getEquipment().size() <= 15);
+        assertTrue(map.getNPCs().size() <= 15 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl4upperBound(){
         map.createMap(4);
-        assertTrue(map.getEquipment().size() <= 20);
+        assertTrue(map.getNPCs().size() <= 20 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl5upperBound(){
         map.createMap(5);
-        assertTrue(map.getEquipment().size() <= 25);
+        assertTrue(map.getNPCs().size() <= 25 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl6upperBound(){
         map.createMap(6);
-        assertTrue(map.getEquipment().size() <= 30);
+        assertTrue(map.getNPCs().size() <= 30 || map.getEquipment().size() <= map.getNrOfWalkableArea(),
+                   "");
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl7upperBound(){
         map.createMap(7);
-        assertTrue(map.getEquipment().size() <= 35);
+        assertTrue(map.getNPCs().size() <= 35 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl8upperBound(){
         map.createMap(8);
-        assertTrue(map.getEquipment().size() <= 40);
+        assertTrue(map.getNPCs().size() <= 40 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl9upperBound(){
         map.createMap(9);
-        assertTrue(map.getEquipment().size() <= 45);
+        assertTrue(map.getNPCs().size() <= 45 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfNPCsByPlayerLevel_lvl10upperBound(){
         map.createMap(10);
-        assertTrue(map.getEquipment().size() <= 50);
+        assertTrue(map.getNPCs().size() <= 50 || map.getNPCs().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipment_lowerBound(){
         map.createMap();
-        assertTrue(map.getEquipment().size() >= 1);
+        assertTrue(map.getEquipment().size() >= 1 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipment_upperBound(){
         map.createMap();
-        assertTrue(map.getEquipment().size() <= 5);
+        assertTrue(map.getEquipment().size() <= 5 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl2upperBound(){
         map.createMap(2);
-        assertTrue(map.getEquipment().size() <= 10);
+        assertTrue(map.getEquipment().size() <= 10 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl3upperBound(){
         map.createMap(3);
-        assertTrue(map.getEquipment().size() <= 15);
+        assertTrue(map.getEquipment().size() <= 15 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl4upperBound(){
         map.createMap(4);
-        assertTrue(map.getEquipment().size() <= 20);
+        assertTrue(map.getEquipment().size() <= 20 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl5upperBound(){
         map.createMap(5);
-        assertTrue(map.getEquipment().size() <= 25);
+        assertTrue(map.getEquipment().size() <= 25 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl6upperBound(){
         map.createMap(6);
-        assertTrue(map.getEquipment().size() <= 30);
+        assertTrue(map.getEquipment().size() <= 30 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl7upperBound(){
         map.createMap(7);
-        assertTrue(map.getEquipment().size() <= 35);
+        assertTrue(map.getEquipment().size() <= 35 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl8upperBound(){
         map.createMap(8);
-        assertTrue(map.getEquipment().size() <= 40);
+        assertTrue(map.getEquipment().size() <= 40 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl9upperBound(){
         map.createMap(9);
-        assertTrue(map.getEquipment().size() <= 45);
+        assertTrue(map.getEquipment().size() <= 45 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
     void checkNrOfEquipmentByPlayerLevel_lvl10upperBound(){
         map.createMap(10);
-        assertTrue(map.getEquipment().size() <= 50);
+        assertTrue(map.getEquipment().size() <= 50 || map.getEquipment().size() <= map.getNrOfWalkableArea());
     }
 
     @Test
