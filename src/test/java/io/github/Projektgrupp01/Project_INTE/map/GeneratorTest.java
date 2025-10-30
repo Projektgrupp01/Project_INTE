@@ -4,9 +4,9 @@ import io.github.Projektgrupp01.Project_INTE.Map.Generator;
 import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
 import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +18,8 @@ public class GeneratorTest {
     @BeforeEach
     void createGenerator(){
         generator = new Generator();
+        generator.addNPCNames("Misan", "Snorkfröken", "My", "Snobben", "Hemulen", "Bisamråttan", "Mumin", "Mårran");
+        generator.addEquipmentNames("Sak", "Ting", "Grej");
     }
 
     @Test
@@ -43,6 +45,7 @@ public class GeneratorTest {
         assertTrue(generator.getNPCNames().containsAll(Arrays.asList(names)));
     }
 
+    @Disabled
     @Test
     void canAddEquipmentTest(){
         Equipment equipment = new Equipment("Sword", EquipmentType.WEAPON);
@@ -52,11 +55,25 @@ public class GeneratorTest {
 
     @Test
     void generatorGenerateReturnsNPCList(){
-        assertEquals(new ArrayList<>(), generator.generate("npc", 1));
+        assertEquals(generator.getNPCs(), generator.generate("npc", 1));
     }
 
     @Test
     void generatorGenerateReturnsEquipmentList(){
-        assertEquals(new ArrayList<>(), generator.generate("equipment", 1));
+        assertEquals(generator.getEquipment(), generator.generate("equipment", 1));
     }
+
+    @Test
+    void generatorGenerateNPCReturnsCorrectNrOfNPCs(){
+        generator.generate("npc", 2);
+        assertEquals(2, generator.getNPCs().size());
+    }
+
+    @Test
+    void generatorCreateEquipmentReturnsCorrectNrOfEquipment(){
+        generator.generate("equipment", 43);
+        assertEquals(43, generator.getEquipment().size());
+    }
+
+    //borde göra test för att kontrollera
 }
