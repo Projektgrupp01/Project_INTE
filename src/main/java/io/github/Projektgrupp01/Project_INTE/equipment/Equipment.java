@@ -155,7 +155,7 @@ public class Equipment {
         this.magicDefense = magicDefense;
     }
 
-    public int getMagicDefense() {
+    public Integer getMagicDefense() {
         return magicDefense;
     }
 
