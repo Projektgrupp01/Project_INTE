@@ -1,6 +1,7 @@
 package io.github.Projektgrupp01.Project_INTE.professions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -191,5 +192,30 @@ public class ProfessionTest {
 		assertEquals(healthBefore, player.getHealth());
 	}
 	
+	@Test 
+	void doesContainProfession() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		player.addProfession(doc);
+		assertTrue(player.containsProfession("Doctor"));
+	}
+	
+	@Test 
+	void doesNotContainProfession() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		player.addProfession(doc);
+		assertFalse(player.containsProfession("Baker"));
+	}
+	
+	@Test 
+	void doesContainProfessionWithTwoInSet() {
+		BasePlayer player = new BasePlayer();
+		Doctor doc = new Doctor();
+		Baker baker = new Baker();
+		player.addProfession(doc);
+		player.addProfession(baker);
+		assertTrue(player.containsProfession("Doctor"));
+	}
 
 }

@@ -89,4 +89,14 @@ public class RaceTest {
 		player.addRace(elf);
 		assertFalse(player.containsRace("Dwarf"));
 	}
+	
+	@Test 
+	void doesContainRaceWithTwoInSet() {
+		BasePlayer player = new BasePlayer();
+		Race elf = new Elf();
+		Race dwarf = new Dwarf();
+		player.addRace(elf);
+		player.addRace(dwarf);
+		assertTrue(player.containsRace("Elf"));
+	}
 }

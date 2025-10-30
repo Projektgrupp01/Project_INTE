@@ -112,14 +112,7 @@ public class BasePlayer implements Player {
 		if (race == null) {
 			throw new IllegalArgumentException("Race cannot be null");
 		}
-		int duplicate = 0;
-		for (Race raceInSet : races) {
-			if (race.getRaceName().equals(raceInSet.getRaceName())) {
-				duplicate = 1;
-				break;
-			}
-		}
-		if (duplicate == 0) {
+		if (!containsRace(race.getRaceName())) {
 			races.add(race);
 		}
 	}
@@ -132,14 +125,7 @@ public class BasePlayer implements Player {
 		if (profession == null) {
 			throw new IllegalArgumentException("Profession cannot be null");
 		}
-		int duplicate = 0;
-		for (Profession prof : professions) {
-			if (prof.getProfessionName().equals(profession.getProfessionName())) {
-				duplicate = 1;
-				break;
-			}
-		}
-		if (duplicate == 0) {
+		if(!containsProfession(profession.getProfessionName())) {
 			professions.add(profession);
 		}
 	}
@@ -152,6 +138,17 @@ public class BasePlayer implements Player {
 		boolean contains = false;
 		for (Race race : races) {
 			if (race.getRaceName().equals(raceName)) {
+				contains = true;
+				break;
+			}
+		}
+		return contains;
+	}
+	
+	public boolean containsProfession(String professionName) {
+		boolean contains = false;
+		for (Profession profession : professions) {
+			if (profession.getProfessionName().equals(professionName)) {
 				contains = true;
 				break;
 			}
