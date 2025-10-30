@@ -6,9 +6,6 @@ import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
 
 import java.util.*;
 
-import static io.github.Projektgrupp01.Project_INTE.creatures.NPC.Disposition.HOSTILE;
-import static io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType.CHEST;
-
 public class BaseMap implements Map {
 
     private int x;
@@ -17,14 +14,13 @@ public class BaseMap implements Map {
     private final Generator generator = new Generator();
     private final int[][] DIRECTIONS = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
     private char[][] mapArray;
-    //private List<int[]> walkableArea = new ArrayList<>();
     private int walkableArea;
     private final char EQUIPMENT = 'x';
     private final char NPC = 'n';
     private final String[] NPCNames = {"Bertil", "Mina", "Gustav"};
-    private final Equipment[] equipmentTemplates = {new Equipment("Shield", EquipmentType.SHIELD), new Equipment("Sword", EquipmentType.WEAPON), new Equipment("Treasure", CHEST)};
-    private final ArrayList<BaseNPC> listOfNPCs = new ArrayList<>();
-    private final ArrayList<Equipment> listOfEquipment = new ArrayList<>();
+    private final Equipment[] equipmentTemplates = {new Equipment("Shield", EquipmentType.SHIELD), new Equipment("Sword", EquipmentType.WEAPON), new Equipment("Treasure", EquipmentType.CHEST)};
+    private ArrayList<BaseNPC> listOfNPCs;
+    private ArrayList<Equipment> listOfEquipment;
 
     public BaseMap() {
         this(20, 20);
@@ -69,8 +65,11 @@ public class BaseMap implements Map {
     }
 
     public void createMap(int level, int steps) {
+        listOfNPCs = new ArrayList<>();
+        listOfEquipment = new ArrayList<>();
+
         mapArray[0][0] = ' ';
-        walkableArea = 0;
+        walkableArea = 1;
         int currentRow = 0;
         int currentColumn = 1;
 
@@ -100,18 +99,18 @@ public class BaseMap implements Map {
 
     private void populateMap(char object, int nrOfObject) {
         for (int i = 0; i < nrOfObject; i++) {
-            int posX = random.nextInt(x);
-            int posY = random.nextInt(y);
             boolean placed = false;
             int attempts = 0;
             while (!placed && attempts < (mapArray.length * mapArray.length)) {
+                int posX = random.nextInt(x);
+                int posY = random.nextInt(y);
                 if (mapArray[posX][posY] == ' ') {
                     mapArray[posX][posY] = object;
                     placed = true;
                     if (object == NPC) {
-                        listOfNPCs.addAll(generator.generateNPC(NPC, 1));
+                        listOfNPCs.add(generator.generateNPC());
                     } else if (object == EQUIPMENT) {
-                        listOfEquipment.addAll(generator.generateEquipment(EQUIPMENT, 1));
+                        listOfEquipment.add(generator.generateEquipment());
                     }
                 }else {
                     attempts++;
