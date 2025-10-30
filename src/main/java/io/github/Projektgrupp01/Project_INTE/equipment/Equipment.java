@@ -4,6 +4,9 @@ import java.nio.channels.IllegalSelectorException;
 
 public class Equipment {
 
+    private static final int MAX_DURABILITY = 100;
+    private static final int MIN_DURABILITY = 0;
+
     private String name;
     private EquipmentType type;
     private double weight = 0.0;
@@ -19,23 +22,40 @@ public class Equipment {
 
     public Equipment(String name, EquipmentType type) {
 
+        validateConstructorValues(name, type);
         this.name = name;
         this.type = type;
+        this.durability = initializeDurability(type);
+    }
 
-        // Certain equipment types have durability
-        if (type == EquipmentType.WEAPON
+    private Integer initializeDurability(EquipmentType type) {
+        if (isDurableEquipmentType(type)) {
+            return MAX_DURABILITY;
+        }
+        return null; // Rings and amulets have no durability
+    }
+
+    private boolean isDurableEquipmentType(EquipmentType type) {
+        return type == EquipmentType.WEAPON
                 || type == EquipmentType.HELMET
                 || type == EquipmentType.CHEST
                 || type == EquipmentType.LEGS
                 || type == EquipmentType.BOOTS
                 || type == EquipmentType.GLOVES
-                || type == EquipmentType.SHIELD) {
+                || type == EquipmentType.SHIELD;
+    }
 
-            this.durability = 100; // durability starts at 100
-        } else {
-            this.durability = null; // rings and amulets
-        }
+    private boolean isArmorEquipmentType(EquipmentType type) {
+        return type == EquipmentType.HELMET
+                || type == EquipmentType.CHEST
+                || type == EquipmentType.LEGS
+                || type == EquipmentType.BOOTS
+                || type == EquipmentType.GLOVES
+                || type == EquipmentType.SHIELD;
+    }
 
+    private boolean isAccessoryType(EquipmentType type) {
+        return type == EquipmentType.RING || type == EquipmentType.AMULET;
     }
 
     public String getName() {
@@ -58,6 +78,7 @@ public class Equipment {
         this.weight = weight;
     }
 
+    // Durability system
     public boolean hasDurability() {
         return durability != null;
     }
@@ -67,42 +88,27 @@ public class Equipment {
     }
 
     public void takeDamage(int damage) {
-        if (!hasDurability()) {
-            throw new IllegalStateException("Can't be broken");
-        }
-        if (damage < 0) {
-            throw new IllegalArgumentException("Damage cannot be negative");
-        }
+        validateHasDurability("take damage");
+        validNonNegativeInputs(damage, "Damage");
         this.durability = Math.max(0, this.durability - damage);
     }
 
     public boolean isBroken() {
-        return durability <= 0 && hasDurability();
+        return hasDurability() && durability <= MIN_DURABILITY;
     }
 
     public void repair(int amount) {
-        if (!hasDurability()) {
-            throw new IllegalStateException("This item cannot be repaired");
-        }
-        if (isBroken()) {
-            throw new IllegalStateException("Cannot repair a broken item");
-        }
-        if (amount < 0) {
-            throw new IllegalArgumentException("Repair amount cannot be negative");
-        }
+        validateHasDurability("be repaired");
+        validateNotBroken();
+        validNonNegativeInputs(amount, "Repair amount");
 
-        this.durability = Math.min(100, this.durability + amount);
+        durability = Math.min(MAX_DURABILITY, durability + amount);
     }
 
-    // AttackDamage for weapons
+    // Weapon stats system
     public void setAttackDamage(int attackDamage) {
-        if (type != EquipmentType.WEAPON) {
-            throw new IllegalStateException("Only weapons can have attack damage");
-        }
-
-        if (attackDamage < 0) {
-            throw new IllegalArgumentException("Attack damage cannot be negative");
-        }
+        validateWeaponOnly("have attack damage");
+        validNonNegativeInputs(attackDamage, "Attack damage");
         this.attackDamage = attackDamage;
     }
 
@@ -110,15 +116,9 @@ public class Equipment {
         return attackDamage;
     }
 
-    // MagicDamage for weapons
     public void setMagicDamage(int magicDamage) {
-        if (type != EquipmentType.WEAPON) {
-            throw new IllegalStateException("Only weapons can have magic damage");
-        }
-
-        if (magicDamage < 0) {
-            throw new IllegalArgumentException("Magic damage cannot be negative");
-        }
+        validateWeaponOnly("have magic damage");
+        validNonNegativeInputs(magicDamage, "Magic damage");
         this.magicDamage = magicDamage;
     }
 
@@ -127,9 +127,7 @@ public class Equipment {
     }
 
     public int getTotalDamage() {
-        if (type != EquipmentType.WEAPON) {
-            throw new IllegalStateException("Only weapons can have damage");
-        }
+        validateWeaponOnly("have damage");
         int totalDamage = 0;
         if (attackDamage != null) {
             totalDamage += attackDamage;
@@ -140,14 +138,10 @@ public class Equipment {
         return totalDamage;
     }
 
-    // Physical defense for armor
+    // Defense stats system
     public void setPhysicalDefense(int physicalDefense) {
-        if (type == EquipmentType.WEAPON || type == EquipmentType.RING || type == EquipmentType.AMULET) {
-            throw new IllegalStateException("This equipment cannot have defense");
-        }
-        if (physicalDefense < 0) {
-            throw new IllegalArgumentException("Physical defense cannot be negative");
-        }
+        validateArmorOnly("have defense");
+        validNonNegativeInputs(physicalDefense, "Physical defense");
         this.physicalDefense = physicalDefense;
     }
 
@@ -155,14 +149,9 @@ public class Equipment {
         return physicalDefense;
     }
 
-    // Magic defense for armor
     public void setMagicDefense(int magicDefense) {
-        if (type == EquipmentType.WEAPON || type == EquipmentType.RING || type == EquipmentType.AMULET) {
-            throw new IllegalStateException("This equipment cannot have defense");
-        }
-        if (magicDefense < 0) {
-            throw new IllegalArgumentException("Magic defense cannot be negative");
-        }
+        validateArmorOnly("have defense");
+        validNonNegativeInputs(magicDefense, "Magic defense");
         this.magicDefense = magicDefense;
     }
 
@@ -171,9 +160,7 @@ public class Equipment {
     }
 
     public int getTotalDefense() {
-        if (type == EquipmentType.WEAPON || type == EquipmentType.RING || type == EquipmentType.AMULET) {
-            throw new IllegalStateException("This equipment cannot have defense");
-        }
+        validateArmorOnly("have defense");
         int totalDefense = 0;
         if (physicalDefense != null) {
             totalDefense += physicalDefense;
@@ -184,15 +171,10 @@ public class Equipment {
         return totalDefense;
     }
 
-    // magic power for amulets and rings
+    // Accessory stats system
     public void setMagicBonus(int magicBonus) {
-        if (type != EquipmentType.RING && type != EquipmentType.AMULET) {
-            throw new IllegalStateException("This equipment cannot give magic power");
-        }
-
-        if (magicBonus < 0) {
-            throw new IllegalArgumentException("Magic bonus cannot be negative");
-        }
+        validateAccessoryOnly("give magic bonus");
+        validNonNegativeInputs(magicBonus, "Magic bonus");
         this.magicBonus = magicBonus;
     }
 
@@ -201,12 +183,8 @@ public class Equipment {
     }
 
     public void setHealthBonus(int healthBonus) {
-        if (type != EquipmentType.RING && type != EquipmentType.AMULET) {
-            throw new IllegalStateException("This equipment cannot give health bonus");
-        }
-        if (healthBonus < 0) {
-            throw new IllegalArgumentException("Health bonus cannot be negative");
-        }
+        validateAccessoryOnly("give health bonus");
+        validNonNegativeInputs(healthBonus, "Health bonus");
         this.healthBonus = healthBonus;
     }
 
@@ -215,12 +193,8 @@ public class Equipment {
     }
 
     public void setEnergyBonus(int energyBonus) {
-        if (type != EquipmentType.RING && type != EquipmentType.AMULET) {
-            throw new IllegalStateException("This equipment cannot give energy bonus");
-        }
-        if (energyBonus < 0) {
-            throw new IllegalArgumentException("Energy bonus cannot be negative");
-        }
+        validateAccessoryOnly("give energy bonus");
+        validNonNegativeInputs(energyBonus, "Energy bonus");
         this.energyBonus = energyBonus;
     }
 
@@ -228,15 +202,61 @@ public class Equipment {
         return energyBonus;
     }
 
+    // Level requirement system
     public void setLevelRequirement(int levelRequirement) {
-        if (levelRequirement < 0) {
-            throw new IllegalArgumentException("Level requirement cannot be negative");
-        }
+        validNonNegativeInputs(levelRequirement, "Level requirement");
         this.levelRequirement = levelRequirement;
     }
 
     public int getLevelRequirement() {
         return levelRequirement;
+    }
+
+    // Validation helper methods
+
+    private void validateConstructorValues(String name, EquipmentType type) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+        if (type == null) {
+            throw new IllegalArgumentException("Equipment type cannot be null");
+        }
+    }
+
+    private void validateHasDurability(String string) {
+        if (!hasDurability()) {
+            throw new IllegalStateException("This equipment cannot" + string);
+        }
+    }
+
+    private void validateNotBroken() {
+        if (isBroken()) {
+            throw new IllegalStateException("Cannot repair broken: " + name);
+        }
+    }
+
+    private void validNonNegativeInputs(int value, String parameter) {
+        if (value < 0) {
+            throw new IllegalArgumentException(parameter + " cannot be negative");
+        }
+    }
+
+    private void validateWeaponOnly(String damageType) {
+        if (type != EquipmentType.WEAPON) {
+            throw new IllegalStateException("Only weapons can " + damageType);
+        }
+    }
+
+    private void validateArmorOnly(String defenseType) {
+        if (type != EquipmentType.WEAPON) {
+            throw new IllegalStateException("Only weapons can " + defenseType);
+        }
+    }
+
+    private void validateAccessoryOnly(String bonus) {
+        if (!isAccessoryType(type)) {
+            throw new IllegalStateException("Only weapons can " + bonus);
+        }
     }
 
 }

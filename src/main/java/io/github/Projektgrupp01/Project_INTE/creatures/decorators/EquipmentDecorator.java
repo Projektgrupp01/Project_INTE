@@ -11,28 +11,37 @@ public class EquipmentDecorator extends PlayerDecorator {
     public EquipmentDecorator(Player player, Equipment equipment) {
         super(player);
 
+        validateEquipment(equipment);
+        validateLevelRequirement(player, equipment);
+
+        this.equipment = equipment;
+    }
+
+    private void validateEquipment(Equipment equipment) {
         if (equipment == null) {
             throw new IllegalArgumentException("Equipment cannot be null");
         }
+    }
 
+    private void validateLevelRequirement(Player player, Equipment equipment) {
         if (equipment.getLevelRequirement() > player.getLevel()) {
             throw new IllegalArgumentException("Player too low level to equip " + equipment.getName() + ", " +
                     "Required level: " + equipment.getLevelRequirement() + ", " +
                     "Current level: " + player.getLevel());
         }
-
-        this.equipment = equipment;
     }
 
     public Equipment getEquipment() {
         return equipment;
     }
 
+    // Stats modifiers
+
     public int getMaxHealth() {
         int baseMaxHealth = super.getMaxHealth();
 
         if (equipment.getHealthBonus() != null) {
-            return baseMaxHealth + equipment.getHealthBonus();
+            return applyBonus(baseMaxHealth, equipment.getHealthBonus());
         }
 
         return baseMaxHealth;
@@ -42,10 +51,17 @@ public class EquipmentDecorator extends PlayerDecorator {
         int baseMaxEnergy = super.getMaxEnergy();
 
         if (equipment.getEnergyBonus() != null) {
-            return baseMaxEnergy + equipment.getEnergyBonus();
+            return applyBonus(baseMaxEnergy, equipment.getEnergyBonus());
         }
 
         return baseMaxEnergy;
+    }
+
+    private int applyBonus(int baseStat, Integer bonus) {
+        if (bonus != null) {
+            return baseStat + bonus;
+        }
+        return baseStat;
     }
 
 }

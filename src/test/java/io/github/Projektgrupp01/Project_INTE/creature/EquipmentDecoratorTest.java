@@ -2,6 +2,7 @@ package io.github.Projektgrupp01.Project_INTE.creature;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -102,6 +103,18 @@ public class EquipmentDecoratorTest {
     }
 
     @Test
+    void canEquipItemAtMinimumValidLevel() {
+        Player player = new BasePlayer("Starter Protagonist", 100, 100, 100, 100, 1);
+        Equipment ring = new Equipment("Starter Ring", EquipmentType.RING);
+        ring.setLevelRequirement(1);
+
+        Player equipped = new EquipmentDecorator(player, ring);
+
+        assertNotNull(equipped);
+        assertEquals(1, equipped.getLevel());
+    }
+
+    @Test
     void canEquipItemAtExactLevel() {
         Player player = new BasePlayer("Protagonist", 100, 100, 100, 100, 5);
 
@@ -116,7 +129,6 @@ public class EquipmentDecoratorTest {
     @Test
     void canEquipItemAtLevelAboveRequirement() {
         Player player = new BasePlayer("Protagonist", 100, 100, 100, 100, 6);
-
         Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
         sword.setLevelRequirement(5);
 
@@ -127,7 +139,7 @@ public class EquipmentDecoratorTest {
 
     @Test
     void cannotEquipItemAbovePlayerLevel() {
-        Player player = new BasePlayer("Protagonist", 100, 100, 100, 100, 1);
+        Player player = new BasePlayer("Protagonist", 100, 100, 100, 100, 2);
 
         Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
         sword.setLevelRequirement(10);
@@ -138,4 +150,42 @@ public class EquipmentDecoratorTest {
         } catch (IllegalArgumentException e) {
         }
     }
+
+    @Test
+    void canEquipItemAtMaximumValidLevel() {
+        Player player = new BasePlayer("Master Progagonist", 100, 100, 100, 100, 10);
+
+        Equipment legendary = new Equipment("Master Blade", EquipmentType.WEAPON);
+        legendary.setLevelRequirement(10);
+        Player equipped = new EquipmentDecorator(player, legendary);
+
+        assertNotNull(equipped);
+        assertEquals(10, equipped.getLevel());
+    }
+
+    @Test
+    void cannotEquipItemJustBelowRequirement() {
+        Player player = new BasePlayer("Protagonist", 100, 100, 100, 100, 4);
+
+        Equipment sword = new Equipment("Level 5 Sword", EquipmentType.WEAPON);
+        sword.setLevelRequirement(5);
+
+        try {
+            Player equipped = new EquipmentDecorator(player, sword);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    void canEquipItemWithNoLevelRequirement() {
+        Player player = new BasePlayer("Starter Protagonist", 100, 100, 100, 100, 1);
+
+        Equipment ring = new Equipment("Cosmetic Ring", EquipmentType.RING);
+        ring.setLevelRequirement(0);
+        Player equipped = new EquipmentDecorator(player, ring);
+
+        assertNotNull(equipped);
+    }
+
 }

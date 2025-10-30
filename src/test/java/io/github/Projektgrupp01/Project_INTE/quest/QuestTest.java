@@ -50,16 +50,33 @@ class QuestTest {
 		quest.start(player);
 		assertEquals(Quest.Status.ACCEPTED, quest.getStatus());
 	}
+	@Test
+	void questWithLockedStatusCannotBeStarted() {
+		questWithRequirements.start(player);
+		assertFalse(player.getActiveQuests().contains(questWithRequirements));
+	}
 
+	@Test
+	void questWithNeitherLockedOrAvailableStatusCannotBeStarted() {
+		quest.setStatus(Status.ACCEPTED);
+		assertFalse(player.getActiveQuests().contains(quest));
+	}
+	
 	@Test
 	void questWithNormalSuccessCanBeCompletedWithNormalReward() {
 		quest.setStatus(Status.SUCCESS_NORMAL);
 		quest.complete(player);
 		assertEquals(Quest.Status.COMPLETED, quest.getStatus());
 	}
+	@Test
+	void questWithBonusSuccessCanBeCompletedWithBonusReward() {
+		quest.setStatus(Status.SUCCESS_NORMAL);
+		quest.complete(player);
+		assertEquals(Quest.Status.COMPLETED, quest.getStatus());
+	}
 
 	@Test
-	void questsWithoutAllowedAttemptsCanBeRepeatedManyTimes() {
+	void questsWith0AllowedAttemptsCanBeRepeatedManyTimes() {
 		for (int i = 0; i < 10000; i++) {
 			quest.setStatus(Quest.Status.FAILED);
 			quest.complete(player);
