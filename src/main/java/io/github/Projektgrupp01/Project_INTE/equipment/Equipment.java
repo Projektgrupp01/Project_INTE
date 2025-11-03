@@ -1,11 +1,12 @@
 package io.github.Projektgrupp01.Project_INTE.equipment;
 
-import java.nio.channels.IllegalSelectorException;
-
-public class Equipment {
+public final class Equipment {
 
     private static final int MAX_DURABILITY = 100;
     private static final int MIN_DURABILITY = 0;
+    private static final int MIN_NAME_LENGTH = 2;
+    private static final int MAX_NAME_LENGTH = 30;
+    private static final String VALID_NAME_PATTERN = "^[a-zA-ZåäöÅÄÖ0-9 '\\-]+$";
 
     private String name;
     private EquipmentType type;
@@ -36,13 +37,7 @@ public class Equipment {
     }
 
     private boolean isDurableEquipmentType(EquipmentType type) {
-        return type == EquipmentType.WEAPON
-                || type == EquipmentType.HELMET
-                || type == EquipmentType.CHEST
-                || type == EquipmentType.LEGS
-                || type == EquipmentType.BOOTS
-                || type == EquipmentType.GLOVES
-                || type == EquipmentType.SHIELD;
+        return type != EquipmentType.RING && type != EquipmentType.AMULET;
     }
 
     private boolean isArmorEquipmentType(EquipmentType type) {
@@ -216,12 +211,39 @@ public class Equipment {
     // Validation helper methods
 
     private void validateConstructorValues(String name, EquipmentType type) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null or empty");
-        }
+        validateName(name);
+
         if (type == null) {
-            throw new IllegalArgumentException("Equipment type cannot be null");
+            throw new IllegalArgumentException("Type cant be null");
         }
+    }
+
+    private void validateName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cant be null");
+        }
+
+        if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty or only whitespace");
+        }
+
+        if (name.length() < MIN_NAME_LENGTH) {
+            throw new IllegalArgumentException("Name must be at least " + MIN_NAME_LENGTH + " characters");
+        }
+
+        if (name.length() > MAX_NAME_LENGTH) {
+            throw new IllegalArgumentException("Name cannot exceed " + MAX_NAME_LENGTH + " characters");
+        }
+
+        if (!name.matches(VALID_NAME_PATTERN)) {
+            throw new IllegalArgumentException(
+                    "Name contains invalid characters. Only letters, numbers, spaces, hypens and apostrophes allowed");
+        }
+
+        if (!name.equals(name.trim())) {
+            throw new IllegalArgumentException("Name cannot have leading or trailing spaces");
+        }
+
     }
 
     private void validateHasDurability(String string) {
