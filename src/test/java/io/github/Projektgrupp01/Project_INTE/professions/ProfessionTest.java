@@ -217,5 +217,58 @@ public class ProfessionTest {
 		player.addProfession(baker);
 		assertTrue(player.containsProfession("Doctor"));
 	}
+	
+	@Test
+	void maxHealthBuffSuccess() {
+		BasePlayer givingPlayer = new BasePlayer();
+		BasePlayer receivingPlayer = new BasePlayer();
+		Doctor doc = new Doctor();
+		doc.setProfessionLevel(2);
+		givingPlayer.addProfession(doc);
+		int healthBefore = receivingPlayer.getHealth();
+		Doctor.giveHealthBuff(givingPlayer, receivingPlayer);
+		receivingPlayer.takeDamage(-1);
+		assertTrue(receivingPlayer.getHealth() > healthBefore);
+	}
+	
+	@Test
+	void maxHealthBuffNotDoctor() {
+		BasePlayer givingPlayer = new BasePlayer();
+		BasePlayer receivingPlayer = new BasePlayer();
+		Baker baker = new Baker();
+		baker.setProfessionLevel(2);
+		givingPlayer.addProfession(baker);
+		int healthBefore = receivingPlayer.getHealth();
+		Doctor.giveHealthBuff(givingPlayer, receivingPlayer);
+		receivingPlayer.takeDamage(-1);
+		assertFalse(receivingPlayer.getHealth() > healthBefore);
+	}
+	
+	@Test
+	void maxHealthBuffTooLowLevelDoctor() {
+		BasePlayer givingPlayer = new BasePlayer();
+		BasePlayer receivingPlayer = new BasePlayer();
+		Doctor doc = new Doctor();
+		doc.setProfessionLevel(1);
+		givingPlayer.addProfession(doc);
+		int healthBefore = receivingPlayer.getHealth();
+		Doctor.giveHealthBuff(givingPlayer, receivingPlayer);
+		receivingPlayer.takeDamage(-1);
+		assertFalse(receivingPlayer.getHealth() > healthBefore);
+	}
+	
+	@Test
+	void maxHealthBuffAndThenHealInjuredPlayer() {
+		BasePlayer givingPlayer = new BasePlayer();
+		BasePlayer receivingPlayer = new BasePlayer();
+		Doctor doc = new Doctor();
+		doc.setProfessionLevel(2);
+		givingPlayer.addProfession(doc);
+		receivingPlayer.takeDamage(50);
+		int prevMaxHealth = receivingPlayer.getMaxHealth();
+		Doctor.giveHealthBuff(givingPlayer, receivingPlayer);
+		receivingPlayer.takeDamage(-60);
+		assertTrue(receivingPlayer.getHealth() > prevMaxHealth);
+	}
 
 }

@@ -24,5 +24,19 @@ public class Doctor extends Profession {
 			player.takeDamage(-1);
 		}
 	}
+	
+	public static void giveHealthBuff(BasePlayer givingPlayer, BasePlayer receivingPlayer) {
+		boolean trainedDoctor = false;
+		for (Profession prof : givingPlayer.getProfessions()) {
+			if (prof.getProfessionName().equals("Doctor")&&prof.getProfessionLevel()>=2) {
+				trainedDoctor = true;
+				break;
+			}
+		}
+		if(trainedDoctor) {
+			int prevMaxHealth = receivingPlayer.getMaxHealth();
+			receivingPlayer.setMaxHealth(prevMaxHealth+10);
+		}
+	}
 
 }

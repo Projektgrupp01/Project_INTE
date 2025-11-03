@@ -68,7 +68,7 @@ public class BasePlayer implements Player {
 	}
 
 	public void takeDamage(int damage) {
-		setHealth(health - damage);
+		setHealth(Math.min(health - damage, getMaxHealth()));
 	}
 
 	public void useEnergy(int energy) {
