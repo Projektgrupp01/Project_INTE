@@ -3,6 +3,8 @@ package io.github.Projektgrupp01.Project_INTE.races;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import io.github.Projektgrupp01.Project_INTE.World.WorldState;
+import io.github.Projektgrupp01.Project_INTE.World.WorldState.Weather;
 import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 
 import java.util.*;
@@ -98,5 +100,38 @@ public class RaceTest {
 		player.addRace(elf);
 		player.addRace(dwarf);
 		assertTrue(player.containsRace("Elf"));
+	}
+	
+	@Test
+	void elfSingingInTheRainGainsMaxEnergy() {
+		BasePlayer player = new BasePlayer();
+		Race elf = new Elf();
+		player.addRace(elf);
+		int prevMaxEnergy = player.getMaxEnergy();
+		WorldState w = new WorldState(Weather.RAIN);
+		Elf.elfSong(player, w);
+		assertTrue(player.getMaxEnergy()>prevMaxEnergy);
+	}
+	
+	@Test
+	void elfSingingInSunGainsNoEnergy() {
+		BasePlayer player = new BasePlayer();
+		Race elf = new Elf();
+		player.addRace(elf);
+		int prevMaxEnergy = player.getMaxEnergy();
+		WorldState w = new WorldState(Weather.SUNNY);
+		Elf.elfSong(player, w);
+		assertFalse(player.getMaxEnergy()>prevMaxEnergy);
+	}
+	
+	@Test
+	void dwarfSingingInTheRainGainsNoEnergy() {
+		BasePlayer player = new BasePlayer();
+		Race dwarf = new Dwarf();
+		player.addRace(dwarf);
+		int prevMaxEnergy = player.getMaxEnergy();
+		WorldState w = new WorldState(Weather.RAIN);
+		Elf.elfSong(player, w);
+		assertFalse(player.getMaxEnergy()>prevMaxEnergy);
 	}
 }
