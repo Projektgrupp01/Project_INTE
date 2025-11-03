@@ -2,9 +2,8 @@ package io.github.Projektgrupp01.Project_INTE.creatures.decorators;
 
 import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
 import io.github.Projektgrupp01.Project_INTE.creatures.Player;
-import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
 
-public class EquipmentDecorator extends PlayerDecorator {
+public final class EquipmentDecorator extends PlayerDecorator {
 
     private Equipment equipment;
 

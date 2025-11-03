@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Inventory {
+public final class Inventory {
 
     private static final int DEFAULT_MAX_CAPACITY = 30;
     private int maxCapacity;

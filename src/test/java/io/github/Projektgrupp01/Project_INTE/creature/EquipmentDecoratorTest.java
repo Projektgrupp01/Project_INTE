@@ -2,7 +2,6 @@ package io.github.Projektgrupp01.Project_INTE.creature;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -186,6 +185,14 @@ public class EquipmentDecoratorTest {
         Player equipped = new EquipmentDecorator(player, ring);
 
         assertNotNull(equipped);
+    }
+
+    @Test
+    void canGetEquippedItem() {
+        Player player = new BasePlayer("Emptyhanded Protagonist", 100, 100, 100, 100, 1);
+        Equipment ring = new Equipment("Ring", EquipmentType.RING);
+        EquipmentDecorator decorated = new EquipmentDecorator(player, ring);
+        assertEquals(ring, decorated.getEquipment());
     }
 
 }

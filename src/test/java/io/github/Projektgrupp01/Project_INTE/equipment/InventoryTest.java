@@ -1,7 +1,13 @@
 package io.github.Projektgrupp01.Project_INTE.equipment;
 
 import org.junit.jupiter.api.Test;
+
+import io.github.Projektgrupp01.Project_INTE.creatures.BasePlayer;
+import io.github.Projektgrupp01.Project_INTE.creatures.Player;
+import io.github.Projektgrupp01.Project_INTE.creatures.decorators.EquipmentDecorator;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -141,6 +147,15 @@ public class InventoryTest {
         assertTrue(inventoryItems.contains(helmet));
         assertTrue(inventoryItems.contains(sword));
         assertTrue(inventoryItems.contains(shield));
+    }
+
+    @Test
+    void cannotEquipNullEquipment() {
+        Player player = new BasePlayer("Test", 100, 100, 100, 100, 5);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new EquipmentDecorator(player, null);
+        });
     }
 
 }
