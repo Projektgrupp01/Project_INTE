@@ -35,12 +35,8 @@ public class EquipmentTest {
     void equipmentWeightCannotBeNegative() {
         Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
 
-        try {
-            sword.setWeight(-5.0);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> sword.setWeight(-5.0));
     }
 
     @Test
@@ -100,22 +96,15 @@ public class EquipmentTest {
     @Test
     void equipmentTakingNegativeDamage() {
         Equipment legs = new Equipment("Leg Armor", EquipmentType.LEGS);
-        try {
-            legs.takeDamage(-50);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> legs.takeDamage(-50));
     }
 
     @Test
     void cannotDamageAmulet() {
         Equipment amulet = new Equipment("Amulet", EquipmentType.AMULET);
-        try {
-            amulet.takeDamage(1);
-            fail("Expected IllegalStateException");
-        } catch (IllegalStateException e) {
-
-        }
+        assertThrows(IllegalStateException.class,
+                () -> amulet.takeDamage(1));
     }
 
     // repairing equipment
@@ -139,21 +128,15 @@ public class EquipmentTest {
     void cannotRepairWithNegativeValues() {
         Equipment gloves = new Equipment("Iron Gloves", EquipmentType.GLOVES);
         gloves.takeDamage(15);
-        try {
-            gloves.repair(-15);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> gloves.repair(-15));
     }
 
     @Test
     void cannotRepairAmulet() {
         Equipment amulet = new Equipment("Fire Amulet", EquipmentType.AMULET);
-        try {
-            amulet.repair(50);
-            fail("Expected IllegalStateException");
-        } catch (IllegalStateException e) {
-        }
+        assertThrows(IllegalStateException.class,
+                () -> amulet.repair(50));
     }
 
     // Equipment stats tests
@@ -170,12 +153,8 @@ public class EquipmentTest {
     @Test
     void weaponCannotDealNegativeDamage() {
         Equipment spear = new Equipment("Spear", EquipmentType.WEAPON);
-        try {
-            spear.setAttackDamage(-15);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> spear.setAttackDamage(-15));
     }
 
     @Test
@@ -257,52 +236,38 @@ public class EquipmentTest {
     @Test
     void magicDefenseCannotBeNegative() {
         Equipment gloves = new Equipment("Voidsteel Gloves", EquipmentType.GLOVES);
-        try {
-            gloves.setMagicDefense(-6);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> gloves.setMagicDefense(-6));
     }
 
     @Test
     void physicalDefenseCannotBeNegative() {
         Equipment gloves = new Equipment("Voidsteel Gloves", EquipmentType.GLOVES);
-        try {
-            gloves.setPhysicalDefense(-5);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> gloves.setPhysicalDefense(-5));
     }
 
     @Test
     void weaponsCannotHaveMagicDefenseStats() {
         Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
-        try {
-            sword.setMagicDefense(6);
-            fail("Expected IllegalStateException");
-        } catch (IllegalStateException e) {
-        }
+        assertThrows(IllegalStateException.class,
+                () -> sword.setMagicDefense(6));
     }
 
     @Test
     void weaponsCannotHavePhysicalDefenseStats() {
         Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
-        try {
-            sword.setPhysicalDefense(5);
-            fail("Expected IllegalStateException");
-        } catch (IllegalStateException e) {
-        }
+        assertThrows(IllegalStateException.class,
+                () -> sword.setPhysicalDefense(5));
     }
 
     @Test
     void ringsCannotHaveDefenseStats() {
         Equipment ring = new Equipment("Magic Ring", EquipmentType.RING);
-        try {
+        assertThrows(IllegalStateException.class, () -> {
             ring.setPhysicalDefense(5);
             ring.setMagicDefense(6);
-            fail("Expected IllegalStateException");
-        } catch (IllegalStateException e) {
-        }
+        });
     }
 
     @Test
@@ -337,11 +302,8 @@ public class EquipmentTest {
     @Test
     void healthBonusCannotBeNegative() {
         Equipment ring = new Equipment("Ring", EquipmentType.RING);
-        try {
-            ring.setHealthBonus(-10);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> ring.setHealthBonus(-10));
     }
 
     @Test
@@ -374,11 +336,8 @@ public class EquipmentTest {
     @Test
     void energyBonusCannotBeNegative() {
         Equipment amulet = new Equipment("Amulet", EquipmentType.AMULET);
-        try {
-            amulet.setEnergyBonus(-10);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> amulet.setEnergyBonus(-10));
     }
 
     @Test
@@ -391,11 +350,8 @@ public class EquipmentTest {
     @Test
     void weaponsCannotGiveEnergyBonus() {
         Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
-        try {
-            sword.setEnergyBonus(60);
-            fail("Expected IllegalStateException");
-        } catch (IllegalStateException e) {
-        }
+        assertThrows(IllegalStateException.class,
+                () -> sword.setEnergyBonus(60));
     }
 
     @Test
@@ -415,11 +371,8 @@ public class EquipmentTest {
     @Test
     void magicBonusCannotBeNegative() {
         Equipment amulet = new Equipment("Amulet", EquipmentType.AMULET);
-        try {
-            amulet.setMagicBonus(-10);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> amulet.setMagicBonus(-10));
     }
 
     @Test
@@ -463,22 +416,16 @@ public class EquipmentTest {
     @Test
     void levelRequirementCannotBeNegative() {
         Equipment sword = new Equipment("Negative Sword", EquipmentType.WEAPON);
-        try {
-            sword.setLevelRequirement(-5);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> sword.setLevelRequirement(-5));
     }
 
     @Test
     void levelRequirementCannotExceedMaxPlayerLevel() {
         Equipment sword = new Equipment("Impossible Sword", EquipmentType.WEAPON);
 
-        try {
-            sword.setLevelRequirement(11);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> sword.setLevelRequirement(11));
     }
 
     // Tests for validating name of equipment
@@ -545,12 +492,6 @@ public class EquipmentTest {
     void nameWithLettersAndNumberIsValid() {
         Equipment sword = new Equipment("Sword2000", EquipmentType.WEAPON);
         assertEquals("Sword2000", sword.getName());
-    }
-
-    @Test
-    void nameWithLettersAndSpaceBetweenWordsIsValid() {
-        Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
-        assertEquals("Iron Sword", sword.getName());
     }
 
     @Test

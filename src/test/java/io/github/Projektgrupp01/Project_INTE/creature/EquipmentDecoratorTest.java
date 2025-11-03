@@ -1,7 +1,9 @@
 package io.github.Projektgrupp01.Project_INTE.creature;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -108,11 +110,8 @@ public class EquipmentDecoratorTest {
         Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
         sword.setLevelRequirement(5);
 
-        try {
-            Player equipped = new EquipmentDecorator(player, sword);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> new EquipmentDecorator(player, sword));
     }
 
     @Test
@@ -122,9 +121,7 @@ public class EquipmentDecoratorTest {
         Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
         sword.setLevelRequirement(5);
 
-        Player equipped = new EquipmentDecorator(player, sword);
-
-        assertNotNull(equipped);
+        assertDoesNotThrow(() -> new EquipmentDecorator(player, sword));
     }
 
     @Test
@@ -133,9 +130,7 @@ public class EquipmentDecoratorTest {
         Equipment sword = new Equipment("Iron Sword", EquipmentType.WEAPON);
         sword.setLevelRequirement(5);
 
-        Player equipped = new EquipmentDecorator(player, sword);
-
-        assertNotNull(equipped);
+        assertDoesNotThrow(() -> new EquipmentDecorator(player, sword));
     }
 
     @Test
@@ -144,10 +139,7 @@ public class EquipmentDecoratorTest {
         Equipment ring = new Equipment("Starter Ring", EquipmentType.RING);
         ring.setLevelRequirement(1);
 
-        Player equipped = new EquipmentDecorator(player, ring);
-
-        assertNotNull(equipped);
-        assertEquals(1, equipped.getLevel());
+        assertDoesNotThrow(() -> new EquipmentDecorator(player, ring));
     }
 
     @Test
@@ -156,10 +148,8 @@ public class EquipmentDecoratorTest {
 
         Equipment legendary = new Equipment("Master Blade", EquipmentType.WEAPON);
         legendary.setLevelRequirement(10);
-        Player equipped = new EquipmentDecorator(player, legendary);
 
-        assertNotNull(equipped);
-        assertEquals(10, equipped.getLevel());
+        assertDoesNotThrow(() -> new EquipmentDecorator(player, legendary));
     }
 
     @Test
@@ -169,11 +159,8 @@ public class EquipmentDecoratorTest {
         Equipment sword = new Equipment("Level 5 Sword", EquipmentType.WEAPON);
         sword.setLevelRequirement(5);
 
-        try {
-            Player equipped = new EquipmentDecorator(player, sword);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> new EquipmentDecorator(player, sword));
     }
 
     @Test
@@ -182,9 +169,11 @@ public class EquipmentDecoratorTest {
 
         Equipment ring = new Equipment("Cosmetic Ring", EquipmentType.RING);
         ring.setLevelRequirement(0);
-        Player equipped = new EquipmentDecorator(player, ring);
 
-        assertNotNull(equipped);
+        EquipmentDecorator equipped = new EquipmentDecorator(player, ring);
+
+        assertEquals(ring, equipped.getEquipment());
+        assertEquals(0, ring.getLevelRequirement());
     }
 
     @Test

@@ -42,12 +42,8 @@ public class InventoryTest {
     void cannotAddNullObjectToInventory() {
         Inventory inventory = new Inventory();
 
-        try {
-            inventory.addItem(null);
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> inventory.addItem(null));
     }
 
     @Test
@@ -61,11 +57,8 @@ public class InventoryTest {
         inventory.addItem(sword);
         inventory.addItem(shield);
 
-        try {
-            inventory.addItem(helmet);
-            fail("ExpectedIllegalStateException");
-        } catch (IllegalStateException e) {
-        }
+        assertThrows(IllegalStateException.class,
+                () -> inventory.addItem(helmet));
     }
 
     @Test
@@ -87,12 +80,8 @@ public class InventoryTest {
         Equipment shield = new Equipment("Shield", EquipmentType.SHIELD);
         inventory.addItem(sword);
 
-        try {
-            inventory.removeItem(shield);
-            fail("Cannot remove item thats not in inventory");
-        } catch (IllegalArgumentException e) {
-
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> inventory.removeItem(shield));
     }
 
     @Test
