@@ -32,6 +32,16 @@ public class SpellDamageCalculator {
                     }
                     energyDamage(player, npc, spell, (int) (100 * m));
                     return;
+                case FIRE:
+                    energyDamage(player, npc, spell, (int) (100 * m));
+                    npc.setEffect("burning");
+                    return;
+                case WATER:
+                    energyDamage(player, npc, spell, (int) (100 * m));
+                    if (npc.getEffect() != null && npc.getEffect().equals("burning")) {
+                        npc.setEffect(null);
+                    }
+                    return;
                 default:
                     energyDamage(player, npc, spell, (int) (100 * m));
                     return;

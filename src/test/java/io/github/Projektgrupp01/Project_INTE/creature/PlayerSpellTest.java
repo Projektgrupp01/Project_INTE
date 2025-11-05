@@ -1,6 +1,8 @@
 package io.github.Projektgrupp01.Project_INTE.creature;
 import io.github.Projektgrupp01.Project_INTE.spells.Fire;
+import io.github.Projektgrupp01.Project_INTE.spells.Nature;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
+import io.github.Projektgrupp01.Project_INTE.spells.Water;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,10 +16,14 @@ class PlayerSpellTest {
 
     private BasePlayer player;
     private Spell fire;
+    private Spell water;
+    private Spell nature;
 	@BeforeEach
 	void setUp() {
 		player = new BasePlayer();
         fire = new Fire();
+        water = new Water();
+        nature = new Nature();
 	}
     @Test
     //learnSpell tests
@@ -25,6 +31,16 @@ class PlayerSpellTest {
 		player.learnSpell(fire);
 		assertTrue(player.getSpellBook().contains(fire));
 		assertEquals(1, player.getSpellBook().size());
+	}
+    @Test
+    void playerCanLearnManySpells() {
+		player.learnSpell(fire);
+        player.learnSpell(water);
+        player.learnSpell(nature);
+		assertTrue(player.getSpellBook().contains(fire));
+        assertTrue(player.getSpellBook().contains(water));
+        assertTrue(player.getSpellBook().contains(nature));
+		assertEquals(3, player.getSpellBook().size());
 	}
     @Test
     void learnSameSpellTwiceException() {

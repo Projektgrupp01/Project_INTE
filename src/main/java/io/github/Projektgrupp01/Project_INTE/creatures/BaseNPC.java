@@ -15,6 +15,7 @@ public class BaseNPC implements NPC {
 	private String name;
 	private Disposition disposition;
 	private Set<Quest> offeredQuests = new HashSet<>();
+	private String effect = null;
 
 	public BaseNPC(String name, int health, Disposition disposition) {
 		this(name, health, disposition, 100, 100, 100);
@@ -52,6 +53,13 @@ public class BaseNPC implements NPC {
 	@Override
 	public String getName() {
 		return name;
+	}
+	public String getEffect(){
+		return effect;
+	}
+
+	public void setEffect(String newEffect){
+		this.effect = newEffect;
 	}
 
 	@Override

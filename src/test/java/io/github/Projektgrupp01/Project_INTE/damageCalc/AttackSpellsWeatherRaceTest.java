@@ -19,7 +19,7 @@ import io.github.Projektgrupp01.Project_INTE.spells.Nature;
 import io.github.Projektgrupp01.Project_INTE.spells.Spell;
 import io.github.Projektgrupp01.Project_INTE.spells.Water;
 
-class AttackSpellsWeatherRace {
+class AttackSpellsWeatherRaceTest {
     BasePlayer player;
     Spell nature, fire, water;
     BaseNPC npc;
@@ -99,6 +99,23 @@ class AttackSpellsWeatherRace {
         assertThrows(IllegalArgumentException.class, () -> {
             SpellDamageCalculator.attack(p, npc, fire, stateCloudy);
         });
+    }
+    @Test
+    void fireThenWaterSpell(){
+        SpellDamageCalculator.attack(player, npc, fire, stateCloudy);
+        assertEquals("burning", npc.getEffect());
+        SpellDamageCalculator.attack(player, npc, water, stateCloudy);
+        assertNull(npc.getEffect());
+        
+    }
+    @Test
+    void waterOnlyClearsBurning(){
+        npc.setEffect("burning");
+        SpellDamageCalculator.attack(player, npc, water, stateCloudy);
+        assertTrue(npc.getEffect() == null);
+        npc.setEffect("dizzy");
+        SpellDamageCalculator.attack(player, npc, water, stateCloudy);
+        assertFalse(npc.getEffect() == null);
     }
 
 }

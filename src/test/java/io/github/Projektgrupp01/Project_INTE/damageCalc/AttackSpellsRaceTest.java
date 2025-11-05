@@ -79,6 +79,8 @@ class AttackSpellsRaceTest {
         assertThrows(IllegalArgumentException.class, () -> {
             SpellDamageCalculator.attack(player, npc, nature, worldState);
         });
+        assertEquals(1, player.getEnergy());
+        assertEquals(100, npc.getHealth());
     }
     @Test
     void noSpellExceptionThrows() {
@@ -87,6 +89,14 @@ class AttackSpellsRaceTest {
         assertThrows(IllegalArgumentException.class, () -> {
             SpellDamageCalculator.attack(player, npc, nature, worldState);
         });
+    }
+    @Test
+    void castSpellAsHumanThenElf(){
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
+        assertEquals(93, npc.getHealth());
+        player.addRace(elf);
+        SpellDamageCalculator.attack(player, npc, nature, worldState);
+        assertEquals(84, npc.getHealth());
     }
 
 }
