@@ -6,7 +6,7 @@ public final class Equipment {
     private static final int MIN_DURABILITY = 0;
     private static final int MIN_NAME_LENGTH = 2;
     private static final int MAX_NAME_LENGTH = 30;
-    private static final String VALID_NAME_PATTERN = "^[a-zA-ZåäöÅÄÖ0-9 '\\-]+$";
+    private static final String VALID_NAME_PATTERN = "^(?=.*[a-zA-ZåäöÅÄÖ])[a-zA-ZåäöÅÄÖ0-9 '\\-]+$";
 
     private String name;
     private EquipmentType type;

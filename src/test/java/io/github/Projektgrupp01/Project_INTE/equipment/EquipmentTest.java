@@ -430,9 +430,9 @@ public class EquipmentTest {
 
     // Tests for validating name of equipment
 
-    // P1
+    // Tests for null, empty string and spacing issues (C)
     @Test
-    void nameIsNullThrowsException() {
+    void nameIsNullThrowsException() { // C4
         IllegalArgumentException e = assertThrows(
                 IllegalArgumentException.class,
                 () -> new Equipment(null, EquipmentType.WEAPON));
@@ -440,7 +440,7 @@ public class EquipmentTest {
     }
 
     @Test
-    void emptyNameThrowsException() {
+    void emptyNameThrowsException() { // C5
         IllegalArgumentException e = assertThrows(
                 IllegalArgumentException.class,
                 () -> new Equipment("", EquipmentType.WEAPON));
@@ -448,17 +448,33 @@ public class EquipmentTest {
     }
 
     @Test
-    void nameConsistsOfOnlyWhiteSpacesThrowsException() {
+    void nameWithLeadingSpaceThrowsException() { // C2
+        IllegalArgumentException e = assertThrows(
+                IllegalArgumentException.class,
+                () -> new Equipment(" Sword", EquipmentType.WEAPON));
+        assertTrue(e.getMessage().contains("Name cannot have leading or trailing spaces"));
+    }
+
+    @Test
+    void nameWithTrailingSpaceThrowsException() { // C3
+        IllegalArgumentException e = assertThrows(
+                IllegalArgumentException.class,
+                () -> new Equipment("Sword ", EquipmentType.WEAPON));
+        assertTrue(e.getMessage().contains("Name cannot have leading or trailing spaces"));
+    }
+
+    @Test
+    void nameConsistsOfOnlyWhiteSpacesThrowsException() { // Related to C5 (edge case)
         IllegalArgumentException e = assertThrows(
                 IllegalArgumentException.class,
                 () -> new Equipment("   ", EquipmentType.WEAPON));
         assertTrue(e.getMessage().contains("Name cannot be empty or only whitespace"));
     }
 
-    // P2
+    // Tests for length validation and boundary values (A)
 
     @Test
-    void nameTooShortThrowsException() {
+    void nameTooShortThrowsException() { // A2
         IllegalArgumentException e = assertThrows(
                 IllegalArgumentException.class,
                 () -> new Equipment("A", EquipmentType.WEAPON));
@@ -466,60 +482,57 @@ public class EquipmentTest {
     }
 
     @Test
-    void nameWithinMinAndMaxLengthIsValid() {
-        Equipment sword = new Equipment("Legendary Sword", EquipmentType.WEAPON);
-        assertEquals("Legendary Sword", sword.getName());
+    void nameWithinValidLengthIsValid() { // A1, B1, C1
+        Equipment sword = new Equipment("Legendary sword", EquipmentType.WEAPON);
+        assertEquals("Legendary sword", sword.getName());
     }
 
     @Test
-    void nameIsTooLongThrowsException() {
-        String tooLong = "Super duper long named Iron Axe";
+    void nameIsTooLongThrowsException() { // A3
+        String tooLong = "Super super duper long named Iron axe";
         IllegalArgumentException e = assertThrows(
                 IllegalArgumentException.class,
                 () -> new Equipment(tooLong, EquipmentType.WEAPON));
         assertTrue(e.getMessage().contains("cannot exceed 30 characters"));
     }
 
-    // P3
-
     @Test
-    void nameWithOnlyLettersIsValid() {
-        Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
-        assertEquals("Sword", sword.getName());
+    void nameWithExactly30CharactersIsValid() { // A5
+        Equipment axe = new Equipment("AxeWithExaclyThirtyTecken12345", EquipmentType.WEAPON);
+        assertEquals("AxeWithExaclyThirtyTecken12345", axe.getName());
     }
 
     @Test
-    void nameWithLettersAndNumberIsValid() {
-        Equipment sword = new Equipment("Sword2000", EquipmentType.WEAPON);
-        assertEquals("Sword2000", sword.getName());
+    void nameWithExactly31CharactersThrowsException() { // A6
+        String exactly31 = "AxeWithExaclyThirtyOneLongNamee";
+        IllegalArgumentException e = assertThrows(
+                IllegalArgumentException.class,
+                () -> new Equipment(exactly31, EquipmentType.WEAPON));
+        assertTrue(e.getMessage().contains("cannot exceed 30 characters"));
     }
 
     @Test
-    void nameWithHyphenIsValid() {
+    void nameWithExactly2CharactersIsValid() { // A4
+        Equipment weapon = new Equipment("AB", EquipmentType.WEAPON);
+        assertEquals("AB", weapon.getName());
+    }
+
+    // Tests for valid and invalid characters + combinations (B)
+
+    @Test
+    void nameWithHyphenIsValid() { // A1, B1, B2
         Equipment sword = new Equipment("Monster-Hunter", EquipmentType.WEAPON);
         assertEquals("Monster-Hunter", sword.getName());
     }
 
     @Test
-    void nameWithApostropheIsValid() {
-        Equipment sword = new Equipment("Hero's sword", EquipmentType.WEAPON);
-        assertEquals("Hero's sword", sword.getName());
+    void nameWithApostropheAndNumberIsValid() { // A1, B1, B4, B6
+        Equipment sword = new Equipment("Hero's sword 2", EquipmentType.WEAPON);
+        assertEquals("Hero's sword 2", sword.getName());
     }
 
     @Test
-    void nameWithSwedishLettersIsValid() {
-        Equipment bow = new Equipment("Ostbågen", EquipmentType.WEAPON);
-        assertEquals("Ostbågen", bow.getName());
-    }
-
-    @Test
-    void nameWithCombinationOfSpecialCharactersIsValid() {
-        Equipment sword = new Equipment("Drägån-1", EquipmentType.WEAPON);
-        assertEquals("Drägån-1", sword.getName());
-    }
-
-    @Test
-    void nameWithInvalidCharactersThrowsException() {
+    void nameWithInvalidCharactersThrowsException() { // B8
         assertThrows(IllegalArgumentException.class,
                 () -> new Equipment("Sword!", EquipmentType.WEAPON));
 
@@ -530,62 +543,25 @@ public class EquipmentTest {
                 () -> new Equipment("Sword_", EquipmentType.WEAPON));
     }
 
-    // P4
-
     @Test
-    void nameWithInternalSpacesIsValid() {
-        Equipment sword = new Equipment("Sword with spaces", EquipmentType.WEAPON);
-        assertEquals("Sword with spaces", sword.getName());
-    }
-
-    @Test
-    void nameWithLeadingSpaceThrowsException() {
+    void nameWithOnlyNumbersThrowsException() { // B7
         IllegalArgumentException e = assertThrows(
                 IllegalArgumentException.class,
-                () -> new Equipment(" Sword", EquipmentType.WEAPON));
-        assertTrue(e.getMessage().contains("Name cannot have leading or trailing spaces"));
+                () -> new Equipment("123", EquipmentType.WEAPON));
+        assertTrue(e.getMessage().contains("invalid characters"));
     }
 
-    @Test
-    void nameWithTrailingSpaceThrowsException() {
-        IllegalArgumentException e = assertThrows(
-                IllegalArgumentException.class,
-                () -> new Equipment("Sword ", EquipmentType.WEAPON));
-        assertTrue(e.getMessage().contains("Name cannot have leading or trailing spaces"));
-    }
+    // Tests for type validation and edge cases
 
     @Test
-    void nameWithBothLeadingAndTrailingThrowsException() {
-        IllegalArgumentException e = assertThrows(
-                IllegalArgumentException.class,
-                () -> new Equipment(" Sword ", EquipmentType.WEAPON));
-        assertTrue(e.getMessage().contains("Name cannot have leading or trailing spaces"));
-    }
-
-    // P5
-
-    @Test
-    void minNameLengthIsValid() {
-        Equipment sword = new Equipment("M8", EquipmentType.WEAPON);
-        assertEquals("M8", sword.getName());
-    }
-
-    @Test
-    void nameWithMaxLengthIsValid() {
-        Equipment sword = new Equipment("Super duper long named Iron Ax", EquipmentType.WEAPON);
-
-        assertEquals("Super duper long named Iron Ax", sword.getName());
-    }
-
-    @Test
-    void validNameAndTypeCreatesEquipment() {
+    void validNameAndTypeCreatesEquipment() { // Integration test
         Equipment sword = new Equipment("Sword", EquipmentType.WEAPON);
         assertEquals("Sword", sword.getName());
         assertEquals(EquipmentType.WEAPON, sword.getType());
     }
 
     @Test
-    void nameIsValidButTypeIsNullThrowsException() {
+    void nameIsValidButTypeIsNullThrowsException() { // Type validation
         IllegalArgumentException e = assertThrows(
                 IllegalArgumentException.class,
                 () -> new Equipment("Sword", null));
