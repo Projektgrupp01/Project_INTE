@@ -498,8 +498,8 @@ public class EquipmentTest {
 
     @Test
     void nameWithExactly30CharactersIsValid() { // A5
-        Equipment axe = new Equipment("AxeWithExaclyThirtyTecken12345", EquipmentType.WEAPON);
-        assertEquals("AxeWithExaclyThirtyTecken12345", axe.getName());
+        Equipment axe = new Equipment("ÄxeWithExaclyThirtyTecken12345", EquipmentType.WEAPON);
+        assertEquals("ÄxeWithExaclyThirtyTecken12345", axe.getName());
     }
 
     @Test
