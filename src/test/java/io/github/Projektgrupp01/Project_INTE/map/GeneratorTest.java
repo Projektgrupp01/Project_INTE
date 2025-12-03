@@ -65,18 +65,18 @@ public class GeneratorTest {
 
     @Test
     void generatorGenerateNPCReturnsCorrectNrOfNPCs() {
-        for (int i = 0; i < 7; i++) {
-            generator.generateNPC();
-        }
-        assertEquals(7, generator.getNPCs().size());
+        generator.generateNPC();
+        generator.generateNPC();
+        generator.generateNPC();
+        assertEquals(3, generator.getNPCs().size());
     }
 
     @Test
     void generatorGenerateEquipmentReturnsCorrectNrOfEquipment() {
-        for (int i = 0; i < 43; i++) {
-            generator.generateEquipment();
-        }
-        assertEquals(43, generator.getEquipment().size());
+        generator.generateEquipment();
+        generator.generateEquipment();
+        generator.generateEquipment();
+        assertEquals(3, generator.getEquipment().size());
     }
 
 }

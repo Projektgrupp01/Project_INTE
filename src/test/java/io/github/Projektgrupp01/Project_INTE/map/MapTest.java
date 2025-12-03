@@ -3,251 +3,190 @@ package io.github.Projektgrupp01.Project_INTE.map;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.github.Projektgrupp01.Project_INTE.Map.BaseMap;
-import org.junit.jupiter.api.BeforeEach;
+import io.github.Projektgrupp01.Project_INTE.Map.RandomNumber;
+import io.github.Projektgrupp01.Project_INTE.equipment.Equipment;
+import io.github.Projektgrupp01.Project_INTE.equipment.EquipmentType;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.lang.StringBuilder;
+import java.util.Random;
 
 public class MapTest {
 
-    BaseMap map;
-
-    @BeforeEach
-    void createTestMap() {
-        map = new BaseMap();
-    }
-
-    @Test
-    void getMapTest_notNull_noInitializers() {
-        assertNotNull(map.getMap());
-    }
-
-    @Test
-    void getMapTest_notNull_withInitializers() {
-        map = new BaseMap(3, 4);
-        assertNotNull(map.getMap());
-    }
+    private final String[] NPCNames = {"Bertil", "Mina", "Gustav"};
+    private final Equipment[] equipmentTemplates = {new Equipment("Shield", EquipmentType.SHIELD), new Equipment("Sword", EquipmentType.WEAPON), new Equipment("Treasure", EquipmentType.CHEST)};
 
     @Test
     void getMapTest_noInitializers() {
-        char[][] array = new char[20][20];
-        for (char[] row : array) {
-            Arrays.fill(row, '#');
-        }
-        assertArrayEquals(array, map.getMap());
+        BaseMap map = new BaseMap();
+        char[][] expected = {{'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+        assertArrayEquals(expected, map.getMap());
     }
 
     @Test
     void getMapTest_withInitializers() {
-        map = new BaseMap(4, 3);
+        BaseMap map = new BaseMap(4, 3, new MockRandomNumber(1));
         char[][] expected = {{'#', '#', '#'}, {'#', '#', '#'}, {'#', '#', '#'}, {'#', '#', '#'}};
         assertArrayEquals(expected, map.getMap());
     }
 
     @Test
+    void createArrayTest_x_noInitializers() {
+        BaseMap map = new BaseMap();
+        char[][] mapArray = map.getMap();
+        assertEquals(10, mapArray[0].length);
+    }
+
+    @Test
+    void createArrayTest_y_noInitializers() {
+        BaseMap map = new BaseMap();
+        char[][] mapArray = map.getMap();
+        assertEquals(10, mapArray.length);
+    }
+
+    @Test
+    void generateRandomNrTest() {
+        RandomNumber rnd = new RandomNumber(new Random());
+        int nr = rnd.nextInt(3);
+        assertTrue(nr >= 0 && nr <= 3);
+    }
+
+    @Test
     void walkableAreaTest_IsZeroBeforeMapCreation() {
+        BaseMap map = new BaseMap();
         assertEquals(0, map.getNrOfWalkableArea());
     }
 
     @Test
-    void createMapTest_x_noInitializers() {
-        char[][] mapArray = map.getMap();
-        assertEquals(20, mapArray[0].length);
-    }
-
-    @Test
-    void createMapTest_y_noInitializers() {
-        char[][] mapArray = map.getMap();
-        assertEquals(20, mapArray.length);
-    }
-
-    @Test
     void createMapTest_tunnelsExist() {
+        BaseMap map = new BaseMap();
+        map.createMap(1, 10);
+        int expected = 10;
+        assertEquals(expected, map.getNrOfWalkableArea(), "Map: " + map.toString());
+    }
+
+    @Test
+    void createMapTest_tunnelsExistInPopulatedMap() {
+        BaseMap map = new BaseMap();
+        map.createMap(1, 10);
+        map.initializeGenerator(NPCNames, equipmentTemplates);
+        map.populateMap('n', 3);
+        map.populateMap('x', 3);
+        int expected = 10 - map.getNPCs().size() - map.getEquipment().size();
+        assertEquals(expected, map.getNrOfWalkableArea(), "Map: " + map.toString());
+    }
+
+    @Test
+    void createMapTest_SeededRandomGivesSameMap() {
+        Random rnd1 = new Random(1);
+        BaseMap map1 = new BaseMap(10, 10, new RandomNumber(rnd1));
+        map1.createMap(1, 100);
+
+        Random rnd2 = new Random(1);
+        BaseMap map2 = new BaseMap(10, 10, new RandomNumber(rnd2));
+        map2.createMap(1, 100);
+        assertEquals(map1.toString(), map2.toString());
+    }
+
+    @Test
+    void createMapTest_RandomGivesDifferentMap() {
+        Random rnd1 = new Random();
+        BaseMap map1 = new BaseMap(10, 10, new RandomNumber(rnd1));
+        map1.createMap(1, 100);
+
+        Random rnd2 = new Random();
+        BaseMap map2 = new BaseMap(10, 10, new RandomNumber(rnd2));
+        map2.createMap(1, 100);
+        assertNotEquals(map1.toString(), map2.toString());
+    }
+
+    @Test
+    void createMapTest_RandomMapIsDifferentFromMockMap() {
+        BaseMap map1 = new BaseMap(10, 10, new MockRandomNumber(1));
+        map1.createMap();
+        BaseMap map2 = new BaseMap(10, 10, new RandomNumber(new Random(1)));
+        map2.createMap();
+        assertNotEquals(map1.toString(), map2.toString());
+    }
+
+    @Test
+    void createMapTest_newRowOutOfBounds() {
+        BaseMap map = new BaseMap(2, 2, new MockRandomNumber(2));
         map.createMap();
-        char[][] mapArray = map.getMap();
-
-        int nrOfTunnels = 0;
-        for (char[] row : mapArray) {
-            for (char c : row) {
-                if (c == ' ') {
-                    nrOfTunnels++;
-                }
-            }
-        }
-        nrOfTunnels = (nrOfTunnels / mapArray.length);
-        assertTrue(nrOfTunnels >= 2, "nrOfTunnels: " + nrOfTunnels + " och 5/2: " + 5 / 2);
+        String expected = "  \n##\n";
+        assertEquals(expected, map.toString());
     }
 
     @Test
-    void generateNPCs_listNotNull() {
+    void createMapTest_newColumnOutOfBounds() {
+        BaseMap map = new BaseMap(2, 2, new MockRandomNumber(0));
         map.createMap();
-        assertNotNull(map.getNPCs());
+        String expected = "  \n##\n";
+        assertEquals(expected, map.toString());
     }
 
     @Test
-    void generateEquipment_listNotNull() {
+    void populateMapTest_cannotPopulateMapWithoutTunnels() {
+        BaseMap map = new BaseMap();
+        map.initializeGenerator(NPCNames, equipmentTemplates);
+        map.populateMap('x', 3);
+        assertEquals(0, map.getEquipment().size());
+    }
+
+    @Test
+    void populateMapTest_canAddNPCsToMap() {
+        BaseMap map = new BaseMap();
         map.createMap();
-        assertNotNull(map.getEquipment());
+        map.initializeGenerator(NPCNames, equipmentTemplates);
+        map.populateMap('n', 3);
+        assertEquals(3, map.getNPCs().size());
     }
 
     @Test
-    void checkNrOfNPCs_lowerBound() {
+    void populateMapTest_canAddEquipmentToMap() {
+        BaseMap map = new BaseMap();
         map.createMap();
-        assertTrue(map.getNPCs().size() >= 1 && map.getNPCs().size() <= map.getNrOfWalkableArea());
+        map.initializeGenerator(NPCNames, equipmentTemplates);
+        map.populateMap('x', 3);
+        assertEquals(3, map.getEquipment().size());
     }
 
     @Test
-    void checkNrOfNPCs_upperBound() {
-        map.createMap();
-        assertTrue(map.getNPCs().size() <= 5 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl2upperBound() {
-        map.createMap(2);
-        assertTrue(map.getNPCs().size() <= 10 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsPlacedByPlayerLevel_lvl3upperBound() {
-        map.createMap(3);
-        assertTrue(map.getNPCs().size() <= 15 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl4upperBound() {
-        map.createMap(4);
-        assertTrue(map.getNPCs().size() <= 20 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl5upperBound() {
-        map.createMap(5);
-        assertTrue(map.getNPCs().size() <= 25 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl6upperBound() {
-        map.createMap(6);
-        assertTrue(map.getNPCs().size() <= 30 && map.getEquipment().size() <= map.getNrOfWalkableArea(),
-                "");
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl7upperBound() {
-        map.createMap(7);
-        assertTrue(map.getNPCs().size() <= 35 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl8upperBound() {
-        map.createMap(8);
-        assertTrue(map.getNPCs().size() <= 40 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl9upperBound() {
-        map.createMap(9);
-        assertTrue(map.getNPCs().size() <= 45 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfNPCsByPlayerLevel_lvl10upperBound() {
-        map.createMap(10);
-        assertTrue(map.getNPCs().size() <= 50 && map.getNPCs().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipment_lowerBound() {
-        map.createMap();
-        assertTrue(map.getEquipment().size() >= 1 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipment_upperBound() {
-        map.createMap();
-        assertTrue(map.getEquipment().size() <= 5 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl2upperBound() {
-        map.createMap(2);
-        assertTrue(map.getEquipment().size() <= 10 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl3upperBound() {
-        map.createMap(3);
-        assertTrue(map.getEquipment().size() <= 15 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl4upperBound() {
-        map.createMap(4);
-        assertTrue(map.getEquipment().size() <= 20 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl5upperBound() {
-        map.createMap(5);
-        assertTrue(map.getEquipment().size() <= 25 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl6upperBound() {
-        map.createMap(6);
-        assertTrue(map.getEquipment().size() <= 30 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl7upperBound() {
-        map.createMap(7);
-        assertTrue(map.getEquipment().size() <= 35 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl8upperBound() {
-        map.createMap(8);
-        assertTrue(map.getEquipment().size() <= 40 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl9upperBound() {
-        map.createMap(9);
-        assertTrue(map.getEquipment().size() <= 45 && map.getEquipment().size() <= map.getNrOfWalkableArea());
-    }
-
-    @Test
-    void checkNrOfEquipmentByPlayerLevel_lvl10upperBound() {
-        map.createMap(10);
-        assertTrue(map.getEquipment().size() <= 50 && map.getEquipment().size() <= map.getNrOfWalkableArea());
+    void populateMapTest_cannotAddUnknownItemsToMap() {
+        BaseMap map = new BaseMap();
+        map.createMap(1, 100);
+        assertThrows(IllegalArgumentException.class, () -> map.populateMap('a', 1));
     }
 
     @Test
     void Map_toStringTest_NoInitializers() {
-        StringBuilder expected = new StringBuilder();
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                expected.append("#");
-            }
-            expected.append("\n");
-        }
-        assertEquals(expected.toString(), map.toString());
+        BaseMap map = new BaseMap();
+        String expected = "##########\n" +
+                "##########\n" +
+                "##########\n" +
+                "##########\n" +
+                "##########\n" +
+                "##########\n" +
+                "##########\n" +
+                "##########\n" +
+                "##########\n" +
+                "##########\n";
+        assertEquals(expected, map.toString());
     }
 
     @Test
     void Map_toStringTest_WithInitializers() {
-        map = new BaseMap(30, 11);
-
-        StringBuilder expected = new StringBuilder();
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 11; j++) {
-                expected.append("#");
-            }
-            expected.append("\n");
-        }
-        assertEquals(expected.toString(), map.toString());
+        BaseMap map = new BaseMap(2, 3, new MockRandomNumber(1));
+        String expected = "###\n" +
+                "###\n";
+        assertEquals(expected, map.toString());
     }
-
 }

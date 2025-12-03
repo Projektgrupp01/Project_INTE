@@ -8,11 +8,19 @@ import java.util.*;
 
 public class Generator {
 
-    List<String> NPCNames = new ArrayList<>();
-    List<BaseNPC> NPCsList = new ArrayList<>();
-    List<Equipment> EquipmentTemplates = new ArrayList<>();
-    List<Equipment> equipmentList = new ArrayList<>();
-    Random random = new Random();
+    private final List<String> NPCNames = new ArrayList<>();
+    private final List<BaseNPC> NPCsList = new ArrayList<>();
+    private final List<Equipment> EquipmentTemplates = new ArrayList<>();
+    private final List<Equipment> equipmentList = new ArrayList<>();
+    private final iRandomNumber random;
+
+    public Generator() {
+        this(new RandomNumber(new Random()));
+    }
+
+    public Generator(iRandomNumber random) {
+        this.random = random;
+    }
 
     public BaseNPC generateNPC() {
         String name = NPCNames.get(random.nextInt(NPCNames.size()));
